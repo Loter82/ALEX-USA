@@ -1,10 +1,17 @@
-// API Configuration - loaded from config.js with fallback
-const API_KEY = typeof CONFIG !== 'undefined' ? CONFIG.ATTOM_API_KEY : '89ce29e3f588213a695f4c6badc9284e';
+// API Configuration - MUST be loaded from config.js
+// For production: config.js is generated from GitHub Secrets during deployment
+// For local: create config.js from config.example.js with your keys
+const API_KEY = typeof CONFIG !== 'undefined' && CONFIG.ATTOM_API_KEY ? CONFIG.ATTOM_API_KEY : '';
 const API_BASE_URL = 'https://api.gateway.attomdata.com/propertyapi/v1.0.0';
 
 // Google Places API - FREE $200/month credit = ~100,000 autocomplete requests
 // Get free key: https://console.cloud.google.com/google/maps-apis/start
-const GOOGLE_PLACES_API_KEY = typeof CONFIG !== 'undefined' ? CONFIG.GOOGLE_PLACES_API_KEY : 'AIzaSyDXaF6A0aMkL6bIzPniIgqlg4ObaZTz4Is';
+const GOOGLE_PLACES_API_KEY = typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_PLACES_API_KEY ? CONFIG.GOOGLE_PLACES_API_KEY : '';
+
+// Check if API keys are loaded
+if (!API_KEY || !GOOGLE_PLACES_API_KEY) {
+    console.error('❌ API keys not loaded! Create config.js from config.example.js');
+}
 const USE_GOOGLE_PLACES = true; // Using Google Places SDK only
 
 // Google Places Service instances (initialized when API loads)
