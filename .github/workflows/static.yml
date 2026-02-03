@@ -23,13 +23,17 @@ jobs:
       
       - name: Generate config.js from secrets
         run: |
-          cat > config.js << EOF
+          cat > config.js << 'EOF'
           // API Configuration - Generated from GitHub Secrets
           const CONFIG = {
               ATTOM_API_KEY: '${{ secrets.ATTOM_API_KEY }}',
               GOOGLE_PLACES_API_KEY: '${{ secrets.GOOGLE_PLACES_API_KEY }}'
           };
           EOF
+          echo "✅ config.js created:"
+          cat config.js
+          echo "📁 Files in directory:"
+          ls -la | grep -E "(config|html|js)"
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
