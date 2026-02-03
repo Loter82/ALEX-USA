@@ -427,14 +427,17 @@
     
     <!-- Google Maps JavaScript API with Places Library - loaded dynamically -->
     <script>
-        // Load Google Maps API with key from config
+        // Load Google Maps API with key from CONFIG (no fallback for security)
         (function() {
-            const apiKey = typeof CONFIG !== 'undefined' ? CONFIG.GOOGLE_PLACES_API_KEY : 'AIzaSyB0FDrhjBjzFqQNrucHOeIuM4mFkhDYCG8';
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initGooglePlaces`;
-            script.async = true;
-            script.defer = true;
-            document.head.appendChild(script);
+            if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_PLACES_API_KEY) {
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.GOOGLE_PLACES_API_KEY}&libraries=places&callback=initGooglePlaces`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+            } else {
+                console.error('❌ Google API key not loaded from config.js');
+            }
         })();
     </script>
     <script src="script.js"></script>
