@@ -2,10 +2,48 @@
 const API_KEY = '89ce29e3f588213a695f4c6badc9284e';
 const API_BASE_URL = 'https://api.gateway.attomdata.com/propertyapi/v1.0.0';
 
-// Mapbox API for geocoding (free tier available - you can replace with your own key)
-// Register at https://www.mapbox.com/ to get your free API key
-const MAPBOX_API_KEY = 'pk.eyJ1IjoiZXhhbXBsZSIsImEiOiJjbGV4YW1wbGUifQ.example'; // Replace with real key
-const USE_MAPBOX = false; // Set to true when you have Mapbox key
+// Google Places API - FREE $200/month credit = ~100,000 autocomplete requests
+// Get free key: https://console.cloud.google.com/google/maps-apis/start
+const GOOGLE_PLACES_API_KEY = 'AIzaSyB0FDrhjBjzFqQNrucHOeIuM4mFkhDYCG8';
+const USE_GOOGLE_PLACES = true; // Using Google Places SDK only
+
+// Google Places Service instances (initialized when API loads)
+let googleAutocompleteService = null;
+let googlePlacesService = null;
+
+// Initialize Google Places services when API loads
+window.initGooglePlaces = function() {
+    console.log('✅ Google Places API loaded');
+    console.log('📦 Checking google object:', typeof google);
+    console.log('📦 Checking google.maps:', typeof google?.maps);
+    console.log('📦 Checking google.maps.places:', typeof google?.maps?.places);
+    
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+        // Always use AutocompleteService (works for both old and new customers)
+        if (google.maps.places.AutocompleteService) {
+            googleAutocompleteService = new google.maps.places.AutocompleteService();
+            console.log('✅ AutocompleteService created successfully');
+            console.log('📦 googleAutocompleteService:', googleAutocompleteService);
+        } else {
+            console.error('❌ AutocompleteService not available');
+        }
+        
+        // Create PlacesService for getting place details (including ZIP code)
+        if (google.maps.places.PlacesService) {
+            // PlacesService needs a map or div element
+            const dummyDiv = document.createElement('div');
+            googlePlacesService = new google.maps.places.PlacesService(dummyDiv);
+            console.log('✅ PlacesService created successfully for ZIP code lookup');
+        }
+        
+        console.log('✅ Google Places services initialized');
+    } else {
+        console.error('❌ Google Places API not available');
+        console.error('google:', typeof google);
+        console.error('google.maps:', typeof google?.maps);
+        console.error('google.maps.places:', typeof google?.maps?.places);
+    }
+};
 
 // US States data
 const US_STATES = [
@@ -76,12 +114,24 @@ const cityDropdown = document.getElementById('cityDropdown');
 const addressDropdown = document.getElementById('addressDropdown');
 
 // Check if all required elements exist
-if (!form || !resultsDiv || !errorDiv) {
-    console.error('Critical elements missing:', {
-        form: !!form,
-        resultsDiv: !!resultsDiv,
-        errorDiv: !!errorDiv
-    });
+if (!form) {
+    console.warn('propertyForm not found on this page');
+}
+if (!resultsDiv) {
+    console.warn('results div not found on this page');
+}
+if (!errorDiv) {
+    console.warn('error div not found on this page');
+}
+if (!addressInput) {
+    console.error('❌ addressInput element NOT FOUND!');
+} else {
+    console.log('✅ addressInput element found:', addressInput);
+}
+if (!addressDropdown) {
+    console.error('❌ addressDropdown element NOT FOUND!');
+} else {
+    console.log('✅ addressDropdown element found:', addressDropdown);
 }
 
 // Initialize states dropdown
@@ -97,103 +147,276 @@ function initializeStates() {
 // City autocomplete
 let cityTimeout;
 cityInput.addEventListener('input', function() {
+    console.log('🎯 City input changed:', this.value);
     clearTimeout(cityTimeout);
     const query = this.value.trim();
     const selectedState = stateSelect.value;
     
-    // Clear dropdown if state not selected
-    if (!selectedState) {
-        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">Спочатку оберіть штат</div>';
-        cityDropdown.style.display = 'block';
-        return;
-    }
+    console.log('📝 Query:', query, '| State:', selectedState, '| Min length: 1');
     
     // Show suggestions starting from 1 character
     if (query.length < 1) {
+        console.log('⚠️ Query empty, hiding dropdown');
         cityDropdown.style.display = 'none';
         return;
     }
     
     // Show loading indicator
-    cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">⏳ Пошук міст...</div>';
+    cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">Searching...</div>';
     cityDropdown.style.display = 'block';
+    console.log('⏳ Loading indicator shown');
     
+    // Reduced timeout for faster response
     cityTimeout = setTimeout(() => {
-        if (USE_MAPBOX) {
-            fetchCitySuggestionsMapbox(query, selectedState);
+        console.log('🚀 Timeout triggered, checking Google Places availability');
+        console.log('USE_GOOGLE_PLACES:', USE_GOOGLE_PLACES);
+        console.log('googleAutocompleteService:', googleAutocompleteService ? 'READY' : 'NOT READY');
+        
+        if (USE_GOOGLE_PLACES && googleAutocompleteService) {
+            console.log('✅ Using Google Places SDK');
+            fetchCitySuggestionsGoogle(query, selectedState);
         } else {
-            fetchCitySuggestionsNominatim(query, selectedState);
+            console.error('❌ Google Places not available!');
+            cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">Google Places API not loaded</div>';
+            cityDropdown.style.display = 'block';
         }
-    }, 200);
+    }, 150);
 });
 
 // Address autocomplete with full street names and numbers
 let addressTimeout;
-addressInput.addEventListener('input', function() {
+if (addressInput && addressDropdown) {
+    console.log('🏠 Setting up address autocomplete listener...');
+    
+    addressInput.addEventListener('input', function() {
+    console.log('🏠 Address input changed:', this.value);
     clearTimeout(addressTimeout);
     const query = this.value.trim();
     const selectedCity = cityInput.value.trim();
     const selectedState = stateSelect.value;
     
-    if (query.length < 3 || !selectedCity || !selectedState) {
+    console.log('📝 Address Query:', query);
+    console.log('📝 City:', selectedCity, '| State:', selectedState);
+    
+    // Start searching from 1 character for fast results
+    if (query.length < 1 || !selectedCity || !selectedState) {
+        console.log('⚠️ Missing data - Query:', query.length, 'City:', selectedCity, 'State:', selectedState);
         addressDropdown.style.display = 'none';
         return;
     }
     
+    console.log('⏳ Starting address search...');
+    
+    // Reduced timeout for faster response (150ms instead of 300ms)
     addressTimeout = setTimeout(() => {
-        if (USE_MAPBOX) {
-            fetchAddressSuggestionsMapbox(query, selectedCity, selectedState);
+        console.log('🚀 Address timeout triggered');
+        console.log('USE_GOOGLE_PLACES:', USE_GOOGLE_PLACES);
+        console.log('googleAutocompleteService:', googleAutocompleteService ? 'READY' : 'NOT READY');
+        
+        if (USE_GOOGLE_PLACES && googleAutocompleteService) {
+            console.log('✅ Using Google Places SDK for addresses');
+            fetchAddressSuggestionsGoogle(query, selectedCity, selectedState);
         } else {
-            fetchAddressSuggestionsNominatim(query, selectedCity, selectedState);
+            console.error('❌ Google Places not available!');
+            addressDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">Google Places API not loaded</div>';
+            addressDropdown.style.display = 'block';
         }
-    }, 300);
-});
+    }, 150);
+    });
+} else {
+    console.error('❌ Address autocomplete setup FAILED - elements missing!');
+    console.error('   addressInput:', !!addressInput);
+    console.error('   addressDropdown:', !!addressDropdown);
+}
 
-// OpenStreetMap Nominatim (free, no API key needed)
+// Fetch city suggestions using Google Places SDK - NO CORS ISSUES!
+async function fetchCitySuggestionsGoogle(query, stateCode) {
+    console.log('🔍 fetchCitySuggestionsGoogle called');
+    console.log('   Query:', query);
+    console.log('   State code:', stateCode);
+    console.log('   Service ready:', !!googleAutocompleteService);
+    
+    try {
+        if (!googleAutocompleteService) {
+            console.error('❌ Google Autocomplete service not ready');
+            cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">Google API not ready</div>';
+            cityDropdown.style.display = 'block';
+            return;
+        }
+        
+        const stateName = US_STATES.find(s => s.code === stateCode)?.name || stateCode;
+        
+        // Search just the query in USA, filter by state on client side
+        // Google works better with simple queries
+        const searchQuery = query;
+        
+        console.log('🔍 Google Places SDK cities search:', query, '(will filter for', stateName, ')');
+        console.log('   Search query:', searchQuery);
+        
+        // Use Google Places Autocomplete Service (no CORS!)
+        const request = {
+            input: searchQuery,
+            types: ['(cities)'],
+            componentRestrictions: { country: 'us' },
+            language: 'en'  // Force English results
+        };
+        
+        console.log('📤 Sending request to Google:', request);
+        
+        googleAutocompleteService.getPlacePredictions(request, (predictions, status) => {
+            console.log('📥 Google response received');
+            console.log('   Status:', status);
+            console.log('   Raw predictions:', predictions);
+            console.log('   Predictions count:', predictions?.length || 0);
+            
+            if (status === 'OK' && predictions && predictions.length > 0) {
+                console.log('✅ Google SDK found:', predictions.length, 'cities total');
+                console.log('📋 Sample predictions:', predictions.slice(0, 3).map(p => p.description));
+                
+                // Extract and filter cities by state
+                const allCities = predictions.map(p => {
+                    console.log('🔍 Parsing:', p.description);
+                    const parts = p.description.split(', ');
+                    const cityName = parts[0] || '';
+                    const cityState = parts[1] || '';
+                    
+                    console.log('   Parts:', parts);
+                    console.log('   City:', cityName, '| State part:', cityState);
+                    
+                    // Try to match state - check both code and name
+                    const stateObj = US_STATES.find(s => {
+                        const match = cityState === s.code || 
+                                     cityState === s.name ||
+                                     cityState.toLowerCase() === s.code.toLowerCase() ||
+                                     cityState.toLowerCase() === s.name.toLowerCase();
+                        if (match) console.log('   ✅ Matched state:', s.code, s.name);
+                        return match;
+                    });
+                    
+                    if (!stateObj) console.log('   ❌ No state match for:', cityState);
+                    
+                    const matchesState = stateObj && stateObj.code === stateCode;
+                    console.log('   Matches target state', stateCode, '?', matchesState);
+                    
+                    return {
+                        name: cityName,
+                        state: stateObj ? stateObj.code : cityState,
+                        stateName: cityState,
+                        postcode: '',
+                        display_name: p.description,
+                        place_id: p.place_id,
+                        matchesState: matchesState
+                    };
+                });
+                
+                console.log('📋 All cities parsed:', allCities.map(c => `${c.name} (${c.state}) [match:${c.matchesState}]`).join(', '));
+                
+                // Filter by selected state
+                const citiesInState = allCities.filter(c => c.matchesState);
+                
+                console.log('🎯 Cities in', stateName, '(', stateCode, '):', citiesInState.length);
+                if (citiesInState.length > 0) {
+                    console.log('   Cities:', citiesInState.map(c => c.name).join(', '));
+                }
+                
+                if (citiesInState.length > 0) {
+                    // Sort by city name
+                    citiesInState.sort((a, b) => a.name.localeCompare(b.name));
+                    displayCitySuggestions(citiesInState);
+                } else {
+                    console.log('⚠️ No cities found in', stateName);
+                    cityDropdown.innerHTML = `<div class="autocomplete-item" style="color: #999;">No cities starting with "${query}" in ${stateName}</div>`;
+                    cityDropdown.style.display = 'block';
+                }
+            } else if (status === 'ZERO_RESULTS') {
+                console.log('⚠️ Zero results from Google');
+                cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">No cities found</div>';
+                cityDropdown.style.display = 'block';
+            } else {
+                console.error('❌ Google Places error status:', status);
+                cityDropdown.innerHTML = `<div class="autocomplete-item" style="color: #f44;">Error: ${status}</div>`;
+                cityDropdown.style.display = 'block';
+            }
+        });
+    } catch (error) {
+        console.error('❌ Google Places SDK error:', error);
+        console.error('   Error stack:', error.stack);
+        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">Error loading cities</div>';
+        cityDropdown.style.display = 'block';
+    }
+}
+
+// OpenStreetMap Nominatim (free, no API key needed, no CORS issues)
 async function fetchCitySuggestionsNominatim(query, stateCode) {
     try {
         const stateName = US_STATES.find(s => s.code === stateCode)?.name || stateCode;
         
-        // Use Photon API - optimized for autocomplete
-        const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=30&osm_tag=place:city&osm_tag=place:town&osm_tag=place:village`;
+        // Use Nominatim with optimized query for cities
+        const searchQuery = stateCode ? `${query}, ${stateName}, USA` : `${query}, USA`;
+        const url = `https://nominatim.openstreetmap.org/search?` +
+                    `q=${encodeURIComponent(searchQuery)}&` +
+                    `format=json&` +
+                    `addressdetails=1&` +
+                    `limit=30&` +
+                    `countrycodes=us`;
         
-        console.log('Searching cities with Photon:', query, 'in', stateName);
+        console.log('Searching cities with Nominatim:', query, 'in', stateName);
         
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'PropertyValuationApp/1.0'
+            }
+        });
         
         if (!response.ok) {
-            throw new Error('Photon API error');
+            throw new Error('Nominatim API error');
         }
         
         const data = await response.json();
-        console.log('Photon response:', data);
+        console.log('Nominatim response:', data);
         
-        if (data && data.features && data.features.length > 0) {
-            // Extract unique cities from the selected state
+        if (data && data.length > 0) {
+            // Extract unique cities from the results
             const cities = [];
             const seenCities = new Set();
             const queryLower = query.toLowerCase();
             
-            data.features.forEach(feature => {
-                const props = feature.properties;
-                const city = props.name;
-                const state = props.state;
-                const postcode = props.postcode;
-                const countryCode = props.countrycode;
+            data.forEach(place => {
+                const addr = place.address;
+                if (!addr) return;
                 
-                // Filter by USA and selected state
-                if (city && state && countryCode === 'US' && 
-                    state.toLowerCase() === stateName.toLowerCase() && 
-                    !seenCities.has(city.toLowerCase())) {
+                // Get city name from various possible fields
+                const city = addr.city || addr.town || addr.village || addr.municipality;
+                const state = addr.state;
+                const postcode = addr.postcode;
+                
+                // Check if this is a city-type place and matches our criteria
+                if (city && state) {
+                    const cityLower = city.toLowerCase();
                     
-                    seenCities.add(city.toLowerCase());
+                    // Skip if we already have this city
+                    if (seenCities.has(cityLower)) return;
                     
-                    // Add relevance score: 1 if starts with query, 0 otherwise
-                    const relevance = city.toLowerCase().startsWith(queryLower) ? 1 : 0;
+                    // If state is selected, filter by state
+                    if (stateCode && state.toLowerCase() !== stateName.toLowerCase()) {
+                        return;
+                    }
+                    
+                    // Check if city name contains the query (more flexible matching)
+                    if (!cityLower.includes(queryLower)) return;
+                    
+                    seenCities.add(cityLower);
+                    
+                    // Add relevance score: 2 if starts with query, 1 if contains
+                    const relevance = cityLower.startsWith(queryLower) ? 2 : 1;
+                    
+                    // Find state code
+                    const stateObj = US_STATES.find(s => s.name.toLowerCase() === state.toLowerCase());
+                    const stateCodeFound = stateObj ? stateObj.code : stateCode;
                     
                     cities.push({
                         name: city,
-                        state: stateCode,
+                        state: stateCodeFound,
                         postcode: postcode,
                         display_name: `${city}, ${state}`,
                         relevance: relevance
@@ -212,16 +435,16 @@ async function fetchCitySuggestionsNominatim(query, stateCode) {
             if (cities.length > 0) {
                 displayCitySuggestions(cities);
             } else {
-                cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">Міста не знайдені в цьому штаті</div>';
+                cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">No cities found in this state</div>';
                 cityDropdown.style.display = 'block';
             }
         } else {
-            cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">Міста не знайдені</div>';
+            cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">No cities found</div>';
             cityDropdown.style.display = 'block';
         }
     } catch (error) {
         console.error('City suggestions error:', error);
-        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">❌ Помилка завантаження</div>';
+        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">❌ Error loading cities</div>';
         cityDropdown.style.display = 'block';
     }
 }
@@ -265,6 +488,9 @@ async function fetchCitySuggestionsMapbox(query, stateCode) {
 
 // Display city suggestions
 function displayCitySuggestions(cities) {
+    console.log('🎨 displayCitySuggestions called with', cities.length, 'cities');
+    console.log('   Cities:', cities);
+    
     cityDropdown.innerHTML = '';
     
     // Add count header if many results
@@ -272,52 +498,190 @@ function displayCitySuggestions(cities) {
         const header = document.createElement('div');
         header.style.padding = '8px 15px';
         header.style.fontSize = '0.85em';
-        header.style.color = '#667eea';
+        header.style.color = '#5288c1';
         header.style.fontWeight = '600';
-        header.style.borderBottom = '1px solid #e0e0e0';
-        header.textContent = `Знайдено міст: ${cities.length}`;
+        header.style.borderBottom = '1px solid #2b3847';
+        header.textContent = `Found ${cities.length} cities`;
         cityDropdown.appendChild(header);
+        console.log('   Added header');
     }
     
-    // Show max 15 cities
-    const displayCities = cities.slice(0, 15);
+    // Show max 20 cities
+    const displayCities = cities.slice(0, 20);
     const query = cityInput.value.trim().toLowerCase();
     
-    displayCities.forEach(city => {
+    console.log('   Displaying', displayCities.length, 'cities');
+    
+    displayCities.forEach((city, index) => {
+        console.log(`   Creating item ${index + 1}:`, city.name, city.state);
+        
         const div = document.createElement('div');
         div.className = 'autocomplete-item';
         
-        // Highlight matching text
-        const cityName = city.name;
-        const lowerCityName = cityName.toLowerCase();
-        const matchIndex = lowerCityName.indexOf(query);
-        
-        if (matchIndex !== -1 && query.length > 0) {
-            const before = cityName.substring(0, matchIndex);
-            const match = cityName.substring(matchIndex, matchIndex + query.length);
-            const after = cityName.substring(matchIndex + query.length);
-            div.innerHTML = `${before}<strong style="color: #667eea;">${match}</strong>${after}, ${city.state}`;
-        } else {
-            div.textContent = `${cityName}, ${city.state}`;
-        }
+        // Simple display without highlighting issues
+        div.innerHTML = `<strong>${city.name}</strong>, ${city.state}`;
         
         div.addEventListener('click', function() {
+            console.log('   City clicked:', city.name);
             cityInput.value = city.name;
             cityDropdown.style.display = 'none';
             
             // Auto-fill zipcode if available
-            if (city.postcode) {
+            if (city.postcode && zipcodeInput) {
                 zipcodeInput.value = city.postcode;
+                console.log('   Auto-filled ZIP:', city.postcode);
             }
             
-            // Focus on next field
-            zipcodeInput.focus();
+            // Focus on address field
+            if (addressInput) {
+                addressInput.focus();
+                console.log('   Focused on address field');
+            }
         });
         
         cityDropdown.appendChild(div);
     });
     
+    console.log('✅ City dropdown displayed with', displayCities.length, 'items');
     cityDropdown.style.display = 'block';
+}
+
+// Fetch address suggestions using Google Places SDK - NO CORS ISSUES!
+async function fetchAddressSuggestionsGoogle(query, city, state) {
+    console.log('🏠 fetchAddressSuggestionsGoogle called');
+    console.log('   Query:', query);
+    console.log('   City:', city);
+    console.log('   State:', state);
+    console.log('   Service ready:', !!googleAutocompleteService);
+    
+    try {
+        if (!googleAutocompleteService) {
+            console.error('❌ Google Autocomplete service not ready');
+            addressDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">Google API not ready</div>';
+            addressDropdown.style.display = 'block';
+            return;
+        }
+        
+        const stateName = US_STATES.find(s => s.code === state)?.name || state;
+        const searchQuery = `${query}, ${city}, ${stateName}, USA`;
+        
+        console.log('🔍 Google Places SDK address search:', query);
+        console.log('   Full search query:', searchQuery);
+        
+        // Use Google Places Autocomplete Service (no CORS!)
+        const request = {
+            input: searchQuery,
+            types: ['address'],
+            componentRestrictions: { country: 'us' },
+            language: 'en'  // Force English results
+        };
+        
+        console.log('📤 Sending address request to Google:', request);
+        
+        googleAutocompleteService.getPlacePredictions(request, (predictions, status) => {
+            console.log('📥 Google address response received');
+            console.log('   Status:', status);
+            console.log('   Predictions:', predictions);
+            console.log('   Predictions count:', predictions?.length || 0);
+            
+            if (status === 'OK' && predictions) {
+                console.log('✅ Google SDK found:', predictions.length, 'addresses');
+                
+                const addresses = predictions.map(p => {
+                    console.log('📍 Raw prediction:', p);
+                    console.log('   Description:', p.description);
+                    console.log('   Terms:', p.terms);
+                    console.log('   Types:', p.types);
+                    
+                    const parts = p.description.split(', ');
+                    console.log('   Parts:', parts);
+                    
+                    // Format can be:
+                    // "Street, City, State ZIP, Country"
+                    // "Street, City, State, Country"
+                    const street = parts[0] || '';
+                    const cityName = parts[1] || city;
+                    const stateZipPart = parts[2] || '';
+                    
+                    console.log('   Street:', street);
+                    console.log('   City:', cityName);
+                    console.log('   StateZipPart:', stateZipPart);
+                    
+                    // Try multiple patterns to extract ZIP
+                    let statePart = state;
+                    let zipcode = '';
+                    
+                    // Pattern 1: "OH 44305" or "Ohio 44305"
+                    const pattern1 = stateZipPart.match(/([A-Za-z\s]+)\s+(\d{5}(-\d{4})?)/);
+                    if (pattern1) {
+                        statePart = pattern1[1].trim();
+                        zipcode = pattern1[2];
+                        console.log('   ✅ Pattern 1 matched - State:', statePart, 'ZIP:', zipcode);
+                    } else {
+                        // Pattern 2: Just state code at start "OH" or "Ohio"
+                        const pattern2 = stateZipPart.match(/^([A-Z]{2}|[A-Za-z\s]+)/);
+                        if (pattern2) {
+                            statePart = pattern2[1].trim();
+                        }
+                        
+                        // Try to find ZIP in any part of description
+                        const zipPattern = p.description.match(/\b(\d{5}(-\d{4})?)\b/);
+                        if (zipPattern) {
+                            zipcode = zipPattern[1];
+                            console.log('   ✅ Pattern 2 - Found ZIP in description:', zipcode);
+                        } else {
+                            console.log('   ⚠️ No ZIP found in:', p.description);
+                        }
+                    }
+                    
+                    // Convert state name to code if needed
+                    if (statePart.length > 2) {
+                        const stateObj = US_STATES.find(s => s.name.toLowerCase() === statePart.toLowerCase());
+                        if (stateObj) {
+                            statePart = stateObj.code;
+                        }
+                    }
+                    
+                    console.log('   📦 Final parsed - State:', statePart, 'ZIP:', zipcode);
+                    
+                    return {
+                        street: street,
+                        city: cityName,
+                        state: statePart,
+                        zipcode: zipcode,
+                        full: p.description,
+                        place_id: p.place_id
+                    };
+                }).slice(0, 10);
+                
+                console.log('📋 All addresses parsed:');
+                addresses.forEach((a, i) => {
+                    console.log(`   ${i+1}. ${a.street} - ZIP: ${a.zipcode || 'MISSING'}`);
+                });
+                
+                if (addresses.length > 0) {
+                    console.log('✅ Displaying', addresses.length, 'addresses');
+                    displayAddressSuggestions(addresses);
+                } else {
+                    console.log('⚠️ No addresses to display');
+                    addressDropdown.style.display = 'none';
+                }
+            } else if (status === 'ZERO_RESULTS') {
+                console.log('⚠️ Zero address results from Google');
+                addressDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">No addresses found</div>';
+                addressDropdown.style.display = 'block';
+            } else {
+                console.error('❌ Google Places address error status:', status);
+                addressDropdown.innerHTML = `<div class="autocomplete-item" style="color: #f44;">Error: ${status}</div>`;
+                addressDropdown.style.display = 'block';
+            }
+        });
+    } catch (error) {
+        console.error('❌ Google Places SDK address error:', error);
+        console.error('   Error stack:', error.stack);
+        addressDropdown.innerHTML = '<div class="autocomplete-item" style="color: #f44;">Error loading addresses</div>';
+        addressDropdown.style.display = 'block';
+    }
 }
 
 // Fetch address suggestions using Nominatim (includes house numbers and streets)
@@ -376,73 +740,193 @@ async function fetchAddressSuggestionsNominatim(query, city, state) {
     }
 }
 
-// Fetch address suggestions using Mapbox
+// Fetch address suggestions using Mapbox - FAST and accurate for USA
 async function fetchAddressSuggestionsMapbox(query, city, state) {
     try {
-        const searchQuery = `${query} ${city} ${state}`;
-        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json?country=US&types=address&limit=10&access_token=${MAPBOX_API_KEY}`;
+        // Proximity search centered on selected city for better results
+        const searchQuery = `${query}`;
+        const proximity = `&proximity=ip`; // Use user's IP location for better ordering
+        const bbox = ``; // Could add bounding box for state/city if needed
+        
+        // Optimized Mapbox query with types=address for street-level results
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json?` +
+                    `country=US&types=address&autocomplete=true&` +
+                    `limit=10${proximity}&` +
+                    `access_token=${MAPBOX_API_KEY}`;
+        
+        console.log('🔍 Mapbox address search:', query);
         
         const response = await fetch(url);
+        
+        if (!response.ok) {
+            console.error('Mapbox API error:', response.status);
+            // Fallback to Nominatim if Mapbox fails
+            fetchAddressSuggestionsNominatim(query, city, state);
+            return;
+        }
+        
         const data = await response.json();
+        console.log('📍 Mapbox results:', data.features?.length || 0);
         
         if (data.features && data.features.length > 0) {
-            const addresses = data.features.map(f => {
-                const address = f.address ? `${f.address} ${f.text}` : f.text;
-                const context = f.context || [];
-                const postcode = context.find(c => c.id.startsWith('postcode'))?.text || '';
-                const cityName = context.find(c => c.id.startsWith('place'))?.text || city;
-                
-                return {
-                    street: address,
-                    city: cityName,
-                    state: state,
-                    zipcode: postcode,
-                    full: f.place_name
-                };
-            });
+            // Filter results to match selected city and state
+            const stateFilter = state ? state.toUpperCase() : null;
+            const cityFilter = city ? city.toLowerCase() : null;
             
-            displayAddressSuggestions(addresses);
+            const addresses = data.features
+                .map(f => {
+                    const address = f.address ? `${f.address} ${f.text}` : f.text;
+                    const context = f.context || [];
+                    const postcode = context.find(c => c.id.startsWith('postcode'))?.text || '';
+                    const placeCity = context.find(c => c.id.startsWith('place'))?.text || '';
+                    const regionCode = context.find(c => c.id.startsWith('region'))?.short_code?.replace('US-', '') || '';
+                    
+                    return {
+                        street: address,
+                        city: placeCity || city,
+                        state: regionCode || state,
+                        zipcode: postcode,
+                        full: f.place_name,
+                        relevance: f.relevance // Mapbox provides relevance score
+                    };
+                })
+                .filter(addr => {
+                    // Filter by selected city and state
+                    const matchesState = !stateFilter || addr.state === stateFilter;
+                    const matchesCity = !cityFilter || addr.city.toLowerCase().includes(cityFilter);
+                    return matchesState && matchesCity;
+                })
+                .slice(0, 10); // Limit to 10 results
+            
+            if (addresses.length > 0) {
+                displayAddressSuggestions(addresses);
+            } else {
+                // No matches in selected city/state, show all results anyway
+                const allAddresses = data.features.map(f => {
+                    const address = f.address ? `${f.address} ${f.text}` : f.text;
+                    const context = f.context || [];
+                    const postcode = context.find(c => c.id.startsWith('postcode'))?.text || '';
+                    const placeCity = context.find(c => c.id.startsWith('place'))?.text || city;
+                    const regionCode = context.find(c => c.id.startsWith('region'))?.short_code?.replace('US-', '') || state;
+                    
+                    return {
+                        street: address,
+                        city: placeCity,
+                        state: regionCode,
+                        zipcode: postcode,
+                        full: f.place_name
+                    };
+                }).slice(0, 10);
+                
+                displayAddressSuggestions(allAddresses);
+            }
         } else {
             addressDropdown.style.display = 'none';
         }
     } catch (error) {
-        console.log('Mapbox address suggestions error:', error);
-        addressDropdown.style.display = 'none';
+        console.error('Mapbox address error:', error);
+        // Fallback to Nominatim
+        fetchAddressSuggestionsNominatim(query, city, state);
     }
 }
 
 // Display address suggestions
 function displayAddressSuggestions(addresses) {
+    console.log('🎨 displayAddressSuggestions called with', addresses.length, 'addresses');
+    
     addressDropdown.innerHTML = '';
     
     addresses.forEach(addr => {
+        console.log('   Creating suggestion:', addr.street, 'ZIP:', addr.zipcode);
+        
         const div = document.createElement('div');
         div.className = 'autocomplete-item';
+        
+        // Show ZIP code prominently if available
         div.innerHTML = `
-            <div style="font-weight: 600;">${addr.street}</div>
-            <div style="font-size: 0.85em; color: #666;">${addr.city}, ${addr.state} ${addr.zipcode}</div>
+            <div style="display: flex; justify-content: space-between; align-items: start; gap: 10px;">
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; color: #e4e4e4; margin-bottom: 3px;">${addr.street}</div>
+                    <div style="font-size: 0.85em; color: #aaaaaa;">
+                        ${addr.city}, ${addr.state}
+                    </div>
+                </div>
+                ${addr.zipcode ? `
+                    <div style="background: linear-gradient(135deg, #5288c1 0%, #3a6b9e 100%); padding: 6px 12px; border-radius: 6px; font-weight: 700; color: #fff; font-size: 0.95em; white-space: nowrap;">
+                        ${addr.zipcode}
+                    </div>
+                ` : ''}
+            </div>
         `;
         
         div.addEventListener('click', function() {
+            console.log('   Address clicked:', addr.street);
+            console.log('   place_id:', addr.place_id);
+            
             addressInput.value = addr.street;
-            if (addr.zipcode && !zipcodeInput.value) {
-                zipcodeInput.value = addr.zipcode;
-            }
             addressDropdown.style.display = 'none';
+            
+            // Fetch ZIP code using Place Details API
+            if (addr.place_id && googlePlacesService && zipcodeInput) {
+                console.log('   🔍 Fetching place details for ZIP code...');
+                
+                googlePlacesService.getDetails({
+                    placeId: addr.place_id,
+                    fields: ['address_components']
+                }, function(place, status) {
+                    console.log('   📍 Place details status:', status);
+                    
+                    if (status === google.maps.places.PlacesServiceStatus.OK && place && place.address_components) {
+                        console.log('   🏘️ Address components:', place.address_components);
+                        
+                        // Find postal_code component
+                        const postalComponent = place.address_components.find(component => 
+                            component.types.includes('postal_code')
+                        );
+                        
+                        if (postalComponent) {
+                            const zipCode = postalComponent.short_name;
+                            console.log('   ✅ ZIP code found:', zipCode);
+                            
+                            // Fill ZIP code field
+                            zipcodeInput.removeAttribute('readonly');
+                            zipcodeInput.value = zipCode;
+                            zipcodeInput.style.background = '#17212b';
+                            zipcodeInput.style.color = '#e4e4e4';
+                            zipcodeInput.style.cursor = 'default';
+                            zipcodeInput.setAttribute('readonly', 'readonly');
+                            
+                            // Visual feedback
+                            zipcodeInput.style.border = '2px solid #5288c1';
+                            setTimeout(() => {
+                                zipcodeInput.style.border = '';
+                            }, 1000);
+                        } else {
+                            console.log('   ⚠️ No postal_code component found');
+                        }
+                    } else {
+                        console.log('   ❌ Failed to fetch place details:', status);
+                    }
+                });
+            } else {
+                if (!addr.place_id) console.log('   ⚠️ No place_id available');
+                if (!googlePlacesService) console.log('   ⚠️ PlacesService not initialized');
+            }
         });
         
         addressDropdown.appendChild(div);
     });
     
     addressDropdown.style.display = 'block';
+    console.log('✅ Address suggestions displayed');
 }
 
 // Close dropdowns when clicking outside
 document.addEventListener('click', function(e) {
-    if (!cityInput.contains(e.target) && !cityDropdown.contains(e.target)) {
+    if (cityInput && cityDropdown && !cityInput.contains(e.target) && !cityDropdown.contains(e.target)) {
         cityDropdown.style.display = 'none';
     }
-    if (!addressInput.contains(e.target) && !addressDropdown.contains(e.target)) {
+    if (addressInput && addressDropdown && !addressInput.contains(e.target) && !addressDropdown.contains(e.target)) {
         addressDropdown.style.display = 'none';
     }
 });
@@ -450,10 +934,10 @@ document.addEventListener('click', function(e) {
 // Add focus handler for city input
 cityInput.addEventListener('focus', function() {
     if (!stateSelect.value) {
-        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">⚠️ Спочатку оберіть штат</div>';
+        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">⚠️ Please select a state first</div>';
         cityDropdown.style.display = 'block';
     } else if (this.value.length === 0) {
-        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">💡 Почніть вводити назву міста...</div>';
+        cityDropdown.innerHTML = '<div class="autocomplete-item" style="color: #999;">💡 Start typing city name...</div>';
         cityDropdown.style.display = 'block';
     }
 });
@@ -499,12 +983,14 @@ form.addEventListener('submit', async (e) => {
 });
 
 // Handler for calculate button (when square feet is entered)
-document.getElementById('calculateBtn').addEventListener('click', async function() {
+const calculateBtn = document.getElementById('calculateBtn');
+if (calculateBtn) {
+    calculateBtn.addEventListener('click', async function() {
     const squareFeetInput = document.getElementById('squareFeetInput');
     const squareFeet = parseInt(squareFeetInput.value);
     
     if (!squareFeet || squareFeet <= 0) {
-        alert('Будь ласка, введіть коректну площу будинку');
+        alert('Please enter a valid square footage');
         return;
     }
     
@@ -518,7 +1004,7 @@ document.getElementById('calculateBtn').addEventListener('click', async function
     try {
         const nearbyData = window.nearbyPropertyData;
         if (!nearbyData) {
-            throw new Error('Дані про район втрачено. Спробуйте пошук ще раз.');
+            throw new Error('Area data lost. Please try the search again.');
         }
         
         // Calculate value
@@ -551,7 +1037,8 @@ document.getElementById('calculateBtn').addEventListener('click', async function
         console.error('🔴 Error calculating value:', error);
         showError(error.message);
     }
-});
+    });
+}
 
 // Fetch property data from ATTOM API
 async function getPropertyData(formData) {
@@ -642,13 +1129,13 @@ async function getNearbyPropertiesInfo(formData) {
         });
         
         if (!geocodeResponse.ok) {
-            throw new Error('Не вдалося геокодувати адресу');
+            throw new Error('Failed to geocode address');
         }
         
         const geocodeData = await geocodeResponse.json();
         
         if (!geocodeData || geocodeData.length === 0) {
-            throw new Error('Не вдалося знайти координати для даної адреси. Перевірте правильність написання.');
+            throw new Error('Could not find coordinates for this address. Please verify the address is correct.');
         }
         
         const lat = parseFloat(geocodeData[0].lat);
@@ -682,6 +1169,8 @@ async function getNearbyPropertiesInfo(formData) {
             const radius = 1; // 1 mile
             const nearbyUrl = `${API_BASE_URL}/property/snapshot?latitude=${lat}&longitude=${lon}&radius=${radius}`;
             
+            console.log('📡 Snapshot API URL:', nearbyUrl);
+            
             const nearbyResponse = await fetch(nearbyUrl, {
                 headers: {
                     'apikey': API_KEY,
@@ -690,17 +1179,52 @@ async function getNearbyPropertiesInfo(formData) {
             });
             
             if (!nearbyResponse.ok) {
-                throw new Error(`Не вдалося знайти будинки в районі. Статус: ${nearbyResponse.status}`);
+                const errorText = await nearbyResponse.text();
+                console.log('❌ Snapshot API Error:', errorText);
+                throw new Error(`Failed to find properties in the area. Status: ${nearbyResponse.status}`);
             }
             
             nearbyData = await nearbyResponse.json();
             console.log('🏘️ Nearby properties found by snapshot:', nearbyData);
+            console.log('📊 Snapshot API status:', nearbyData.status);
         }
         
         console.log('📦 Total properties in response:', nearbyData.property?.length || 0);
         
         if (!nearbyData.property || nearbyData.property.length === 0) {
-            throw new Error('Не знайдено будинків в радіусі 1 милі від даної адреси.');
+            throw new Error('No properties found within 1 mile radius of this address.');
+        }
+        
+        // Filter out non-residential properties (hospitals, commercial, etc.)
+        const residentialProperties = nearbyData.property.filter(prop => {
+            const propType = prop.summary?.proptype?.toLowerCase() || '';
+            const propClass = prop.summary?.propclass?.toLowerCase() || '';
+            
+            // Include residential types, exclude commercial/institutional
+            const isResidential = (
+                propType.includes('residential') || 
+                propType.includes('single family') ||
+                propType.includes('condo') ||
+                propType.includes('townhouse') ||
+                propClass === 'residential' ||
+                propClass === 'r' ||
+                (!propType.includes('commercial') && 
+                 !propType.includes('industrial') && 
+                 !propType.includes('hospital') &&
+                 !propType.includes('institutional'))
+            );
+            
+            return isResidential;
+        });
+        
+        console.log(`🏘️ Filtered to ${residentialProperties.length} residential properties out of ${nearbyData.property.length} total`);
+        
+        if (residentialProperties.length === 0) {
+            console.warn('⚠️ No residential properties found, using all properties');
+            // Use all properties if no residential ones found
+        } else {
+            // Use residential properties only
+            nearbyData.property = residentialProperties;
         }
         
         // Calculate average price per square foot from nearby properties
@@ -711,30 +1235,37 @@ async function getNearbyPropertiesInfo(formData) {
             const building = prop.building;
             const sale = prop.sale;
             const assessment = prop.assessment;
+            const avm = prop.avm; // AVM data might be in snapshot
             
             console.log(`🏠 Property ${index + 1}:`, {
                 address: prop.address?.oneLine,
                 building: building,
                 sale: sale,
-                assessment: assessment
+                assessment: assessment,
+                avm: avm
             });
             
             // Get square footage
             const sqft = building?.size?.universalsize || building?.size?.livingsize;
             
-            // Get latest sale price or assessment value
+            // Get price from multiple sources (priority order)
             const salePrice = sale?.amount?.saleamt;
+            const avmValue = avm?.amount?.value; // AVM valuation
             const assessmentValue = assessment?.assessed?.assdttlvalue;
             const marketValue = assessment?.market?.mktttlvalue;
-            const price = salePrice || assessmentValue || marketValue;
+            
+            // Use most reliable source: AVM > Recent Sale > Market Value > Assessment
+            const price = avmValue || salePrice || marketValue || assessmentValue;
             
             propertiesDetails.push({
                 address: prop.address?.oneLine || 'Unknown',
                 sqft: sqft,
                 salePrice: salePrice,
+                avmValue: avmValue,
                 assessmentValue: assessmentValue,
                 marketValue: marketValue,
-                finalPrice: price
+                finalPrice: price,
+                source: avmValue ? 'AVM' : (salePrice ? 'Sale' : (marketValue ? 'Market' : (assessmentValue ? 'Assessment' : 'None')))
             });
             
             if (sqft && price && sqft > 0 && price > 0) {
@@ -743,7 +1274,8 @@ async function getNearbyPropertiesInfo(formData) {
                     address: prop.address,
                     sqft: sqft,
                     price: price,
-                    pricePerSqft: pricePerSqft
+                    pricePerSqft: pricePerSqft,
+                    source: avmValue ? 'AVM' : (salePrice ? 'Sale' : (marketValue ? 'Market' : 'Assessment'))
                 });
             }
         });
@@ -754,16 +1286,40 @@ async function getNearbyPropertiesInfo(formData) {
         
         // If no properties with pricing data, try to fetch detailed data for each property
         if (propertiesWithData.length === 0 && nearbyData.property.length > 0) {
-            console.log('⚠️ No pricing data in snapshot, fetching detailed data for properties...');
+            console.log('⚠️ No pricing data in snapshot, fetching detailed AVM data for properties...');
             
-            // Try to get detailed data for first 5 properties
-            const detailedPromises = nearbyData.property.slice(0, 5).map(async (prop) => {
-                const attomId = prop.identifier?.attomId;
-                if (!attomId) return null;
+            // Try to get detailed data for up to 10 properties
+            const propertiesToFetch = nearbyData.property.slice(0, 10);
+            console.log(`📞 Fetching detailed data for ${propertiesToFetch.length} properties...`);
+            
+            const detailedPromises = propertiesToFetch.map(async (prop, idx) => {
+                const address = prop.address;
+                if (!address) {
+                    console.log(`  Property ${idx + 1}: No address data`);
+                    return null;
+                }
                 
                 try {
-                    // Fetch AVM data which usually has valuation
-                    const avmUrl = `${API_BASE_URL}/attomavm/detail?id=${attomId}`;
+                    // Extract address components
+                    const street = address.line1 || address.oneLine;
+                    const city = address.locality;
+                    const state = address.countrySubd;
+                    const zip = address.postal1;
+                    
+                    if (!street || !city || !state) {
+                        console.log(`  Property ${idx + 1}: Incomplete address - street: ${street}, city: ${city}, state: ${state}`);
+                        return null;
+                    }
+                    
+                    console.log(`  Property ${idx + 1}: ${street}, ${city}, ${state} ${zip}`);
+                    
+                    // Try AVM Detail endpoint with address parameters (CORRECT per documentation)
+                    const address1 = street;
+                    const address2 = `${city}, ${state}${zip ? ' ' + zip : ''}`;
+                    const avmUrl = `${API_BASE_URL}/attomavm/detail?address1=${encodeURIComponent(address1)}&address2=${encodeURIComponent(address2)}`;
+                    
+                    console.log(`  → Trying AVM Detail: ${avmUrl}`);
+                    
                     const avmResponse = await fetch(avmUrl, {
                         headers: {
                             'apikey': API_KEY,
@@ -773,21 +1329,84 @@ async function getNearbyPropertiesInfo(formData) {
                     
                     if (avmResponse.ok) {
                         const avmData = await avmResponse.json();
-                        const avmValue = avmData.property?.[0]?.avm?.amount?.value;
-                        const building = prop.building;
-                        const sqft = building?.size?.universalsize || building?.size?.livingsize;
+                        const property = avmData.property?.[0];
                         
-                        if (avmValue && sqft && sqft > 0) {
-                            return {
-                                address: prop.address,
-                                sqft: sqft,
-                                price: avmValue,
-                                pricePerSqft: avmValue / sqft
-                            };
+                        if (property) {
+                            const sqft = property.building?.size?.universalsize || property.building?.size?.livingsize || property.building?.size?.bldgsize;
+                            const avmValue = property.avm?.amount?.value;
+                            const salePrice = property.sale?.amount?.saleamt;
+                            const marketValue = property.assessment?.market?.mktttlvalue;
+                            const assessedValue = property.assessment?.assessed?.assdttlvalue;
+                            const price = avmValue || salePrice || marketValue || assessedValue;
+                            
+                            if (price && sqft && sqft > 0) {
+                                const pricePerSqft = price / sqft;
+                                const source = avmValue ? 'AVM' : (salePrice ? 'Sale' : (marketValue ? 'Market' : 'Assessment'));
+                                
+                                console.log(`  ✅ Property ${idx + 1}: $${price.toLocaleString()} (${sqft} sqft, $${pricePerSqft.toFixed(2)}/sqft) [${source}]`);
+                                
+                                return {
+                                    address: property.address,
+                                    sqft: sqft,
+                                    price: price,
+                                    pricePerSqft: pricePerSqft,
+                                    source: source
+                                };
+                            } else {
+                                console.log(`  ⚠️ Property ${idx + 1}: AVM returned but missing pricing - price: ${price}, sqft: ${sqft}`);
+                            }
+                        } else {
+                            console.log(`  ⚠️ Property ${idx + 1}: AVM response has no property data`);
                         }
+                    } else {
+                        console.log(`  ⚠️ Property ${idx + 1}: AVM Detail failed (${avmResponse.status})`);
+                        const errorText = await avmResponse.text();
+                        console.log(`  Error details:`, errorText);
                     }
+                    
+                    // Try Assessment Detail endpoint as fallback
+                    console.log(`  → Trying Assessment Detail...`);
+                    const assessUrl = `${API_BASE_URL}/assessment/detail?address1=${encodeURIComponent(address1)}&address2=${encodeURIComponent(address2)}`;
+                    
+                    const assessResponse = await fetch(assessUrl, {
+                        headers: {
+                            'apikey': API_KEY,
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (assessResponse.ok) {
+                        const assessData = await assessResponse.json();
+                        const property = assessData.property?.[0];
+                        
+                        if (property) {
+                            const sqft = property.building?.size?.universalsize || property.building?.size?.livingsize || property.building?.size?.bldgsize;
+                            const marketValue = property.assessment?.market?.mktttlvalue;
+                            const assessedValue = property.assessment?.assessed?.assdttlvalue;
+                            const salePrice = property.sale?.amount?.saleamt;
+                            const price = salePrice || marketValue || assessedValue;
+                            
+                            if (price && sqft && sqft > 0) {
+                                const pricePerSqft = price / sqft;
+                                const source = salePrice ? 'Sale' : (marketValue ? 'Market' : 'Assessment');
+                                
+                                console.log(`  ✅ Property ${idx + 1}: $${price.toLocaleString()} (${sqft} sqft, $${pricePerSqft.toFixed(2)}/sqft) [${source}]`);
+                                
+                                return {
+                                    address: property.address,
+                                    sqft: sqft,
+                                    price: price,
+                                    pricePerSqft: pricePerSqft,
+                                    source: source
+                                };
+                            }
+                        }
+                    } else {
+                        console.log(`  ⚠️ Property ${idx + 1}: Assessment Detail failed (${assessResponse.status})`);
+                    }
+                    
                 } catch (error) {
-                    console.log('Failed to fetch AVM for property:', attomId, error);
+                    console.log(`  ❌ Property ${idx + 1}: Error:`, error.message);
                 }
                 return null;
             });
@@ -795,7 +1414,7 @@ async function getNearbyPropertiesInfo(formData) {
             const detailedResults = await Promise.all(detailedPromises);
             const validDetailed = detailedResults.filter(r => r !== null);
             
-            console.log('📊 Detailed pricing data fetched:', validDetailed);
+            console.log(`📊 Detailed pricing data fetched: ${validDetailed.length} valid out of ${propertiesToFetch.length}`);
             
             if (validDetailed.length > 0) {
                 propertiesWithData.push(...validDetailed);
@@ -805,7 +1424,12 @@ async function getNearbyPropertiesInfo(formData) {
         if (propertiesWithData.length === 0) {
             // Show more helpful error with what we found
             const propertiesCount = nearbyData.property.length;
-            throw new Error(`Знайдено ${propertiesCount} будинків в районі, але не вдалося отримати дані про ціни. Цей район може не мати достатньо даних в базі ATTOM. Спробуйте іншу адресу.`);
+            console.log('📋 All property details:', propertiesDetails);
+            console.log('⚠️ ATTOM API Issue: Found properties but no price data available');
+            console.log('🔍 Sample property structure:', nearbyData.property[0]);
+            console.log('🔍 Check if properties have: avm, sale, assessment, or market values');
+            console.log('💡 Tip: Some areas may only have partial data. Try a different major city address.');
+            throw new Error(`Found ${propertiesCount} properties in the area, but pricing data is not available. This area may not have sufficient data in ATTOM database. Please try a different address in a major city.`);
         }
         
         // Calculate average price per sqft
@@ -856,13 +1480,13 @@ async function calculateFromNearbyProperties(formData) {
         });
         
         if (!geocodeResponse.ok) {
-            throw new Error('Не вдалося геокодувати адресу');
+            throw new Error('Failed to geocode address');
         }
         
         const geocodeData = await geocodeResponse.json();
         
         if (!geocodeData || geocodeData.length === 0) {
-            throw new Error('Не вдалося знайти координати для даної адреси. Перевірте правильність написання.');
+            throw new Error('Could not find coordinates for this address. Please verify the address is correct.');
         }
         
         const lat = parseFloat(geocodeData[0].lat);
@@ -883,14 +1507,14 @@ async function calculateFromNearbyProperties(formData) {
         });
         
         if (!nearbyResponse.ok) {
-            throw new Error(`Не вдалося знайти будинки в районі. Статус: ${nearbyResponse.status}`);
+            throw new Error(`Failed to find properties in the area. Status: ${nearbyResponse.status}`);
         }
         
         const nearbyData = await nearbyResponse.json();
         console.log('🏘️ Nearby properties found:', nearbyData);
         
         if (!nearbyData.property || nearbyData.property.length === 0) {
-            throw new Error('Не знайдено будинків в радіусі 1 милі від даної адреси.');
+            throw new Error('No properties found within 1 mile radius of this address.');
         }
         
         // Calculate average price per square foot from nearby properties
@@ -923,7 +1547,7 @@ async function calculateFromNearbyProperties(formData) {
         console.log('💵 Properties with pricing data:', propertiesWithData);
         
         if (propertiesWithData.length === 0) {
-            throw new Error('Не знайдено даних про ціни будинків в районі.');
+            throw new Error('No pricing data found for properties in the area.');
         }
         
         // Calculate average price per sqft
@@ -1094,28 +1718,38 @@ async function displayResults(data, formData) {
     
     const { property, avm, sales, assessment, schools, expanded, calculatedValue, needsSquareFeet, nearbyData } = data;
     
-    // Check if we need to show square feet input form
+    // Check if we need to show area-based preliminary results
     if (needsSquareFeet && nearbyData) {
-        console.log('📝 Showing square feet input form');
+        console.log('📝 Calling showPreliminaryResults with nearby data');
         
-        // Show the square feet input section
+        // Check if showPreliminaryResults exists (from HTML file)
+        if (typeof window.showPreliminaryResults === 'function') {
+            window.showPreliminaryResults(data);
+            return;
+        }
+        
+        // Fallback: show basic square feet input section if showPreliminaryResults not available
         const squareFeetSection = document.getElementById('squareFeetSection');
         const squareFeetMessage = document.getElementById('squareFeetMessage');
         
-        const formattedPricePerSqft = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(nearbyData.avgPricePerSqft);
-        
-        squareFeetMessage.innerHTML = `
-            ⚠️ <strong>Точну адресу не знайдено в базі даних.</strong><br>
-            Ми знайшли <strong>${nearbyData.propertiesUsed} будинків</strong> в радіусі ${nearbyData.radius} милі від вказаної адреси.<br>
-            Середня ціна в районі: <strong>${formattedPricePerSqft} за кв. фут</strong>.<br><br>
-            Введіть площу вашого будинку для розрахунку орієнтовної вартості.
-        `;
-        
-        squareFeetSection.style.display = 'block';
-        squareFeetSection.scrollIntoView({ behavior: 'smooth' });
-        
-        // Store nearby data for later use
-        window.nearbyPropertyData = nearbyData;
+        if (squareFeetSection && squareFeetMessage) {
+            const formattedPricePerSqft = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(nearbyData.avgPricePerSqft);
+            
+            squareFeetMessage.innerHTML = `
+                ⚠️ <strong>Exact address not found in database.</strong><br>
+                We found <strong>${nearbyData.propertiesUsed} properties</strong> within ${nearbyData.radius} mile radius of the address.<br>
+                Average area price: <strong>${formattedPricePerSqft} per sq ft</strong>.<br><br>
+                Enter your property's square footage to calculate estimated value.
+            `;
+            
+            squareFeetSection.style.display = 'block';
+            squareFeetSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Store nearby data for later use
+            window.nearbyPropertyData = nearbyData;
+        } else {
+            console.error('❌ Neither showPreliminaryResults nor squareFeetSection available');
+        }
         
         return;
     }
@@ -1268,7 +1902,7 @@ async function displayResults(data, formData) {
     
     console.log('✅ Estimated value found:', estimatedValue, 'Source:', valueSource);
     
-    // Отримуємо середню ціну в районі (1 км = 0.62 милі)
+    // Отримуємо середню ціну в районі (1.5 милі)
     let avgAreaPricePerSqft = null;
     let areaPropertiesCount = 0;
     
@@ -1279,8 +1913,8 @@ async function displayResults(data, formData) {
         console.log('📍 Property coordinates:', lat, lon);
         
         if (lat && lon) {
-            console.log('🌍 Fetching area average price...');
-            const radius = 0.62; // 1 km in miles
+            console.log('🌍 Fetching area average price (1.5 mile radius)...');
+            const radius = 1.5; // 1.5 miles
             const nearbyUrl = `${API_BASE_URL}/property/snapshot?latitude=${lat}&longitude=${lon}&radius=${radius}`;
             console.log('🔗 Nearby URL:', nearbyUrl);
             
@@ -1400,7 +2034,7 @@ async function displayResults(data, formData) {
             ` : ''}
             ${avgAreaPricePerSqft ? `
             <div class="secondary-item">
-                <span class="secondary-label">Середня ціна в районі (1 км):</span>
+                <span class="secondary-label">Середня ціна в районі (1.5 милі):</span>
                 <span class="secondary-value">$${Number(avgAreaPricePerSqft).toLocaleString('en-US')}/кв.фт</span>
             </div>
             <div class="secondary-item">
