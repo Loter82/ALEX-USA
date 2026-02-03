@@ -75,6 +75,15 @@ const zipcodeInput = document.getElementById('zipcode');
 const cityDropdown = document.getElementById('cityDropdown');
 const addressDropdown = document.getElementById('addressDropdown');
 
+// Check if all required elements exist
+if (!form || !resultsDiv || !errorDiv) {
+    console.error('Critical elements missing:', {
+        form: !!form,
+        resultsDiv: !!resultsDiv,
+        errorDiv: !!errorDiv
+    });
+}
+
 // Initialize states dropdown
 function initializeStates() {
     US_STATES.forEach(state => {
@@ -1522,7 +1531,13 @@ function displayOwnerInfo(property) {
 }
 
 // Show error message
+// Show error message
 function showError(message) {
+    if (!errorDiv) {
+        console.error('Error div not found');
+        alert(`❌ ${message}`);
+        return;
+    }
     errorDiv.textContent = `❌ ${message}`;
     errorDiv.style.display = 'block';
     
