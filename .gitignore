@@ -1,0 +1,17 @@
+# API Keys - DO NOT COMMIT
+config.js
+
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
