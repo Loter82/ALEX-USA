@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оцінка вартості нерухомості в США</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 Оцінка вартості будинку</h1>
+            <p class="subtitle">Дізнайтеся орієнтовну вартість вашої нерухомості в США</p>
+        </header>
+
+        <main>
+            <form id="propertyForm" class="property-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="state">Штат</label>
+                        <select id="state" name="state" required>
+                            <option value="">Оберіть штат...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">Місто</label>
+                        <input type="text" id="city" name="city" placeholder="Почніть вводити назву міста..." required autocomplete="off">
+                        <div id="cityDropdown" class="autocomplete-dropdown"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zipcode">ZIP код</label>
+                        <input type="text" id="zipcode" name="zipcode" placeholder="90001" pattern="[0-9]{5}" maxlength="5">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Адреса будинку</label>
+                    <input type="text" id="address" name="address" placeholder="Почніть вводити адресу..." required autocomplete="off">
+                    <div id="addressDropdown" class="autocomplete-dropdown"></div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span class="btn-text">Отримати оцінку</span>
+                    <span class="btn-loader" style="display: none;">⏳ Завантаження...</span>
+                </button>
+            </form>
+
+            <!-- Section for entering square feet when address not found -->
+            <div id="squareFeetSection" class="section-card" style="display: none;">
+                <h3>📏 Введіть площу будинку</h3>
+                <div class="alert info" id="squareFeetMessage"></div>
+                <div class="square-feet-input-wrapper">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="squareFeetInput">Площа будинку (кв. фути)</label>
+                        <input type="number" id="squareFeetInput" placeholder="Наприклад: 2000" min="1">
+                    </div>
+                    <button id="calculateBtn" class="btn-calculate">
+                        Розрахувати вартість
+                    </button>
+                </div>
+            </div>
+
+            <div id="results" class="results" style="display: none;">
+                <h2>Результати оцінки</h2>
+                
+                <!-- Main Valuation -->
+                <div id="valuationInfo"></div>
+                
+                <!-- Property Details -->
+                <div id="propertyInfo"></div>
+                
+                <!-- Sales History -->
+                <div id="salesInfo"></div>
+                
+                <!-- Assessment History -->
+                <div id="assessmentInfo"></div>
+                
+                <!-- School Information -->
+                <div id="schoolInfo"></div>
+                
+                <!-- Neighborhood Data -->
+                <div id="neighborhoodInfo"></div>
+                
+                <!-- Owner Information -->
+                <div id="ownerInfo"></div>
+            </div>
+
+            <div id="error" class="error-message" style="display: none;"></div>
+        </main>
+
+        <footer>
+            <p>Дані надані <a href="https://www.attomdata.com/" target="_blank">ATTOM Data Solutions</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
