@@ -405,11 +405,21 @@
         </div>
     </div>
     
-    <!-- Google Maps JavaScript API with Places Library -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0FDrhjBjzFqQNrucHOeIuM4mFkhDYCG8&libraries=places&callback=initGooglePlaces" async defer></script>
-    
-    <!-- API Configuration - load before script.js -->
+    <!-- API Configuration - load first -->
     <script src="config.js"></script>
+    
+    <!-- Google Maps JavaScript API with Places Library - loaded dynamically -->
+    <script>
+        // Load Google Maps API with key from config
+        (function() {
+            const apiKey = typeof CONFIG !== 'undefined' ? CONFIG.GOOGLE_PLACES_API_KEY : 'AIzaSyB0FDrhjBjzFqQNrucHOeIuM4mFkhDYCG8';
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initGooglePlaces`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        })();
+    </script>
     <script src="script.js"></script>
     <script>
         // Wait for script.js to load
