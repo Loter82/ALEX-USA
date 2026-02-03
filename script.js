@@ -1088,7 +1088,7 @@ async function fetchExpandedProfile(attomId) {
 }
 
 // Display results
-function displayResults(data, formData) {
+async function displayResults(data, formData) {
     console.log('🎨 Starting displayResults function');
     console.log('📥 Data received:', data);
     
@@ -1151,24 +1151,24 @@ function displayResults(data, formData) {
                     <span class="info-value">${calculatedValue.radius} миля</span>
                 </div>
             </div>
-            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                <h4 style="margin: 0 0 10px 0;">📐 Формула розрахунку:</h4>
-                <p style="margin: 0; font-size: 1.1em;">${formattedValue} = ${data.inputSquareFeet.toLocaleString()} кв. фт. × ${formattedPricePerSqft}/кв. фт.</p>
+            <div style="margin-top: 20px; padding: 15px; background: #17212b; border-radius: 8px; border: 1px solid #2b3847;">
+                <h4 style="margin: 0 0 10px 0; color: #5288c1;">📐 Формула розрахунку:</h4>
+                <p style="margin: 0; font-size: 1.1em; color: #e4e4e4;">${formattedValue} = ${data.inputSquareFeet.toLocaleString()} кв. фт. × ${formattedPricePerSqft}/кв. фт.</p>
             </div>
         `;
         
         // Show sample properties used in calculation
         if (calculatedValue.sampleProperties && calculatedValue.sampleProperties.length > 0) {
-            calcHTML += '<h4 style="margin-top: 20px;">🏘️ Приклади будинків, використаних для розрахунку:</h4>';
+            calcHTML += '<h4 style="margin-top: 20px; color: #e4e4e4;">🏘️ Приклади будинків, використаних для розрахунку:</h4>';
             calcHTML += '<div style="display: grid; gap: 15px;">';
             calculatedValue.sampleProperties.forEach(prop => {
                 const propPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(prop.price);
                 const propPricePerSqft = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(prop.pricePerSqft);
                 
                 calcHTML += `
-                    <div style="border-left: 3px solid #667eea; padding: 10px 15px; background: white; border-radius: 4px;">
-                        <div style="font-weight: 600; margin-bottom: 5px;">${prop.address?.oneLine || 'N/A'}</div>
-                        <div style="font-size: 0.9em; color: #666;">
+                    <div style="border-left: 3px solid #5288c1; padding: 10px 15px; background: #17212b; border-radius: 4px; border: 1px solid #2b3847;">
+                        <div style="font-weight: 600; margin-bottom: 5px; color: #e4e4e4;">${prop.address?.oneLine || 'N/A'}</div>
+                        <div style="font-size: 0.9em; color: #aaaaaa;">
                             ${prop.sqft.toLocaleString()} кв. фт. • ${propPrice} • ${propPricePerSqft}/кв. фт.
                         </div>
                     </div>
@@ -1227,12 +1227,28 @@ function displayResults(data, formData) {
         console.log('💰 Using last sale price:', estimatedValue);
     }
     
-    // Calculate price per square foot
-    const squareFeet = property.building && property.building.size && property.building.size.bldgsize 
-        ? property.building.size.bldgsize 
-        : formData.squareFeet;
+    // Calculate price per square foot - витягуємо ВСІ можливі джерела площі
+    console.log('🔍 Full property object:', property);
+    console.log('🔍 Building data:', property.building);
+    console.log('🔍 Summary data:', property.summary);
     
-    console.log('📐 Square feet:', squareFeet);
+    const squareFeet = property.building?.size?.bldgsize 
+        || property.building?.size?.grosssize
+        || property.building?.size?.grosssizeadjusted
+        || property.building?.size?.livingsize
+        || property.building?.size?.universalsize
+        || property.summary?.bldgsqft
+        || property.lot?.lotsize2  // Іноді площа може бути тут
+        || formData.squareFeet;
+    
+    console.log('📐 Square feet:', squareFeet, 'Sources:', {
+        bldgsize: property.building?.size?.bldgsize,
+        grosssize: property.building?.size?.grosssize,
+        livingsize: property.building?.size?.livingsize,
+        universalsize: property.building?.size?.universalsize,
+        summary: property.summary?.bldgsqft,
+        lotsize2: property.lot?.lotsize2
+    });
     
     if (estimatedValue && squareFeet) {
         pricePerSqFt = (estimatedValue / squareFeet).toFixed(2);
@@ -1252,6 +1268,100 @@ function displayResults(data, formData) {
     
     console.log('✅ Estimated value found:', estimatedValue, 'Source:', valueSource);
     
+    // Отримуємо середню ціну в районі (1 км = 0.62 милі)
+    let avgAreaPricePerSqft = null;
+    let areaPropertiesCount = 0;
+    
+    try {
+        const lat = property.location?.latitude;
+        const lon = property.location?.longitude;
+        
+        console.log('📍 Property coordinates:', lat, lon);
+        
+        if (lat && lon) {
+            console.log('🌍 Fetching area average price...');
+            const radius = 0.62; // 1 km in miles
+            const nearbyUrl = `${API_BASE_URL}/property/snapshot?latitude=${lat}&longitude=${lon}&radius=${radius}`;
+            console.log('🔗 Nearby URL:', nearbyUrl);
+            
+            const nearbyResponse = await fetch(nearbyUrl, {
+                headers: {
+                    'apikey': API_KEY,
+                    'Accept': 'application/json'
+                }
+            });
+            
+            console.log('📡 Nearby response status:', nearbyResponse.status);
+            
+            if (nearbyResponse.ok) {
+                const nearbyData = await nearbyResponse.json();
+                console.log('📦 Nearby data:', nearbyData);
+                console.log('🏘️ Properties found:', nearbyData.property?.length || 0);
+                
+                const pricesPerSqft = [];
+                
+                // Для кожного сусіднього будинку отримуємо детальні дані
+                if (nearbyData.property && nearbyData.property.length > 0) {
+                    const detailPromises = nearbyData.property.slice(0, 10).map(async (prop) => {
+                        try {
+                            const attomId = prop.identifier?.attomId;
+                            if (!attomId) return null;
+                            
+                            // Отримуємо AVM дані для кожного будинку
+                            const avmUrl = `${API_BASE_URL}/attomavm/detail?id=${attomId}`;
+                            const avmResp = await fetch(avmUrl, {
+                                headers: {
+                                    'apikey': API_KEY,
+                                    'Accept': 'application/json'
+                                }
+                            });
+                            
+                            if (avmResp.ok) {
+                                const avmData = await avmResp.json();
+                                const sqft = prop.building?.size?.universalsize || prop.building?.size?.livingsize || prop.building?.size?.bldgsize;
+                                const avmValue = avmData.property?.[0]?.avm?.amount?.value;
+                                
+                                if (sqft && avmValue && sqft > 0 && avmValue > 0) {
+                                    return { sqft, price: avmValue };
+                                }
+                            }
+                        } catch (e) {
+                            console.log('⚠️ Failed to fetch AVM for property:', e.message);
+                        }
+                        return null;
+                    });
+                    
+                    const results = await Promise.all(detailPromises);
+                    console.log('📊 AVM results:', results);
+                    
+                    results.forEach((result, index) => {
+                        if (result) {
+                            const pricePerSqft = result.price / result.sqft;
+                            pricesPerSqft.push(pricePerSqft);
+                            console.log(`Property ${index + 1}: sqft=${result.sqft}, price=${result.price}, $/sqft=${pricePerSqft.toFixed(2)}`);
+                        }
+                    });
+                }
+                
+                console.log('📊 Valid prices collected:', pricesPerSqft.length);
+                
+                if (pricesPerSqft.length > 0) {
+                    avgAreaPricePerSqft = (pricesPerSqft.reduce((a, b) => a + b, 0) / pricesPerSqft.length).toFixed(2);
+                    areaPropertiesCount = pricesPerSqft.length;
+                    console.log('💵 Average area price:', avgAreaPricePerSqft, 'from', areaPropertiesCount, 'properties');
+                } else {
+                    console.warn('⚠️ No valid properties found with both price and square footage data');
+                }
+            } else {
+                console.error('❌ Nearby API failed with status:', nearbyResponse.status);
+            }
+        } else {
+            console.warn('⚠️ No coordinates available for this property');
+        }
+    } catch (error) {
+        console.error('⚠️ Could not fetch area average:', error);
+    }
+    
     // Format address
     const address = property.address;
     const fullAddress = `${address.line1 || formData.address}, ${address.locality || formData.city}, ${address.countrySubd || formData.state} ${address.postal1 || formData.zipcode}`;
@@ -1268,41 +1378,51 @@ function displayResults(data, formData) {
     const heating = property.utilities?.heatingtype || 'N/A';
     const cooling = property.utilities?.coolingtype || 'N/A';
     
-    // Build main valuation HTML
-    let valuationHTML = '<div class="section-card"><h2>💰 Оцінка вартості</h2>';
+    // Build main valuation HTML - АКЦЕНТ НА ВАРТОСТІ
+    let valuationHTML = '<div class="section-card valuation-main">';
     valuationHTML += `
-        <div class="value-display">
-            <div class="value-amount">$${Number(estimatedValue).toLocaleString('en-US')}</div>
-            <div class="value-label">Орієнтовна вартість</div>
+        <div class="value-display-large">
+            <div class="value-amount-large">$${Number(estimatedValue).toLocaleString('en-US')}</div>
+            <div class="value-label-large">Орієнтовна вартість нерухомості</div>
         </div>
-        <div class="info-grid">
-            <div class="info-item">
-                <span class="info-label">Джерело оцінки:</span>
-                <span class="info-value">${valueSource}</span>
-            </div>
+        <div class="value-secondary-info">
             ${squareFeet ? `
-            <div class="info-item">
-                <span class="info-label">Площа:</span>
-                <span class="info-value">${Number(squareFeet).toLocaleString('en-US')} кв. футів</span>
+            <div class="secondary-item">
+                <span class="secondary-label">Площа:</span>
+                <span class="secondary-value">${Number(squareFeet).toLocaleString('en-US')} кв. фт</span>
             </div>
             ` : ''}
             ${pricePerSqFt ? `
-            <div class="info-item">
-                <span class="info-label">Ціна за кв. фут:</span>
-                <span class="info-value">$${Number(pricePerSqFt).toLocaleString('en-US')}</span>
+            <div class="secondary-item">
+                <span class="secondary-label">Ціна за кв. фут:</span>
+                <span class="secondary-value">$${Number(pricePerSqFt).toLocaleString('en-US')}</span>
             </div>
             ` : ''}
-            <div class="info-item">
-                <span class="info-label">Адреса:</span>
-                <span class="info-value">${fullAddress}</span>
+            ${avgAreaPricePerSqft ? `
+            <div class="secondary-item">
+                <span class="secondary-label">Середня ціна в районі (1 км):</span>
+                <span class="secondary-value">$${Number(avgAreaPricePerSqft).toLocaleString('en-US')}/кв.фт</span>
             </div>
+            <div class="secondary-item">
+                <span class="secondary-label">Проаналізовано будинків:</span>
+                <span class="secondary-value">${areaPropertiesCount} шт</span>
+            </div>
+            ` : ''}
+            <div class="secondary-item">
+                <span class="secondary-label">Джерело оцінки:</span>
+                <span class="secondary-value">${valueSource}</span>
+            </div>
+        </div>
+        <div class="address-info">
+            <span class="address-icon">📍</span>
+            <span class="address-text">${fullAddress}</span>
         </div>
     </div>`;
     
     document.getElementById('valuationInfo').innerHTML = valuationHTML;
     
-    // Build property info HTML
-    let propertyHTML = '<div class="section-card"><h3>🏠 Деталі нерухомості</h3>';
+    // Build property info HTML - другорядна інформація
+    let propertyHTML = '<div class="section-card property-details-secondary"><h3>🏠 Додаткові деталі</h3>';
     propertyHTML += '<div class="info-grid">';
     propertyHTML += `
         <div class="info-item">
@@ -1346,6 +1466,61 @@ function displayResults(data, formData) {
             <span class="info-value">${cooling}</span>
         </div>
     `;
+    
+    // Додаткові характеристики з різних джерел
+    if (property.building?.construction) {
+        const constr = property.building.construction;
+        if (constr.walltype) {
+            propertyHTML += `
+            <div class="info-item">
+                <span class="info-label">Тип стін:</span>
+                <span class="info-value">${constr.walltype}</span>
+            </div>`;
+        }
+        if (constr.roofcover) {
+            propertyHTML += `
+            <div class="info-item">
+                <span class="info-label">Покрівля:</span>
+                <span class="info-value">${constr.roofcover}</span>
+            </div>`;
+        }
+        if (constr.foundationtype) {
+            propertyHTML += `
+            <div class="info-item">
+                <span class="info-label">Фундамент:</span>
+                <span class="info-value">${constr.foundationtype}</span>
+            </div>`;
+        }
+    }
+    
+    if (property.building?.interior) {
+        const interior = property.building.interior;
+        if (interior.fplccount && interior.fplccount > 0) {
+            propertyHTML += `
+            <div class="info-item">
+                <span class="info-label">Камінів:</span>
+                <span class="info-value">${interior.fplccount}</span>
+            </div>`;
+        }
+    }
+    
+    if (property.utilities) {
+        if (property.utilities.watertype) {
+            propertyHTML += `
+            <div class="info-item">
+                <span class="info-label">Водопостачання:</span>
+                <span class="info-value">${property.utilities.watertype}</span>
+            </div>`;
+        }
+        if (property.utilities.sewertype) {
+            propertyHTML += `
+            <div class="info-item">
+                <span class="info-label">Каналізація:</span>
+                <span class="info-value">${property.utilities.sewertype}</span>
+            </div>`;
+        }
+    }
+    
     propertyHTML += '</div></div>';
     
     document.getElementById('propertyInfo').innerHTML = propertyHTML;
@@ -1422,11 +1597,20 @@ function displayExtendedDetails(property, lotSize, bedrooms, bathrooms, stories,
 // Display sales history
 function displaySalesHistory(sales) {
     if (!sales || !sales.property || !sales.property[0] || !sales.property[0].salehistory) {
-        document.getElementById('salesHistory').innerHTML = '<div class="section-card"><p>📊 Історія продажів недоступна</p></div>';
+        document.getElementById('salesInfo').innerHTML = '';
         return;
     }
     
     const salesData = sales.property[0].salehistory;
+    
+    // Перевірка чи є хоч якісь дані
+    const hasData = salesData.some(sale => sale.amount?.saleamt);
+    
+    if (!hasData) {
+        document.getElementById('salesInfo').innerHTML = '';
+        return;
+    }
+    
     let salesHTML = '<div class="section-card"><h3>📊 Історія продажів</h3><div class="table-container"><table class="data-table"><thead><tr><th>Дата</th><th>Ціна</th><th>Тип угоди</th></tr></thead><tbody>';
     
     salesData.forEach(sale => {
@@ -1437,17 +1621,30 @@ function displaySalesHistory(sales) {
     });
     
     salesHTML += '</tbody></table></div></div>';
-    document.getElementById('salesHistory').innerHTML = salesHTML;
+    document.getElementById('salesInfo').innerHTML = salesHTML;
 }
 
 // Display assessment history
 function displayAssessmentHistory(assessment) {
     if (!assessment || !assessment.property || !assessment.property[0] || !assessment.property[0].assessmenthistory) {
-        document.getElementById('assessmentHistory').innerHTML = '<div class="section-card"><p>💰 Історія оцінок недоступна</p></div>';
+        document.getElementById('assessmentInfo').innerHTML = '';
         return;
     }
     
     const assessmentData = assessment.property[0].assessmenthistory;
+    
+    // Перевірка чи є хоч якісь дані
+    const hasData = assessmentData.some(assess => 
+        assess.assessed?.assdlandvalue || 
+        assess.assessed?.assdimpvalue || 
+        assess.assessed?.assdttlvalue
+    );
+    
+    if (!hasData) {
+        document.getElementById('assessmentInfo').innerHTML = '';
+        return;
+    }
+    
     let assessHTML = '<div class="section-card"><h3>💰 Історія податкових оцінок</h3><div class="table-container"><table class="data-table"><thead><tr><th>Рік</th><th>Оцінка землі</th><th>Оцінка будівлі</th><th>Загальна оцінка</th></tr></thead><tbody>';
     
     assessmentData.forEach(assess => {
@@ -1459,13 +1656,13 @@ function displayAssessmentHistory(assessment) {
     });
     
     assessHTML += '</tbody></table></div></div>';
-    document.getElementById('assessmentHistory').innerHTML = assessHTML;
+    document.getElementById('assessmentInfo').innerHTML = assessHTML;
 }
 
 // Display school information
 function displaySchoolInfo(schools) {
     if (!schools || !schools.school || schools.school.length === 0) {
-        document.getElementById('schoolInfo').innerHTML = '<div class="section-card"><p>🏫 Інформація про школи недоступна</p></div>';
+        document.getElementById('schoolInfo').innerHTML = '';
         return;
     }
     
@@ -1562,7 +1759,7 @@ function displayNeighborhoodData(expanded, property) {
     }
     
     neighborhoodHTML += '</div>';
-    document.getElementById('neighborhoodData').innerHTML = neighborhoodHTML;
+    document.getElementById('neighborhoodInfo').innerHTML = neighborhoodHTML;
 }
 
 // Display owner information
