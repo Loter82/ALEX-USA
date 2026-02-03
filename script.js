@@ -1260,30 +1260,97 @@ function displayResults(data, formData) {
     const propertyType = property.summary?.proptype || 'N/A';
     const yearBuilt = property.summary?.yearbuilt || 'N/A';
     const lotSize = property.lot?.lotsize1 || 'N/A';
-    const bedrooms = property.building?.rooms?.beds || formData.bedrooms || 'N/A';
-    const bathrooms = property.building?.rooms?.bathstotal || formData.bathrooms || 'N/A';
+    const bedrooms = property.building?.rooms?.beds || 'N/A';
+    const bathrooms = property.building?.rooms?.bathstotal || 'N/A';
     const stories = property.building?.construction?.stories || 'N/A';
     const parking = property.building?.parking?.prkgSpaces || 'N/A';
     const pool = property.building?.interior?.pooldesc || 'Немає';
     const heating = property.utilities?.heatingtype || 'N/A';
     const cooling = property.utilities?.coolingtype || 'N/A';
     
-    // Update main values
-    document.getElementById('estimatedValue').textContent = estimatedValue 
-        ? `$${Number(estimatedValue).toLocaleString('en-US')}` 
-        : 'Недоступно';
-    document.getElementById('resultAddress').textContent = fullAddress;
-    document.getElementById('resultSquareFeet').textContent = `${Number(squareFeet).toLocaleString('en-US')} кв. футів`;
-    document.getElementById('pricePerSqFt').textContent = pricePerSqFt 
-        ? `$${Number(pricePerSqFt).toLocaleString('en-US')}/кв. фут` 
-        : 'N/A';
-    document.getElementById('propertyType').textContent = propertyType;
-    document.getElementById('yearBuilt').textContent = yearBuilt;
+    // Build main valuation HTML
+    let valuationHTML = '<div class="section-card"><h2>💰 Оцінка вартості</h2>';
+    valuationHTML += `
+        <div class="value-display">
+            <div class="value-amount">$${Number(estimatedValue).toLocaleString('en-US')}</div>
+            <div class="value-label">Орієнтовна вартість</div>
+        </div>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Джерело оцінки:</span>
+                <span class="info-value">${valueSource}</span>
+            </div>
+            ${squareFeet ? `
+            <div class="info-item">
+                <span class="info-label">Площа:</span>
+                <span class="info-value">${Number(squareFeet).toLocaleString('en-US')} кв. футів</span>
+            </div>
+            ` : ''}
+            ${pricePerSqFt ? `
+            <div class="info-item">
+                <span class="info-label">Ціна за кв. фут:</span>
+                <span class="info-value">$${Number(pricePerSqFt).toLocaleString('en-US')}</span>
+            </div>
+            ` : ''}
+            <div class="info-item">
+                <span class="info-label">Адреса:</span>
+                <span class="info-value">${fullAddress}</span>
+            </div>
+        </div>
+    </div>`;
+    
+    document.getElementById('valuationInfo').innerHTML = valuationHTML;
+    
+    // Build property info HTML
+    let propertyHTML = '<div class="section-card"><h3>🏠 Деталі нерухомості</h3>';
+    propertyHTML += '<div class="info-grid">';
+    propertyHTML += `
+        <div class="info-item">
+            <span class="info-label">Тип нерухомості:</span>
+            <span class="info-value">${propertyType}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Рік побудови:</span>
+            <span class="info-value">${yearBuilt}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Спальні:</span>
+            <span class="info-value">${bedrooms}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Ванні кімнати:</span>
+            <span class="info-value">${bathrooms}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Поверхів:</span>
+            <span class="info-value">${stories}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Паркувальні місця:</span>
+            <span class="info-value">${parking}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Розмір ділянки:</span>
+            <span class="info-value">${lotSize} кв. футів</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Басейн:</span>
+            <span class="info-value">${pool}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Опалення:</span>
+            <span class="info-value">${heating}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Кондиціонування:</span>
+            <span class="info-value">${cooling}</span>
+        </div>
+    `;
+    propertyHTML += '</div></div>';
+    
+    document.getElementById('propertyInfo').innerHTML = propertyHTML;
     
     console.log('✅ Results displayed successfully');
-    
-    // Display extended property details
-    displayExtendedDetails(property, lotSize, bedrooms, bathrooms, stories, parking, pool, heating, cooling);
     
     // Display sales history
     displaySalesHistory(sales);
@@ -1298,6 +1365,7 @@ function displayResults(data, formData) {
     displayNeighborhoodData(expanded, property);
     
     // Display owner information
+    displayOwnerInfo(property);
     displayOwnerInfo(property);
     
     // Show results
