@@ -886,12 +886,39 @@
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
+            // Prepare property details from stored data
+            const propertyDetails = {};
+            if (propertyData) {
+                // Get value range from display
+                const valueRangeText = document.getElementById('valueRange')?.textContent;
+                if (valueRangeText) {
+                    propertyDetails.estimatedValue = valueRangeText;
+                }
+                
+                // Get property info from data
+                if (propertyData.property) {
+                    const property = propertyData.property;
+                    
+                    propertyDetails.squareFeet = property?.building?.size?.bldgsize 
+                        || property?.building?.size?.universalsize 
+                        || property?.building?.size?.livingsize
+                        || property?.building?.size?.grosssize
+                        || document.getElementById('squareFeet').value;
+                    
+                    propertyDetails.bedrooms = property?.building?.rooms?.beds;
+                    propertyDetails.bathrooms = property?.building?.rooms?.bathstotal;
+                    propertyDetails.yearBuilt = property?.summary?.yearbuilt;
+                    propertyDetails.propertyType = property?.summary?.proptype;
+                }
+            }
+            
             const leadData = {
                 type: 'residential',
                 name: document.getElementById('leadName').value,
                 email: document.getElementById('leadEmail').value,
                 phone: document.getElementById('leadPhone').value,
                 propertyAddress: `${document.getElementById('address').value}, ${document.getElementById('city').value}, ${document.getElementById('state').value} ${document.getElementById('zipcode').value}`,
+                propertyDetails: propertyDetails,
                 timestamp: new Date().toISOString(),
                 userAgent: navigator.userAgent
             };
@@ -899,7 +926,7 @@
             console.log('🎯 LEAD CAPTURED:', leadData);
             
             try {
-                const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx81gA6wy224MnpFmI-431Xl3Jb4AxlKFvzOAM_P5dA8_p2MZd57F9TXSVjWIWxzO3p/exec';
+                const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyghv-plOuPnXR_B1DnAfepvGHkNN_XuVOP8ivxzhOAjJW-86xSv77gbFoNgnq4In3M/exec';
                 
                 await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
