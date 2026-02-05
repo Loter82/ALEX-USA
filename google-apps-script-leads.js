@@ -3,21 +3,17 @@
  * 
  * ІНСТРУКЦІЯ ПО НАЛАШТУВАННЮ:
  * 
- * 1. Відкрийте https://script.google.com/
- * 2. Натисніть "Новий проект"
- * 3. Вставте цей код
- * 4. Збережіть проект (Ctrl+S), назвіть "Property Leads Sender"
- * 5. Створіть Google Sheets таблицю або використайте існуючу
- * 6. Скопіюйте ID таблиці з URL (це частина між /d/ та /edit)
- * 7. Вставте ID в змінну SPREADSHEET_ID нижче
- * 8. Натисніть "Розгорнути" > "Нове розгортання"
- * 9. Тип: "Веб-додаток"
- * 10. "Виконувати як": Ваш обліковий запис
- * 11. "Хто має доступ": Будь-хто
- * 12. Натисніть "Розгорнути"
- * 13. Скопіюйте URL веб-додатку
- * 14. Вставте цей URL в файли valuation-residential.html і valuation-land.html
- *     замість 'YOUR_APPS_SCRIPT_URL'
+ * 1. Відкрийте вашу Google Sheets таблицю
+ * 2. Натисніть "Розширення" > "Apps Script"
+ * 3. Вставте цей код (замініть функцію myFunction)
+ * 4. Збережіть проект (Ctrl+S)
+ * 5. Натисніть "Розгорнути" > "Нове розгортання"
+ * 6. Тип: "Веб-додаток"
+ * 7. "Виконувати як": Ваш обліковий запис
+ * 8. "Хто має доступ": Будь-хто
+ * 9. Натисніть "Розгорнути" і надайте дозволи
+ * 10. Скопіюйте URL веб-додатку
+ * 11. Вставте URL в valuation-residential.html в APPS_SCRIPT_URL
  */
 
 // ============================================
@@ -26,12 +22,6 @@
 
 // Email куди відправляти ліди
 const RECIPIENT_EMAIL = 'loter.kiev@gmail.com';
-
-// ID Google Sheets таблиці
-// Приклад URL: https://docs.google.com/spreadsheets/d/1ABC123xyz456/edit
-// ID = 1ABC123xyz456
-// ⚠️ ВАЖЛИВО: Замініть на реальний ID вашої таблиці!
-const SPREADSHEET_ID = '1fhZ0Gy_bLxTnNQJDWCCuUIpMEZBSvLjz-zF2_1TsFW8';
 
 // Назва аркушів для різних типів нерухомості
 const SHEET_NAME_RESIDENTIAL = 'Residential Leads';
@@ -161,14 +151,8 @@ IP: ${data.ip || 'N/A'}
 
 function saveToGoogleSheets(data) {
   try {
-    // Validate SPREADSHEET_ID
-    if (!SPREADSHEET_ID || SPREADSHEET_ID === 'YOUR_SPREADSHEET_ID_HERE') {
-      console.error('❌ SPREADSHEET_ID not configured!');
-      return;
-    }
-    
-    // Open spreadsheet
-    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    // Get spreadsheet (bound script - opened from Extensions menu in the sheet)
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     
     // Determine sheet name based on lead type
     const sheetName = data.type === 'land' ? SHEET_NAME_LAND : SHEET_NAME_RESIDENTIAL;
@@ -187,17 +171,15 @@ function saveToGoogleSheets(data) {
     // Append data to sheet
     sheet.appendRow(rowData);
     
-    // Auto-resize columns for better readability
-    sheet.autoResizeColumns(1, rowData.length);
-    
     // Format the new row
     const lastRow = sheet.getLastRow();
     formatNewRow(sheet, lastRow);
     
-    console.log('Data saved to Google Sheets successfully');
+    console.log('✅ Data saved to Google Sheets successfully');
     
   } catch (error) {
-    console.error('Error saving to Google Sheets:', error);
+    console.error('❌ Error saving to Google Sheets:', error);
+    console.error('Error details:', error.toString());
     // Don't throw - we still want email to be sent even if Sheets fails
   }
 }
@@ -325,7 +307,7 @@ function formatNewRow(sheet, rowNumber) {
 // For testing GET requests
 function doGet(e) {
   return ContentService
-    .createTextOutput('✅ Lead submission endpoint is working!\n\n📧 Sends email to: ' + RECIPIENT_EMAIL + '\n📊 Saves to Google Sheets ID: ' + SPREADSHEET_ID + '\n\n📮 Use POST to submit leads.')
+    .createTextOutput('✅ Lead submission endpoint is working!\n\n📧 Sends email to: ' + RECIPIENT_EMAIL + '\n📊 Saves to active Google Sheets\n\n📮 Use POST to submit leads.')
     .setMimeType(ContentService.MimeType.TEXT);
 }
 
