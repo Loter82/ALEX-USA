@@ -981,22 +981,47 @@
                 `;
                 
                 const container = document.querySelector('.container');
-                container.insertBefore(successMessage, document.getElementById('fullResults'));
+                const fullResults = document.getElementById('fullResults');
+                container.insertBefore(successMessage, fullResults);
+                
+                // Hide full results section - user doesn't need to see it
+                fullResults.style.display = 'none';
                 
                 successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
                 leadSubmitted = true;
                 
-                setTimeout(() => {
-                    showFullResults(propertyData);
-                }, 2500);
-                
             } catch (error) {
                 console.error('❌ Error sending lead:', error);
-                alert('Your information was saved. We\'ll show you the results now.');
-                leadSubmitted = true;
+                
+                // Still show success message even if there's an error
                 document.getElementById('leadFormSection').style.display = 'none';
-                showFullResults(propertyData);
+                
+                const successMessage = document.createElement('div');
+                successMessage.style.cssText = `
+                    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                    color: white;
+                    padding: 50px;
+                    border-radius: 20px;
+                    text-align: center;
+                    margin: 40px 0;
+                    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+                    border: 3px solid #fbbf24;
+                `;
+                successMessage.innerHTML = `
+                    <div style="font-size: 4em; margin-bottom: 20px;">✅</div>
+                    <h2 style="font-size: 2.5em; margin-bottom: 20px; color: white;">Thank You!</h2>
+                    <p style="font-size: 1.3em; margin-bottom: 15px;">Your information has been received.</p>
+                    <p style="font-size: 1.2em; font-weight: 600;">We'll contact you within 24 hours with your cash offer!</p>
+                `;
+                
+                const container = document.querySelector('.container');
+                const fullResults = document.getElementById('fullResults');
+                container.insertBefore(successMessage, fullResults);
+                fullResults.style.display = 'none';
+                
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                leadSubmitted = true;
             }
         });
     </script>
