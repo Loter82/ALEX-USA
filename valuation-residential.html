@@ -769,8 +769,8 @@
             
             if (data.needsSquareFeet && data.nearbyData) {
                 const avgPricePerSqft = data.nearbyData.avgPricePerSqft;
-                const lowEstimate = Math.round(avgPricePerSqft * 1000);
-                const highEstimate = Math.round(avgPricePerSqft * 2000);
+                const lowEstimate = Math.round(avgPricePerSqft * 1000 * 0.7);
+                const highEstimate = Math.round(avgPricePerSqft * 2000 * 0.7);
                 
                 const low = lowEstimate.toLocaleString('en-US');
                 const high = highEstimate.toLocaleString('en-US');
@@ -807,9 +807,9 @@
             let squareFeet = null;
             
             if (avm) {
-                avgValue = Math.round((avm.low + avm.high) / 2);
-                const low = avm.low.toLocaleString('en-US');
-                const high = avm.high.toLocaleString('en-US');
+                avgValue = Math.round(((avm.low + avm.high) / 2) * 0.7);
+                const low = Math.round(avm.low * 0.7).toLocaleString('en-US');
+                const high = Math.round(avm.high * 0.7).toLocaleString('en-US');
                 document.getElementById('valueRange').textContent = `$${low} - $${high}`;
                 
                 squareFeet = property?.building?.size?.bldgsize 
