@@ -30,7 +30,8 @@ const RECIPIENT_EMAIL = 'loter.kiev@gmail.com';
 // ID Google Sheets таблиці
 // Приклад URL: https://docs.google.com/spreadsheets/d/1ABC123xyz456/edit
 // ID = 1ABC123xyz456
-const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
+// ⚠️ ВАЖЛИВО: Замініть на реальний ID вашої таблиці!
+const SPREADSHEET_ID = '1fhZ0Gy_bLxTnNQJDWCCuUIpMEZBSvLjz-zF2_1TsFW8';
 
 // Назва аркушів для різних типів нерухомості
 const SHEET_NAME_RESIDENTIAL = 'Residential Leads';
@@ -106,6 +107,9 @@ Email: ${data.email}
   // Add property details if available
   if (data.propertyDetails) {
     body += `\nДЕТАЛІ НЕРУХОМОСТІ:\n-------------------\n`;
+    if (data.propertyDetails.attomId) {
+      body += `ATTOM Property ID: ${data.propertyDetails.attomId}\n`;
+    }
     if (data.propertyDetails.estimatedValue) {
       body += `Оціночна вартість: ${data.propertyDetails.estimatedValue}\n`;
     }
@@ -157,6 +161,12 @@ IP: ${data.ip || 'N/A'}
 
 function saveToGoogleSheets(data) {
   try {
+    // Validate SPREADSHEET_ID
+    if (!SPREADSHEET_ID || SPREADSHEET_ID === 'YOUR_SPREADSHEET_ID_HERE') {
+      console.error('❌ SPREADSHEET_ID not configured!');
+      return;
+    }
+    
     // Open spreadsheet
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     
@@ -201,6 +211,7 @@ function setupSheetHeaders(sheet, type) {
       'Email',
       'Телефон',
       'Адреса',
+      'ATTOM Property ID',
       'Площа (акри)',
       'Мета',
       'Оціночна вартість',
@@ -215,6 +226,7 @@ function setupSheetHeaders(sheet, type) {
       'Email',
       'Телефон',
       'Адреса',
+      'ATTOM Property ID',
       'Оціночна вартість',
       'Площа (кв.фт)',
       'Спалень',
@@ -246,6 +258,7 @@ function prepareRowData(data) {
       data.email || '',
       data.phone || '',
       data.propertyAddress || '',
+      data.propertyDetails?.attomId || '',
       data.acres || '',
       data.purpose || '',
       data.propertyDetails?.estimatedValue || '',
@@ -260,6 +273,7 @@ function prepareRowData(data) {
       data.email || '',
       data.phone || '',
       data.propertyAddress || '',
+      data.propertyDetails?.attomId || '',
       data.propertyDetails?.estimatedValue || '',
       data.propertyDetails?.squareFeet || '',
       data.propertyDetails?.bedrooms || '',

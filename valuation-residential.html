@@ -897,6 +897,13 @@
             // Prepare property details from stored data
             const propertyDetails = {};
             if (propertyData) {
+                // Get ATTOM Property ID
+                if (propertyData.property?.identifier?.Id) {
+                    propertyDetails.attomId = propertyData.property.identifier.Id;
+                } else if (propertyData.property?.identifier?.attomId) {
+                    propertyDetails.attomId = propertyData.property.identifier.attomId;
+                }
+                
                 // Get value range from display
                 const valueRangeText = document.getElementById('valueRange')?.textContent;
                 if (valueRangeText) {
