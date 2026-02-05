@@ -214,141 +214,145 @@
             line-height: 1.5;
         }
 
-        /* Solutions Section */
-        .solutions {
-            margin: 60px 0;
+        /* Main CTA Section */
+        .main-cta-section {
+            margin: 70px 0;
             animation: slideIn 1.4s ease-out;
         }
 
-        .solutions h2 {
-            font-size: 2.8em;
+        .cta-mega-card {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            border: 4px solid #fbbf24;
+            border-radius: 25px;
+            padding: 60px 50px;
             text-align: center;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-
-        .solutions-subtitle {
-            text-align: center;
-            font-size: 1.3em;
-            color: #9ca3af;
-            margin-bottom: 50px;
-        }
-
-        .solution-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 35px;
-        }
-
-        .solution-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 3px solid #334155;
-            border-radius: 20px;
-            padding: 45px 35px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-decoration: none;
-            display: block;
+            max-width: 900px;
+            margin: 0 auto;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 30px 80px rgba(239, 68, 68, 0.5);
+            animation: urgentGlow 3s infinite;
         }
 
-        .solution-card::before {
+        .cta-mega-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
         }
 
-        .solution-card:hover::before {
-            opacity: 1;
-        }
-
-        .solution-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #10b981;
-            box-shadow: 0 25px 60px rgba(16, 185, 129, 0.4);
-        }
-
-        .solution-icon {
-            font-size: 4.5em;
-            margin-bottom: 25px;
-            display: block;
-        }
-
-        .solution-tag {
+        .cta-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 700;
-            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #dc2626;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 0.95em;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .solution-title {
-            font-size: 2em;
+        .cta-mega-card h2 {
+            font-size: 3.5em;
             color: #ffffff;
-            font-weight: 700;
-            margin-bottom: 18px;
-            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.7);
+            line-height: 1.1;
         }
 
-        .solution-description {
-            color: #9ca3af;
-            font-size: 1.05em;
-            line-height: 1.7;
-            margin-bottom: 25px;
+        .cta-mega-subtitle {
+            font-size: 1.6em;
+            color: #ffffff;
+            margin-bottom: 50px;
+            line-height: 1.5;
+            font-weight: 500;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
 
-        .solution-features {
-            list-style: none;
-            margin-bottom: 25px;
+        .cta-benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
         }
 
-        .solution-features li {
-            padding: 10px 0;
-            color: #d1d5db;
-            font-size: 1em;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
         }
 
-        .solution-features li:before {
-            content: "✓ ";
-            color: #10b981;
-            font-weight: bold;
-            font-size: 1.3em;
-            margin-right: 10px;
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #fbbf24;
         }
 
-        .cta-button {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 18px 35px;
-            border-radius: 12px;
-            font-size: 1.2em;
+        .benefit-icon {
+            font-size: 2.5em;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .benefit-text {
+            color: #ffffff;
+            font-size: 1.1em;
             font-weight: 700;
             text-align: center;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .mega-cta-button {
             display: inline-block;
-            transition: all 0.3s;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            padding: 28px 60px;
+            border-radius: 15px;
+            font-size: 1.6em;
+            font-weight: 900;
             text-decoration: none;
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s infinite;
+            border: 3px solid #ffffff;
         }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.5);
+        .mega-cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
         }
 
-        /* Timeline Process */
+        .cta-disclaimer {
+            margin-top: 25px;
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Process Timeline */
         .process-section {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 2px solid #334155;
@@ -466,6 +470,28 @@
                 font-size: 2.5em;
             }
 
+            .cta-mega-card {
+                padding: 40px 25px;
+            }
+
+            .cta-mega-card h2 {
+                font-size: 2.2em;
+            }
+
+            .cta-mega-subtitle {
+                font-size: 1.2em;
+            }
+
+            .cta-benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .mega-cta-button {
+                padding: 20px 35px;
+                font-size: 1.2em;
+            }
+
             .solution-cards {
                 grid-template-columns: 1fr;
             }
@@ -489,13 +515,12 @@
 <body>
     <!-- Emergency Banner -->
     <div class="emergency-banner">
-        <span>🚨 FORECLOSURE EMERGENCY? CALL NOW: 1-800-SAVE-HOME | Available 24/7</span>
+        <span>🚨 FORECLOSURE EMERGENCY? WE'RE HERE TO HELP 24/7</span>
     </div>
 
     <div class="container">
         <!-- Hero Section -->
         <section class="hero">
-            <div class="hero-icon">🛟</div>
             <h1>
                 <span class="urgent">STOP FORECLOSURE</span>
                 <span class="hope">We're Your Lifeline</span>
@@ -544,73 +569,50 @@
                     <div class="badge-title">100% Confidential</div>
                     <div class="badge-text">Your situation stays private. We protect your dignity and privacy.</div>
                 </div>
-                <div class="badge">
-                    <span class="badge-icon">💰</span>
-                    <div class="badge-title">Real Cash Solutions</div>
-                    <div class="badge-text">Get money in your hands fast - enough to save your situation.</div>
-                </div>
             </div>
         </section>
 
-        <!-- Solutions Section -->
-        <section class="solutions">
-            <h2>3 Ways We Can Save Your Home</h2>
-            <p class="solutions-subtitle">Choose the path that works best for your situation</p>
+        <!-- Main CTA Section -->
+        <section class="main-cta-section">
+            <div class="cta-mega-card">
+                <div class="cta-badge">🚨 EMERGENCY SOLUTION AVAILABLE NOW</div>
+                <h2>Get INSTANT Cash for Your Home</h2>
+                <p class="cta-mega-subtitle">
+                    Stop foreclosure in 7 days or less. We buy your house AS-IS for CASH.
+                </p>
+                
+                <div class="cta-benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">⚡</span>
+                        <span class="benefit-text">Cash offer in 24 hours</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🏠</span>
+                        <span class="benefit-text">Close in 7-14 days</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🔧</span>
+                        <span class="benefit-text">No repairs needed</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">💰</span>
+                        <span class="benefit-text">We pay closing costs</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🛡️</span>
+                        <span class="benefit-text">Stop foreclosure NOW</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">✅</span>
+                        <span class="benefit-text">Walk away debt-free</span>
+                    </div>
+                </div>
 
-            <div class="solution-cards">
-                <!-- Solution 1: Emergency Sale -->
-                <a href="valuation-residential.html" class="solution-card">
-                    <span class="solution-icon">💵</span>
-                    <span class="solution-tag">Most Popular</span>
-                    <h3 class="solution-title">Emergency Cash Sale</h3>
-                    <p class="solution-description">
-                        We buy your house fast for cash - close in as little as 7 days and walk away with money in hand.
-                    </p>
-                    <ul class="solution-features">
-                        <li>Cash offer in 24 hours</li>
-                        <li>Close in 7-14 days</li>
-                        <li>No repairs needed</li>
-                        <li>We pay closing costs</li>
-                        <li>Stop foreclosure immediately</li>
-                    </ul>
-                    <span class="cta-button">Get My Cash Offer →</span>
+                <a href="valuation-residential.html" class="mega-cta-button">
+                    💵 GET MY CASH OFFER NOW - IT'S FREE →
                 </a>
-
-                <!-- Solution 2: Loan Rescue -->
-                <a href="#" class="solution-card">
-                    <span class="solution-icon">🏦</span>
-                    <span class="solution-tag">Keep Your Home</span>
-                    <h3 class="solution-title">Loan Rescue Program</h3>
-                    <p class="solution-description">
-                        We negotiate with your lender to restructure your loan, reduce payments, or find forbearance options.
-                    </p>
-                    <ul class="solution-features">
-                        <li>Stop foreclosure process</li>
-                        <li>Reduce monthly payments</li>
-                        <li>Negotiate with lender</li>
-                        <li>Keep your home</li>
-                        <li>Free consultation</li>
-                    </ul>
-                    <span class="cta-button">Get Free Consultation →</span>
-                </a>
-
-                <!-- Solution 3: Investor Match -->
-                <a href="#" class="solution-card">
-                    <span class="solution-icon">🤝</span>
-                    <span class="solution-tag">Win-Win</span>
-                    <h3 class="solution-title">Investor Partnership</h3>
-                    <p class="solution-description">
-                        We connect you with investors who buy your debt, save your credit, and let you stay in your home.
-                    </p>
-                    <ul class="solution-features">
-                        <li>Save your credit score</li>
-                        <li>Stay in your home</li>
-                        <li>Debt-free solution</li>
-                        <li>Fresh financial start</li>
-                        <li>Flexible terms</li>
-                    </ul>
-                    <span class="cta-button">Explore Options →</span>
-                </a>
+                
+                <p class="cta-disclaimer">No obligation. No fees. Completely confidential.</p>
             </div>
         </section>
 
@@ -683,6 +685,10 @@
         <p>© 2026 Foreclosure Rescue Solutions | We help homeowners in crisis</p>
         <p style="margin-top: 10px; font-size: 0.9em;">
             Licensed. Bonded. Trusted by thousands of families across America.
+        </p>
+        <p style="margin-top: 15px; font-size: 0.85em;">
+            <a href="terms-of-service.html" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
+            <a href="privacy-policy.html" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
         </p>
     </footer>
 </body>
