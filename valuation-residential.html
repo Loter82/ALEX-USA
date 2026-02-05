@@ -3,288 +3,544 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Cash Offer for Your House - Step 1</title>
+    <title>🚨 Get Emergency Cash Offer | Stop Foreclosure NOW</title>
     <link rel="stylesheet" href="styles.css?v=2">
     <style>
-        /* Головна картка з вартістю - НАЙВАЖЛИВІША ІНФОРМАЦІЯ */
-        .valuation-main {
-            background: linear-gradient(135deg, #2b3847 0%, #1e2a38 100%);
-            border: 3px solid #5288c1;
-            box-shadow: 0 8px 24px rgba(82, 136, 193, 0.3);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes urgentGlow {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(239, 68, 68, 0.5), 0 0 60px rgba(239, 68, 68, 0.3); 
+            }
+            50% { 
+                box-shadow: 0 0 50px rgba(239, 68, 68, 0.8), 0 0 100px rgba(239, 68, 68, 0.5); 
+            }
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+            padding: 18px 20px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.15em;
+            letter-spacing: 1.5px;
+            animation: urgentGlow 2s infinite;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+        }
+
+        .emergency-banner span {
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #9ca3af;
+            margin-bottom: 20px;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 .urgent-text {
+            color: #ef4444;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #d1d5db;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Section Card */
+        .section-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 20px;
             padding: 40px;
             margin-bottom: 30px;
         }
-        
-        .value-display-large {
-            text-align: center;
-            padding: 30px;
-            background: rgba(82, 136, 193, 0.1);
-            border-radius: 12px;
+
+        /* Form Styles */
+        .form-group {
             margin-bottom: 25px;
         }
-        
-        .value-amount-large {
-            font-size: 3.5em;
-            font-weight: 800;
-            color: #5288c1;
-            text-shadow: 0 2px 10px rgba(82, 136, 193, 0.5);
+
+        .form-group label {
+            display: block;
             margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
-        
-        .value-label-large {
-            font-size: 1.3em;
-            color: #e4e4e4;
+            color: #ffffff;
             font-weight: 600;
+            font-size: 1.05em;
         }
-        
-        .value-secondary-info {
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #334155;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-group select option {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .form-group small {
+            color: #9ca3af;
+            font-size: 0.9em;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .form-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 30px;
-            padding: 25px;
-            background: rgba(23, 33, 43, 0.5);
-            border-radius: 8px;
         }
-        
-        .secondary-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .secondary-label {
-            font-size: 0.85em;
-            color: #aaaaaa;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .secondary-value {
-            font-size: 1.2em;
-            color: #e4e4e4;
-            font-weight: 600;
-        }
-        
-        .address-info {
-            margin-top: 25px;
+
+        /* Button */
+        .button-primary {
+            width: 100%;
             padding: 20px;
-            background: rgba(82, 136, 193, 0.05);
-            border-left: 4px solid #5288c1;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
-        .address-icon {
-            font-size: 1.5em;
+
+        .button-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5);
         }
-        
-        .address-text {
-            font-size: 1.1em;
-            color: #e4e4e4;
+
+        .button-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
         }
-        
-        /* Другорядна інформація - менш помітна */
-        .property-details-secondary {
-            opacity: 0.85;
-        }
-        
-        .property-details-secondary h3 {
-            font-size: 1.2em;
-            color: #aaaaaa;
-        }
-        
-        .progress-bar {
-            background: #17212b;
-            height: 8px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            background: linear-gradient(90deg, #5288c1 0%, #3a6b9e 100%);
+
+        /* Spinner */
+        .spinner-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            transition: width 0.3s;
+            background: rgba(10, 14, 39, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
         }
-        
-        .step-indicator {
+
+        .spinner-overlay.active {
+            display: flex;
+        }
+
+        .spinner-content {
             text-align: center;
-            color: #aaaaaa;
-            margin-bottom: 20px;
-            font-size: 0.9em;
         }
-        
-        #preliminaryResults {
-            background: #17212b;
-            border-radius: 12px;
-            padding: 30px;
-            border: 2px solid #5288c1;
-            margin-bottom: 30px;
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(16, 185, 129, 0.2);
+            border-top: 8px solid #10b981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
         }
-        
-        .value-range {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, #5288c1 0%, #3a6b9e 100%);
-            border-radius: 12px;
-            margin-bottom: 30px;
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        .value-range-title {
-            color: #e4e4e4;
-            font-size: 0.9em;
+
+        .spinner-text {
+            color: #ffffff;
+            font-size: 1.3em;
+            font-weight: 700;
             margin-bottom: 10px;
         }
-        
+
+        .spinner-subtext {
+            color: #9ca3af;
+            font-size: 1em;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            width: calc(100% - 40px);
+            margin-top: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-item {
+            padding: 15px;
+            cursor: pointer;
+            color: #d1d5db;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        /* Value Display */
+        .value-range {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 4px solid #fbbf24;
+            animation: urgentGlow 3s infinite;
+        }
+
+        .value-range-title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
         .value-range-amount {
             color: #ffffff;
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 5px;
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
         }
-        
+
         .value-range-subtitle {
-            color: #e4e4e4;
-            font-size: 0.85em;
-            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1em;
         }
-        
+
+        #basicInfo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            text-align: center;
+            padding: 25px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #334155;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .info-box:hover {
+            border-color: #10b981;
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .info-label {
+            color: #9ca3af;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            color: #ffffff;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        /* CTA Box */
         .cta-box {
-            background: #1e2a38;
-            border-left: 4px solid #5288c1;
-            padding: 30px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 3px solid #10b981;
+            padding: 40px;
+            border-radius: 20px;
             margin-top: 30px;
         }
-        
+
         .cta-box h3 {
-            color: #5288c1;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            color: #10b981;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
         }
-        
+
         .cta-box ul {
             list-style: none;
-            margin: 20px 0;
+            margin: 25px 0;
         }
-        
+
         .cta-box li {
-            padding: 10px 0;
-            padding-left: 30px;
+            padding: 15px 0;
+            padding-left: 35px;
             position: relative;
-            color: #e4e4e4;
+            color: #d1d5db;
+            font-size: 1.05em;
+            line-height: 1.6;
         }
-        
+
         .cta-box li:before {
             content: "✓";
             position: absolute;
             left: 0;
-            color: #5288c1;
+            color: #10b981;
             font-weight: bold;
+            font-size: 1.5em;
         }
-        
+
+        /* Lead Form */
         .lead-form {
-            background: #17212b;
-            border-radius: 12px;
-            padding: 40px;
-            border: 1px solid #2b3847;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            border: 4px solid #fbbf24;
+            border-radius: 25px;
+            padding: 50px 40px;
             margin-top: 30px;
+            box-shadow: 0 30px 80px rgba(239, 68, 68, 0.5);
+            animation: urgentGlow 3s infinite;
         }
-        
+
         .lead-form h2 {
-            color: #5288c1;
-            margin-bottom: 10px;
-            font-size: 1.8em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 2.3em;
+            text-align: center;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
         }
-        
+
         .lead-form .subtitle {
-            color: #aaaaaa;
-            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 35px;
+            font-size: 1.1em;
         }
-        
-        .form-group {
-            margin-bottom: 20px;
+
+        .lead-form .form-group input {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1a1a1a;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #e4e4e4;
-            font-weight: 500;
+
+        .lead-form .form-group input:focus {
+            border-color: #fbbf24;
+            background: #ffffff;
         }
-        
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            background: #1e2a38;
-            border: 1px solid #2b3847;
-            border-radius: 8px;
-            color: #e4e4e4;
-            font-size: 1em;
+
+        .lead-form .form-group label {
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #5288c1;
+
+        .lead-form .form-group small {
+            color: rgba(255, 255, 255, 0.8);
         }
-        
-        .form-group small {
-            color: #aaaaaa;
-            font-size: 0.85em;
-            display: block;
-            margin-top: 5px;
-        }
-        
+
         .submit-btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #5288c1 0%, #3a6b9e 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            font-weight: 600;
+            padding: 22px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            border: 3px solid #ffffff;
+            border-radius: 15px;
+            font-size: 1.4em;
+            font-weight: 900;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            animation: pulse 2s infinite;
         }
-        
+
         .submit-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
-        
+
         .bonus-badge {
-            background: #1e2a38;
-            border: 1px solid #5288c1;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
             text-align: center;
         }
-        
+
         .bonus-badge .icon {
-            font-size: 2em;
+            font-size: 1.5em;
             margin-bottom: 10px;
+            font-weight: bold;
+            color: #ffffff;
         }
-        
+
         .bonus-badge .text {
-            color: #5288c1;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #ef4444;
+            text-align: center;
+        }
+
+        /* Back Link */
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-link a {
+            color: #10b981;
+            text-decoration: none;
+            font-size: 1.05em;
             font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #059669;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .value-range-amount {
+                font-size: 2.5em;
+            }
+
+            .section-card {
+                padding: 25px 20px;
+            }
+
+            .lead-form {
+                padding: 35px 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        <span>🚨 FORECLOSURE EMERGENCY? GET CASH OFFER IN 24 HOURS</span>
+    </div>
+
+    <!-- Spinner Overlay -->
+    <div class="spinner-overlay" id="spinnerOverlay">
+        <div class="spinner-content">
+            <div class="spinner"></div>
+            <div class="spinner-text">Analyzing Your Property...</div>
+            <div class="spinner-subtext">Getting real-time market data from ATTOM</div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="step-indicator">Step <span id="currentStep">1</span> of 2</div>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill" style="width: 50%;"></div>
         </div>
         
-        <h1 style="text-align: center; margin-bottom: 10px;">Get Your Cash Offer for Your House</h1>
-        <p style="text-align: center; color: #aaaaaa; margin-bottom: 40px;">Enter your property address to see your estimated value</p>
+        <h1><span class="urgent-text">STOP FORECLOSURE</span><br>Get Your Emergency Cash Offer</h1>
+        <p class="subtitle">Enter your property address to see your estimated value and get a no-obligation cash offer in 24 hours</p>
         
         <!-- Step 1: Property Address Form -->
         <div id="searchSection" class="section-card">
@@ -293,28 +549,28 @@
                 <div class="form-group">
                     <label>State *</label>
                     <select id="state" required>
-                        <option value="">Select State First</option>
+                        <option value="">Select Your State</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label>City *</label>
-                    <input type="text" id="city" placeholder="Start typing city name..." autocomplete="off" required>
-                    <div id="cityDropdown" class="dropdown-menu"></div>
+                    <input type="text" id="city" placeholder="Enter your city" autocomplete="off" required>
+                    <div id="cityDropdown" class="dropdown-menu" style="display: none;"></div>
                 </div>
                 
                 <div class="form-group">
                     <label>Street Address *</label>
-                    <input type="text" id="address" placeholder="Start typing your address..." autocomplete="off" required>
-                    <div id="addressDropdown" class="dropdown-menu"></div>
-                    <small style="color: #aaaaaa; font-size: 0.85em; margin-top: 5px; display: block;">Select from dropdown to auto-fill ZIP code</small>
+                    <input type="text" id="address" placeholder="Enter your street address" autocomplete="off" required>
+                    <div id="addressDropdown" class="dropdown-menu" style="display: none;"></div>
+                    <small>Select from dropdown to auto-fill ZIP code</small>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>ZIP Code * <span style="color: #5288c1; font-size: 0.85em; font-weight: normal;">(auto-filled)</span></label>
-                        <input type="text" id="zipcode" placeholder="Select address to auto-fill" readonly style="background: #0f1821; cursor: not-allowed; color: #aaaaaa;" required>
-                        <small style="color: #aaaaaa; font-size: 0.85em; margin-top: 5px; display: block;">ZIP code will be filled automatically when you select an address</small>
+                        <label>ZIP Code *</label>
+                        <input type="text" id="zipcode" placeholder="Auto-filled" readonly style="background: rgba(255, 255, 255, 0.02); cursor: not-allowed; opacity: 0.7;" required>
+                        <small>Will be filled automatically</small>
                     </div>
                     
                     <div class="form-group">
@@ -323,8 +579,8 @@
                     </div>
                 </div>
                 
-                <button type="submit" class="button button-primary" style="width: 100%; padding: 18px; font-size: 1.1em; font-weight: 600; margin-top: 10px;">
-                    Get My Cash Offer →
+                <button type="submit" class="button-primary">
+                    💵 Get My Cash Offer Now →
                 </button>
             </form>
         </div>
@@ -332,39 +588,39 @@
         <!-- Step 1.5: Preliminary Results -->
         <div id="preliminaryResults" style="display: none;">
             <div class="value-range">
-                <div class="value-range-title">Estimated Property Value:</div>
+                <div class="value-range-title">🏠 ESTIMATED PROPERTY VALUE</div>
                 <div class="value-range-amount" id="valueRange">$145,000 - $165,000</div>
                 <div class="value-range-subtitle">Based on ATTOM data and comparable sales</div>
             </div>
             
-            <div id="basicInfo" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
-                <!-- Базова інформація -->
+            <div id="basicInfo">
+                <!-- Property info will be inserted here -->
             </div>
             
             <div class="cta-box">
-                <h3>Why Sell to Us?</h3>
+                <h3>✅ Why Accept Our Cash Offer?</h3>
                 <ul>
-                    <li><strong>Cash Offer in 24 Hours</strong> - No waiting for bank approvals</li>
+                    <li><strong>Cash Offer in 24 Hours</strong> - Stop foreclosure immediately</li>
                     <li><strong>No Repairs Needed</strong> - We buy houses as-is, any condition</li>
-                    <li><strong>Zero Fees & Commissions</strong> - Save up to 6% in realtor fees</li>
-                    <li><strong>Close on Your Schedule</strong> - Fast as 7 days or take your time</li>
+                    <li><strong>Zero Fees & Commissions</strong> - Save thousands in realtor fees</li>
+                    <li><strong>Close in 7-14 Days</strong> - Get cash fast when you need it most</li>
                     <li><strong>We Handle Everything</strong> - Paperwork, liens, legal issues</li>
-                    <li><strong>Fair Market Price</strong> - Based on real comparable sales</li>
+                    <li><strong>100% Confidential</strong> - Your privacy is protected</li>
                 </ul>
-                <button onclick="showLeadForm()" style="width: 100%; padding: 18px; font-size: 1.1em; font-weight: 600; margin-top: 20px; background: linear-gradient(135deg, #5288c1 0%, #3a6b9e 100%); color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(82, 136, 193, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(82, 136, 193, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(82, 136, 193, 0.3)';">
-                    Get My Cash Offer Now
+                <button onclick="showLeadForm()" class="button-primary" style="margin-top: 25px;">
+                    Get My Official Cash Offer Now
                 </button>
             </div>
         </div>
         
         <!-- Step 2: Lead Form -->
         <div id="leadFormSection" class="lead-form" style="display: none;">
-            <h2>Get Your No-Obligation Cash Offer</h2>
-            <p class="subtitle">You've seen the estimated value. Now let us make you a fair cash offer with no obligation to accept. We'll contact you within 24 hours with a concrete offer and answer all your questions.</p>
+            <h2>🚨 Get Your Cash Offer</h2>
+            <p class="subtitle">Fill out your contact information below. We'll send you an official cash offer within 24 hours. No obligation to accept.</p>
             
             <form id="leadForm">
                 <div class="form-group">
-                    <label>Your Name *</label>
+                    <label>Your Full Name *</label>
                     <input type="text" id="leadName" placeholder="John Smith" required>
                 </div>
                 
@@ -377,20 +633,20 @@
                 <div class="form-group">
                     <label>Phone Number *</label>
                     <input type="tel" id="leadPhone" placeholder="(555) 123-4567" required>
-                    <small>Best number to reach you to discuss details and answer questions</small>
+                    <small>Best number to reach you for urgent matters</small>
                 </div>
                 
                 <div class="bonus-badge">
-                    <div class="icon" style="font-weight: bold; font-size: 1.2em;">FAST</div>
+                    <div class="icon">⚡ EMERGENCY RESPONSE</div>
                     <div class="text">Cash Offer in 24 Hours • No Fees • No Repairs • Close in 7 Days</div>
                 </div>
                 
                 <button type="submit" class="submit-btn">
-                    Get My Cash Offer Now
+                    💵 GET MY CASH OFFER NOW
                 </button>
                 
-                <p style="text-align: center; color: #aaaaaa; font-size: 0.85em; margin-top: 20px;">
-                    Your information is secure. No obligation - you can decline our offer at any time.
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.8); font-size: 0.9em; margin-top: 20px;">
+                    🔒 Your information is secure. No obligation - you can decline our offer at any time.
                 </p>
             </form>
         </div>
@@ -400,17 +656,14 @@
             <div id="results"></div>
         </div>
         
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="index.html" style="color: #5288c1; text-decoration: none;">Back to Home</a>
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a>
         </div>
     </div>
     
-    <!-- API Configuration - load first -->
+    <!-- Scripts -->
     <script src="config.js"></script>
-    
-    <!-- Google Maps JavaScript API with Places Library - loaded dynamically -->
     <script>
-        // Load Google Maps API with key from CONFIG (no fallback for security)
         (function() {
             if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_PLACES_API_KEY) {
                 const script = document.createElement('script');
@@ -425,41 +678,29 @@
     </script>
     <script src="script.js"></script>
     <script>
-        // Wait for script.js to load
-        if (typeof window.getPropertyData === 'undefined') {
-            console.error('script.js not loaded properly');
-        }
-        
-        // Update placeholder when state changes (reuse existing variables from script.js)
         const stateSelectElement = document.getElementById('state');
         const cityInputElement = document.getElementById('city');
         
         if (stateSelectElement && cityInputElement) {
             stateSelectElement.addEventListener('change', function() {
                 if (this.value) {
-                    cityInputElement.placeholder = 'Type city name in ' + this.options[this.selectedIndex].text;
+                    cityInputElement.placeholder = 'Type city in ' + this.options[this.selectedIndex].text;
                 } else {
-                    cityInputElement.placeholder = 'Start typing city name...';
+                    cityInputElement.placeholder = 'Enter your city';
                 }
             });
         }
         
-        // Prevent default form submission from script.js
         const propertyForm = document.getElementById('propertyForm');
         if (propertyForm) {
             propertyForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                console.log('Form submitted!');
-                
-                // Validate
                 const address = document.getElementById('address').value.trim();
                 const city = document.getElementById('city').value.trim();
                 const state = document.getElementById('state').value;
                 const zipcode = document.getElementById('zipcode').value.trim();
-                
-                console.log('Form data:', { address, city, state, zipcode });
                 
                 if (!state) {
                     alert('Please select a state first!');
@@ -474,94 +715,96 @@
                     return;
                 }
             
-            // Gather form data
-            const formData = {
-                address,
-                city,
-                state,
-                zipcode,
-                squareFeet: document.getElementById('squareFeet').value
-            };
-            
-            console.log('Calling API with:', formData);
-            
-            try {
-                // Call API
-                const data = await window.getPropertyData(formData);
-                console.log('API response:', data);
-                propertyData = data;
-                showPreliminaryResults(data);
-            } catch (error) {
-                console.error('API error:', error);
-                document.getElementById('error').textContent = error.message;
-                document.getElementById('error').style.display = 'block';
-            }
+                const formData = {
+                    address,
+                    city,
+                    state,
+                    zipcode,
+                    squareFeet: document.getElementById('squareFeet').value
+                };
+                
+                // Show spinner
+                const spinner = document.getElementById('spinnerOverlay');
+                const submitBtn = e.target.querySelector('.button-primary');
+                const originalBtnText = submitBtn.textContent;
+                
+                spinner.classList.add('active');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Analyzing Property...';
+                
+                try {
+                    const data = await window.getPropertyData(formData);
+                    propertyData = data;
+                    
+                    // Hide spinner
+                    spinner.classList.remove('active');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    
+                    showPreliminaryResults(data);
+                } catch (error) {
+                    console.error('API error:', error);
+                    
+                    // Hide spinner
+                    spinner.classList.remove('active');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    
+                    document.getElementById('error').textContent = error.message;
+                    document.getElementById('error').style.display = 'block';
+                    
+                    // Scroll to error
+                    document.getElementById('error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }, true);
         }
         
-        // Workflow state
         let propertyData = null;
         let leadSubmitted = false;
         
-        // Don't override displayResults - we handle it manually
-        
         async function showPreliminaryResults(data) {
-            console.log('🎨 showPreliminaryResults called with data:', data);
-            
             document.getElementById('searchSection').style.display = 'none';
             document.getElementById('preliminaryResults').style.display = 'block';
             document.getElementById('progressFill').style.width = '75%';
             
-            // Check if we have nearby data (area average calculation)
             if (data.needsSquareFeet && data.nearbyData) {
-                console.log('📊 Showing area-based preliminary results');
-                
-                // Calculate price range based on typical house sizes (1000-2000 sqft)
                 const avgPricePerSqft = data.nearbyData.avgPricePerSqft;
-                const lowEstimate = Math.round(avgPricePerSqft * 1000); // 1000 sqft
-                const highEstimate = Math.round(avgPricePerSqft * 2000); // 2000 sqft
+                const lowEstimate = Math.round(avgPricePerSqft * 1000);
+                const highEstimate = Math.round(avgPricePerSqft * 2000);
                 
                 const low = lowEstimate.toLocaleString('en-US');
                 const high = highEstimate.toLocaleString('en-US');
                 document.getElementById('valueRange').textContent = `$${low} - $${high}`;
                 
-                console.log('💵 Price range for 1000-2000 sqft:', `$${low} - $${high}`);
-                console.log('💲 Avg price per sqft:', avgPricePerSqft.toFixed(2));
-                
-                // Update basic info with area data
                 const basicInfoHTML = `
-                    <div style="padding: 20px; background: rgba(82, 136, 193, 0.1); border-radius: 8px;">
-                        <div style="font-size: 0.9em; color: #aaa; margin-bottom: 5px;">Average Price per Sq Ft</div>
-                        <div style="font-size: 1.3em; font-weight: 600; color: #5288c1;">$${avgPricePerSqft.toFixed(2)}</div>
+                    <div class="info-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981;">
+                        <div class="info-icon" style="color: #fff;">$/SqFt</div>
+                        <div class="info-label" style="color: rgba(255,255,255,0.9);">Avg Price per Sq Ft</div>
+                        <div class="info-value" style="color: #fff;">$${avgPricePerSqft.toFixed(2)}</div>
                     </div>
-                    <div style="padding: 20px; background: rgba(82, 136, 193, 0.1); border-radius: 8px;">
-                        <div style="font-size: 0.9em; color: #aaa; margin-bottom: 5px;">Properties Analyzed</div>
-                        <div style="font-size: 1.3em; font-weight: 600; color: #5288c1;">${data.nearbyData.propertiesUsed} homes</div>
+                    <div class="info-box">
+                        <div class="info-icon">🏘️</div>
+                        <div class="info-label">Properties Analyzed</div>
+                        <div class="info-value">${data.nearbyData.propertiesUsed}</div>
                     </div>
-                    <div style="padding: 20px; background: rgba(82, 136, 193, 0.1); border-radius: 8px;">
-                        <div style="font-size: 0.9em; color: #aaa; margin-bottom: 5px;">Search Radius</div>
-                        <div style="font-size: 1.3em; font-weight: 600; color: #5288c1;">${data.nearbyData.radius} mile</div>
+                    <div class="info-box">
+                        <div class="info-icon">📍</div>
+                        <div class="info-label">Search Radius</div>
+                        <div class="info-value">${data.nearbyData.radius} mi</div>
                     </div>
                 `;
                 document.getElementById('basicInfo').innerHTML = basicInfoHTML;
                 
-                console.log('✅ Preliminary results displayed');
+                window.scrollTo({ top: document.getElementById('preliminaryResults').offsetTop - 100, behavior: 'smooth' });
                 return;
             }
             
-            // Get property data
             const property = data.property;
             const avm = data.avm?.property?.[0]?.avm?.amount;
             
-            console.log('📦 Property:', property);
-            console.log('💰 AVM:', avm);
-            
-            // Calculate average price if available
             let avgValue = null;
             let pricePerSqft = null;
             let squareFeet = null;
-            let areaAvgPrice = null;
-            let areaPropertiesCount = 0;
             
             if (avm) {
                 avgValue = Math.round((avm.low + avm.high) / 2);
@@ -569,119 +812,50 @@
                 const high = avm.high.toLocaleString('en-US');
                 document.getElementById('valueRange').textContent = `$${low} - $${high}`;
                 
-                console.log('💵 Average value:', avgValue);
-                
-                // Get square feet from multiple sources
                 squareFeet = property?.building?.size?.bldgsize 
                     || property?.building?.size?.universalsize 
                     || property?.building?.size?.livingsize
                     || property?.building?.size?.grosssize;
                 
-                console.log('📏 Square feet found:', squareFeet);
-                
                 if (avgValue && squareFeet && squareFeet > 0) {
                     pricePerSqft = Math.round(avgValue / squareFeet);
-                    console.log('💲 Price per sqft calculated:', pricePerSqft);
                 }
             }
             
-            // Get area average price from ATTOM API (1.5 mile radius)
-            const lat = property?.location?.latitude;
-            const lon = property?.location?.longitude;
-            
-            if (lat && lon) {
-                console.log('🌍 Fetching area average price from ATTOM API...');
-                try {
-                    const radius = 1.5; // 1.5 miles
-                    const nearbyUrl = `https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/snapshot?latitude=${lat}&longitude=${lon}&radius=${radius}`;
-                    
-                    const nearbyResponse = await fetch(nearbyUrl, {
-                        headers: {
-                            'apikey': '89ce29e3f588213a695f4c6badc9284e',
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (nearbyResponse.ok) {
-                        const nearbyData = await nearbyResponse.json();
-                        console.log('📦 Nearby properties data:', nearbyData);
-                        
-                        const pricesPerSqft = [];
-                        
-                        if (nearbyData.property && nearbyData.property.length > 0) {
-                            nearbyData.property.forEach(prop => {
-                                const sqft = prop.building?.size?.universalsize || prop.building?.size?.livingsize || prop.building?.size?.bldgsize;
-                                const price = prop.sale?.amount?.saleamt || prop.assessment?.market?.mktttlvalue;
-                                
-                                if (sqft && price && sqft > 0 && price > 0) {
-                                    const pricePer = price / sqft;
-                                    pricesPerSqft.push(pricePer);
-                                }
-                            });
-                            
-                            if (pricesPerSqft.length > 0) {
-                                areaAvgPrice = Math.round(pricesPerSqft.reduce((a, b) => a + b, 0) / pricesPerSqft.length);
-                                areaPropertiesCount = pricesPerSqft.length;
-                                console.log('📊 Area average price:', areaAvgPrice, 'from', areaPropertiesCount, 'properties');
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.error('⚠️ Failed to fetch area average:', error);
-                }
-            }
-            
-            // Show enhanced info - ТІЛЬКИ РЕАЛЬНІ ДАНІ
             const basicInfo = document.getElementById('basicInfo');
             basicInfo.innerHTML = `
                 ${squareFeet ? `
-                <div style="text-align: center; padding: 20px; background: #1e2a38; border-radius: 8px;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold;">SQ FT</div>
-                    <div style="color: #aaaaaa; font-size: 0.85em;">Square Feet</div>
-                    <div style="color: #e4e4e4; font-size: 1.2em; font-weight: 600;">${squareFeet.toLocaleString()} sq ft</div>
+                <div class="info-box">
+                    <div class="info-icon">📏</div>
+                    <div class="info-label">Square Feet</div>
+                    <div class="info-value">${squareFeet.toLocaleString()}</div>
                 </div>
-                ` : `
-                <div style="text-align: center; padding: 20px; background: #1e2a38; border-radius: 8px;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold;">SQ FT</div>
-                    <div style="color: #aaaaaa; font-size: 0.85em;">Square Feet</div>
-                    <div style="color: #e4e4e4; font-size: 1.2em; font-weight: 600;">N/A</div>
-                </div>
-                `}
+                ` : ''}
                 ${pricePerSqft ? `
-                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #5288c1 0%, #3a6b9e 100%); border-radius: 8px; border: 2px solid #5288c1;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold; color: #fff;">$/SQ FT</div>
-                    <div style="color: rgba(255,255,255,0.9); font-size: 0.85em;">This Property</div>
-                    <div style="color: #fff; font-size: 1.4em; font-weight: 700;">$${pricePerSqft.toLocaleString()}</div>
+                <div class="info-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-color: #10b981;">
+                    <div class="info-icon" style="color: #fff;">$/SqFt</div>
+                    <div class="info-label" style="color: rgba(255,255,255,0.9);">Price per Sq Ft</div>
+                    <div class="info-value" style="color: #fff;">$${pricePerSqft.toLocaleString()}</div>
                 </div>
                 ` : ''}
-                ${areaAvgPrice ? `
-                <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #3a6b9e 0%, #2b5580 100%); border-radius: 8px; border: 2px solid #5288c1;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold; color: #fff;">$/SQ FT</div>
-                    <div style="color: rgba(255,255,255,0.9); font-size: 0.85em;">Area Average (1.5 mi)</div>
-                    <div style="color: #fff; font-size: 1.4em; font-weight: 700;">$${areaAvgPrice.toLocaleString()}</div>
-                    <div style="color: rgba(255,255,255,0.7); font-size: 0.75em; margin-top: 5px;">${areaPropertiesCount} homes analyzed</div>
+                <div class="info-box">
+                    <div class="info-icon">🛏️</div>
+                    <div class="info-label">Bedrooms</div>
+                    <div class="info-value">${property?.building?.rooms?.beds || 'N/A'}</div>
                 </div>
-                ` : ''}
-                <div style="text-align: center; padding: 20px; background: #1e2a38; border-radius: 8px;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold;">BEDS</div>
-                    <div style="color: #aaaaaa; font-size: 0.85em;">Bedrooms</div>
-                    <div style="color: #e4e4e4; font-size: 1.2em; font-weight: 600;">${property?.building?.rooms?.beds || 'N/A'}</div>
+                <div class="info-box">
+                    <div class="info-icon">🚿</div>
+                    <div class="info-label">Bathrooms</div>
+                    <div class="info-value">${property?.building?.rooms?.bathstotal || 'N/A'}</div>
                 </div>
-                <div style="text-align: center; padding: 20px; background: #1e2a38; border-radius: 8px;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold;">BATHS</div>
-                    <div style="color: #aaaaaa; font-size: 0.85em;">Bathrooms</div>
-                    <div style="color: #e4e4e4; font-size: 1.2em; font-weight: 600;">${property?.building?.rooms?.bathstotal || 'N/A'}</div>
-                </div>
-                <div style="text-align: center; padding: 20px; background: #1e2a38; border-radius: 8px;">
-                    <div style="font-size: 2em; margin-bottom: 10px; font-weight: bold;">YEAR</div>
-                    <div style="color: #aaaaaa; font-size: 0.85em;">Year Built</div>
-                    <div style="color: #e4e4e4; font-size: 1.2em; font-weight: 600;">${property?.summary?.yearbuilt || 'N/A'}</div>
+                <div class="info-box">
+                    <div class="info-icon">📅</div>
+                    <div class="info-label">Year Built</div>
+                    <div class="info-value">${property?.summary?.yearbuilt || 'N/A'}</div>
                 </div>
             `;
             
-            console.log('✅ Preliminary results displayed');
-            
-            window.scrollTo({ top: document.getElementById('preliminaryResults').offsetTop - 20, behavior: 'smooth' });
+            window.scrollTo({ top: document.getElementById('preliminaryResults').offsetTop - 100, behavior: 'smooth' });
         }
         
         function showLeadForm() {
@@ -690,14 +864,13 @@
             document.getElementById('currentStep').textContent = '2';
             document.getElementById('progressFill').style.width = '100%';
             
-            window.scrollTo({ top: document.getElementById('leadFormSection').offsetTop - 20, behavior: 'smooth' });
+            window.scrollTo({ top: document.getElementById('leadFormSection').offsetTop - 100, behavior: 'smooth' });
         }
         
         function showFullResults(data) {
             document.getElementById('leadFormSection').style.display = 'none';
             document.getElementById('fullResults').style.display = 'block';
             
-            // Use script.js displayResults
             if (window.displayResults) {
                 window.displayResults(data);
             }
@@ -705,7 +878,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         
-        // Lead form submission
         document.getElementById('leadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -726,62 +898,54 @@
             
             console.log('🎯 LEAD CAPTURED:', leadData);
             
-            // Send to Google Apps Script
             try {
                 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx81gA6wy224MnpFmI-431Xl3Jb4AxlKFvzOAM_P5dA8_p2MZd57F9TXSVjWIWxzO3p/exec';
                 
-                const response = await fetch(APPS_SCRIPT_URL, {
+                await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // Important for Apps Script
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(leadData)
                 });
                 
-                console.log('✅ Lead sent to email successfully');
+                console.log('✅ Lead sent successfully');
                 
-                // Hide lead form
                 document.getElementById('leadFormSection').style.display = 'none';
                 
-                // Show success message
                 const successMessage = document.createElement('div');
                 successMessage.style.cssText = `
-                    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+                    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
                     color: white;
-                    padding: 40px;
-                    border-radius: 12px;
+                    padding: 50px;
+                    border-radius: 20px;
                     text-align: center;
                     margin: 40px 0;
-                    box-shadow: 0 4px 20px rgba(46, 204, 113, 0.3);
+                    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+                    border: 3px solid #fbbf24;
                 `;
                 successMessage.innerHTML = `
-                    <div style="font-size: 3em; margin-bottom: 20px;">✅</div>
-                    <h2 style="font-size: 2em; margin-bottom: 15px; color: white;">Thank You!</h2>
-                    <p style="font-size: 1.2em; margin-bottom: 10px;">Your information has been received successfully.</p>
-                    <p style="font-size: 1.1em; opacity: 0.95;">We'll contact you within 24 hours with your cash offer!</p>
+                    <div style="font-size: 4em; margin-bottom: 20px;">✅</div>
+                    <h2 style="font-size: 2.5em; margin-bottom: 20px; color: white;">Thank You!</h2>
+                    <p style="font-size: 1.3em; margin-bottom: 15px;">Your information has been received.</p>
+                    <p style="font-size: 1.2em; font-weight: 600;">We'll contact you within 24 hours with your cash offer!</p>
                 `;
                 
                 const container = document.querySelector('.container');
                 container.insertBefore(successMessage, document.getElementById('fullResults'));
                 
-                // Scroll to success message
                 successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
                 leadSubmitted = true;
                 
-                // Show full results after 2 seconds
                 setTimeout(() => {
                     showFullResults(propertyData);
-                }, 2000);
+                }, 2500);
                 
             } catch (error) {
                 console.error('❌ Error sending lead:', error);
-                
-                // Show error but still proceed
                 alert('Your information was saved. We\'ll show you the results now.');
-                
-                // Still show results even if email fails
                 leadSubmitted = true;
                 document.getElementById('leadFormSection').style.display = 'none';
                 showFullResults(propertyData);
