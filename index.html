@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell Your House Fast for Cash - Get Offer in 24 Hours | No Fees, Any Condition</title>
+    <title>🚨 STOP FORECLOSURE NOW - 24 Hour Emergency Help | Save Your Home Today</title>
     <style>
         * {
             margin: 0;
@@ -11,86 +11,161 @@
             box-sizing: border-box;
         }
 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes urgentGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 40px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.6), 0 0 60px rgba(239, 68, 68, 0.3); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #0e1621 0%, #1a2332 100%);
-            color: #e4e4e4;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            animation: urgentGlow 2s infinite;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .emergency-banner span {
+            display: inline-block;
+            animation: pulse 2s infinite;
         }
 
         .hero-container {
-            max-width: 900px;
+            max-width: 1200px;
             width: 100%;
-            text-align: center;
+            margin: 0 auto;
+            padding: 60px 20px;
         }
 
         .logo {
-            font-size: 3em;
+            font-size: 4em;
             margin-bottom: 20px;
+            text-align: center;
+            filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.5));
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 3.5em;
             color: #ffffff;
-            margin-bottom: 20px;
-            line-height: 1.2;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            text-align: center;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+            animation: slideIn 0.8s ease-out;
+        }
+
+        h1 .urgent {
+            color: #ef4444;
+            display: block;
+            font-size: 1.2em;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        h1 .hope {
+            color: #10b981;
+            font-weight: 600;
         }
 
         .subtitle {
-            font-size: 1.3em;
-            color: #aaaaaa;
-            margin-bottom: 40px;
+            font-size: 1.5em;
+            color: #d1d5db;
+            margin-bottom: 50px;
             line-height: 1.6;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideIn 1s ease-out;
         }
 
+        .subtitle strong {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        /* Trust Section */
         .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 60px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 70px;
+            animation: slideIn 1.2s ease-out;
         }
 
         .badge {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
         }
 
         .badge-icon {
-            font-size: 2.5em;
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .badge-text {
-            color: #5288c1;
-            font-weight: 600;
-            font-size: 1.1em;
+            color: #10b981;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 8px;
         }
 
         .badge-subtext {
-            color: #aaaaaa;
-            font-size: 0.9em;
+            color: #9ca3af;
+            font-size: 0.95em;
+            line-height: 1.4;
         }
 
+        /* CTA Cards */
         .cta-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            animation: slideIn 1.4s ease-out;
         }
 
         .cta-card {
-            background: linear-gradient(135deg, #17212b 0%, #1a2532 100%);
-            border: 2px solid #2b3847;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 3px solid #334155;
             border-radius: 20px;
-            padding: 50px 40px;
+            padding: 50px 35px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             display: block;
             position: relative;
