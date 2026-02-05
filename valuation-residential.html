@@ -949,14 +949,27 @@
             try {
                 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtE1bn0GFZBEWbOzqs1EyqLheS8olbFUzCogc4EdiL6BIgbPVSSkJfGrJDA3TOF4Ui/exec';
                 
-                await fetch(APPS_SCRIPT_URL, {
+                console.log('📤 Sending to:', APPS_SCRIPT_URL);
+                
+                const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(leadData)
                 });
+                
+                console.log('📥 Response status:', response.status);
+                const responseText = await response.text();
+                console.log('📥 Response body:', responseText);
+                
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                    console.log('✅ Parsed response:', result);
+                } catch (e) {
+                    console.warn('⚠️ Response is not JSON:', responseText);
+                }
                 
                 console.log('✅ Lead sent successfully');
                 
