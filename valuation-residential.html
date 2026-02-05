@@ -872,7 +872,15 @@
             document.getElementById('fullResults').style.display = 'block';
             
             if (window.displayResults) {
-                window.displayResults(data);
+                // Prepare formData from the form fields
+                const formData = {
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    zipcode: document.getElementById('zipcode').value,
+                    squareFeet: document.getElementById('squareFeet').value
+                };
+                window.displayResults(data, formData);
             }
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
