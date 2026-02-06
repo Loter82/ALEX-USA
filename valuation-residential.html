@@ -709,15 +709,15 @@
                 const zipcode = document.getElementById('zipcode').value.trim();
                 
                 if (!state) {
-                    alert('Please select a state first!');
+                    alert('Please select a state first');
                     return;
                 }
                 if (!city) {
-                    alert('Please enter a city!');
+                    alert('Please enter a city');
                     return;
                 }
                 if (!address || !zipcode) {
-                    alert('Please fill in all required fields!');
+                    alert('Please complete all fields');
                     return;
                 }
             
@@ -751,7 +751,7 @@
                 } catch (error) {
                     console.error('API error:', error);
                     
-                    // Hide spinner іва
+                    // Hide spinner
                     spinner.classList.remove('active');
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
