@@ -15,7 +15,8 @@
       gtag('config', 'AW-17936379407');
     </script>
     
-    <!-- Event snippet for Lead Form Conversion -->
+    <!-- Event snippet for Request quote conversion page
+    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
     <script>
     function gtag_report_conversion(url) {
       var callback = function () {
@@ -24,9 +25,9 @@
         }
       };
       gtag('event', 'conversion', {
-          'send_to': 'AW-17936379407/ezYBCJvpgfQbEI_c3ehC',
+          'send_to': 'AW-17936379407/lep7CMT_hvkbEI_c3ehC',
           'value': 1.0,
-          'currency': 'UAH',
+          'currency': 'USD',
           'event_callback': callback
       });
       return false;
