@@ -14,6 +14,24 @@
 
       gtag('config', 'AW-17936379407');
     </script>
+    
+    <!-- Event snippet for Lead Form Conversion -->
+    <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+          'send_to': 'AW-17936379407/ezYBCJvpgfQbEI_c3ehC',
+          'value': 1.0,
+          'currency': 'UAH',
+          'event_callback': callback
+      });
+      return false;
+    }
+    </script>
     <link rel="stylesheet" href="styles.css?v=2">
     <style>
         /* Головна картка з вартістю - НАЙВАЖЛИВІША ІНФОРМАЦІЯ */
@@ -693,6 +711,11 @@
                 });
                 
                 console.log('✅ Lead sent to email successfully');
+                
+                // Track conversion in Google Ads
+                if (typeof gtag_report_conversion === 'function') {
+                    gtag_report_conversion();
+                }
                 
                 // Hide lead form
                 document.getElementById('leadFormSection').style.display = 'none';

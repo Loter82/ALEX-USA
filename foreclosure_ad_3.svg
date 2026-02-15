@@ -1,0 +1,83 @@
+<svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="freshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1080" height="1080" fill="url(#freshGrad)"/>
+  
+  <!-- Top banner -->
+  <rect x="0" y="0" width="1080" height="140" fill="#ffffff" opacity="0.15"/>
+  
+  <!-- Main headline -->
+  <text x="540" y="120" font-family="Arial, sans-serif" font-size="58" font-weight="bold" fill="white" text-anchor="middle">
+    FACING FORECLOSURE?
+  </text>
+  
+  <!-- Large text -->
+  <text x="540" y="280" font-family="Arial, sans-serif" font-size="95" font-weight="bold" fill="white" text-anchor="middle">
+    GET A
+  </text>
+  <text x="540" y="400" font-family="Arial, sans-serif" font-size="95" font-weight="bold" fill="white" text-anchor="middle">
+    FRESH START
+  </text>
+  
+  <!-- Icons with benefits -->
+  <g transform="translate(180, 520)">
+    <!-- Money icon -->
+    <circle cx="0" cy="0" r="55" fill="white"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="55" fill="#10b981" text-anchor="middle">$</text>
+    <text x="0" y="100" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">CASH</text>
+    <text x="0" y="135" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">OFFER</text>
+  </g>
+  
+  <g transform="translate(540, 520)">
+    <!-- Calendar icon -->
+    <rect x="-45" y="-45" width="90" height="90" rx="10" fill="white"/>
+    <rect x="-35" y="-15" width="70" height="50" rx="5" fill="#10b981"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white" text-anchor="middle">7</text>
+    <text x="0" y="100" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">DAYS</text>
+    <text x="0" y="135" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">CLOSE</text>
+  </g>
+  
+  <g transform="translate(900, 520)">
+    <!-- House icon -->
+    <circle cx="0" cy="0" r="55" fill="white"/>
+    <path d="M -25,-10 L 0,-30 L 25,-10 L 25,20 L -25,20 Z" fill="#10b981"/>
+    <rect x="-10" y="5" width="10" height="15" fill="white"/>
+    <rect x="5" y="0" width="10" height="10" fill="white"/>
+    <text x="0" y="100" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">AS-IS</text>
+    <text x="0" y="135" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="white" text-anchor="middle">SALE</text>
+  </g>
+  
+  <!-- White info box -->
+  <rect x="100" y="700" width="880" height="280" fill="white" rx="20"/>
+  
+  <text x="540" y="770" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#1f2937" text-anchor="middle">
+    Stop Foreclosure Today
+  </text>
+  
+  <text x="540" y="830" font-family="Arial, sans-serif" font-size="32" fill="#4b5563" text-anchor="middle">
+    ✓ No Repairs Needed
+  </text>
+  <text x="540" y="880" font-family="Arial, sans-serif" font-size="32" fill="#4b5563" text-anchor="middle">
+    ✓ No Realtor Fees or Commissions
+  </text>
+  <text x="540" y="930" font-family="Arial, sans-serif" font-size="32" fill="#4b5563" text-anchor="middle">
+    ✓ We Pay ALL Closing Costs
+  </text>
+  
+  <!-- CTA button -->
+  <rect x="200" y="1000" width="680" height="100" fill="#1e3a8a" rx="50"/>
+  <text x="540" y="1063" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="white" text-anchor="middle">
+    CALL (555) 123-4567 NOW
+  </text>
+  
+  <!-- Bottom text -->
+  <text x="540" y="1050" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle" opacity="0.9">
+    Free Consultation • Local & Trusted
+  </text>
+</svg>

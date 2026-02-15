@@ -1,0 +1,77 @@
+<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1080" height="1350" fill="#0f172a"/>
+  
+  <!-- Top section with alert -->
+  <rect x="0" y="0" width="1080" height="250" fill="#dc2626"/>
+  
+  <!-- Alert icon -->
+  <g transform="translate(540, 125)">
+    <polygon points="0,-70 60,50 -60,50" fill="#fef3c7" stroke="#dc2626" stroke-width="8"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#dc2626" text-anchor="middle">!</text>
+  </g>
+  
+  <!-- Main headline -->
+  <text x="540" y="340" font-family="Arial, sans-serif" font-size="68" font-weight="bold" fill="white" text-anchor="middle">
+    BEHIND ON
+  </text>
+  <text x="540" y="430" font-family="Arial, sans-serif" font-size="68" font-weight="bold" fill="white" text-anchor="middle">
+    MORTGAGE
+  </text>
+  <text x="540" y="520" font-family="Arial, sans-serif" font-size="68" font-weight="bold" fill="white" text-anchor="middle">
+    PAYMENTS?
+  </text>
+  
+  <!-- Subheading -->
+  <rect x="120" y="560" width="840" height="4" fill="#fbbf24"/>
+  
+  <text x="540" y="640" font-family="Arial, sans-serif" font-size="42" fill="#fbbf24" text-anchor="middle">
+    You Still Have Options
+  </text>
+  
+  <!-- Benefits list with icons -->
+  <g transform="translate(140, 730)">
+    <circle cx="0" cy="0" r="30" fill="#10b981"/>
+    <text x="0" y="12" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+    <text x="70" y="12" font-family="Arial, sans-serif" font-size="38" font-weight="600" fill="white">Avoid Foreclosure</text>
+  </g>
+  
+  <g transform="translate(140, 830)">
+    <circle cx="0" cy="0" r="30" fill="#10b981"/>
+    <text x="0" y="12" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+    <text x="70" y="12" font-family="Arial, sans-serif" font-size="38" font-weight="600" fill="white">Protect Your Credit</text>
+  </g>
+  
+  <g transform="translate(140, 930)">
+    <circle cx="0" cy="0" r="30" fill="#10b981"/>
+    <text x="0" y="12" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+    <text x="70" y="12" font-family="Arial, sans-serif" font-size="38" font-weight="600" fill="white">Get Cash Fast</text>
+  </g>
+  
+  <g transform="translate(140, 1030)">
+    <circle cx="0" cy="0" r="30" fill="#10b981"/>
+    <text x="0" y="12" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+    <text x="70" y="12" font-family="Arial, sans-serif" font-size="38" font-weight="600" fill="white">No Fees, No Repairs</text>
+  </g>
+  
+  <!-- Yellow highlight box -->
+  <rect x="80" y="1100" width="920" height="180" fill="#fbbf24" rx="15"/>
+  
+  <text x="540" y="1160" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#0f172a" text-anchor="middle">
+    CLOSE IN 7 DAYS
+  </text>
+  <text x="540" y="1230" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#0f172a" text-anchor="middle">
+    Cash Offer in 24 Hours
+  </text>
+  
+  <!-- CTA -->
+  <rect x="140" y="1310" width="800" height="110" fill="white" rx="55"/>
+  <text x="540" y="1380" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#0f172a" text-anchor="middle">
+    📞 CALL (555) 123-4567
+  </text>
+  
+  <!-- Bottom text -->
+  <text x="540" y="1470" font-family="Arial, sans-serif" font-size="28" fill="#94a3b8" text-anchor="middle">
+    Confidential & Respectful Process
+  </text>
+</svg>
