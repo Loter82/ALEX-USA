@@ -53,6 +53,23 @@
             overflow-x: hidden;
         }
 
+        /* Site Navigation */
+        .site-nav {
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #334155;
+        }
+        .site-nav .logo { color: #10b981; font-weight: 800; font-size: 1.2em; text-decoration: none; }
+        .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .site-nav .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
+        .site-nav .nav-links a:hover { color: #10b981; }
+        .site-nav .nav-cta { background: #ef4444; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; transition: background 0.3s !important; }
+        .site-nav .nav-cta:hover { background: #dc2626; }
+
         /* Emergency Banner */
         .emergency-banner {
             background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
@@ -519,10 +536,25 @@
             .emergency-cta h2 {
                 font-size: 2em;
             }
+
+            .site-nav { flex-direction: column; gap: 10px; }
+            .site-nav .nav-links { justify-content: center; }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="logo">🏠 Home Rescue Solutions</a>
+        <div class="nav-links">
+            <a href="stop-foreclosure.html">Foreclosure Help</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="about-us.html">About Us</a>
+            <a href="valuation-residential.html" class="nav-cta">Get Free Offer</a>
+        </div>
+    </nav>
+
     <!-- Emergency Banner -->
     <div class="emergency-banner">
         <span>🚨 FORECLOSURE EMERGENCY? WE'RE HERE TO HELP 24/7</span>
@@ -692,10 +724,15 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Foreclosure Rescue Solutions | We help homeowners in crisis</p>
-        <p style="margin-top: 10px; font-size: 0.9em;">
-            Licensed. Bonded. Trusted by thousands of families across America.
-        </p>
+        <div style="margin-bottom: 20px;">
+            <a href="index.html" style="color: #9ca3af; text-decoration: none; margin: 0 12px; font-size: 0.95em;">Home</a>
+            <a href="stop-foreclosure.html" style="color: #9ca3af; text-decoration: none; margin: 0 12px; font-size: 0.95em;">Foreclosure Help</a>
+            <a href="sell-house-fast.html" style="color: #9ca3af; text-decoration: none; margin: 0 12px; font-size: 0.95em;">Sell Fast</a>
+            <a href="how-it-works.html" style="color: #9ca3af; text-decoration: none; margin: 0 12px; font-size: 0.95em;">How It Works</a>
+            <a href="about-us.html" style="color: #9ca3af; text-decoration: none; margin: 0 12px; font-size: 0.95em;">About Us</a>
+            <a href="valuation-residential.html" style="color: #9ca3af; text-decoration: none; margin: 0 12px; font-size: 0.95em;">Get Offer</a>
+        </div>
+        <p>© 2026 All Rights Reserved | Real Estate Solutions</p>
         <p style="margin-top: 15px; font-size: 0.85em;">
             <a href="terms-of-service.html" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
             <a href="privacy-policy.html" style="color: #9ca3af; text-decoration: none; margin: 0 10px;">Privacy Policy</a>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Our Team & Mission | Real Estate Solutions</title>
+    <meta name="description" content="We are a real estate solutions company helping homeowners sell their homes quickly for cash. Learn about our team, mission, and values.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17936379407"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17936379407');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .site-nav {
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #334155;
+        }
+        .site-nav .logo { color: #10b981; font-weight: 800; font-size: 1.2em; text-decoration: none; }
+        .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .site-nav .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
+        .site-nav .nav-links a:hover { color: #10b981; }
+        .site-nav .nav-cta { background: #ef4444; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; }
+        .site-nav .nav-cta:hover { background: #dc2626; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        .hero { text-align: center; padding: 70px 20px 50px; }
+        .hero h1 { font-size: 3.5em; line-height: 1.15; margin-bottom: 25px; }
+        .hero h1 .highlight { color: #10b981; }
+        .hero-sub { font-size: 1.4em; color: #d1d5db; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+
+        /* Mission Section */
+        .mission-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 20px;
+            padding: 55px 40px;
+            margin: 50px 0;
+        }
+        .mission-section h2 { font-size: 2.2em; color: #10b981; margin-bottom: 25px; }
+        .mission-section p { color: #d1d5db; font-size: 1.15em; line-height: 1.8; margin-bottom: 15px; }
+
+        /* Values Grid */
+        .values-section { margin: 50px 0; }
+        .values-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #fbbf24; }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .value-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 14px;
+            padding: 35px 28px;
+            transition: all 0.3s;
+        }
+        .value-card:hover { transform: translateY(-4px); border-color: #10b981; box-shadow: 0 8px 25px rgba(16,185,129,0.12); }
+        .value-card .icon { font-size: 2.5em; margin-bottom: 15px; display: block; }
+        .value-card h3 { font-size: 1.3em; color: #fbbf24; margin-bottom: 10px; }
+        .value-card p { color: #9ca3af; line-height: 1.6; }
+
+        /* Stats */
+        .stats-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 20px;
+            padding: 55px 40px;
+            margin: 50px 0;
+        }
+        .stats-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 15px; color: #ffffff; }
+        .stats-intro { text-align: center; color: #9ca3af; font-size: 1.05em; margin-bottom: 40px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            text-align: center;
+        }
+        .stat-item {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #334155;
+            border-radius: 14px;
+            padding: 30px 20px;
+        }
+        .stat-number { font-size: 3em; font-weight: 900; color: #10b981; display: block; margin-bottom: 8px; }
+        .stat-label { color: #d1d5db; font-size: 1.05em; font-weight: 600; }
+
+        /* Testimonials */
+        .testimonials-section { margin: 50px 0; }
+        .testimonials-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 15px; color: #10b981; }
+        .testimonials-intro { text-align: center; color: #9ca3af; font-size: 0.95em; margin-bottom: 40px; }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .testimonial-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 14px;
+            padding: 30px 28px;
+        }
+        .testimonial-stars { color: #fbbf24; font-size: 1.3em; margin-bottom: 15px; letter-spacing: 3px; }
+        .testimonial-text { color: #d1d5db; line-height: 1.7; font-size: 1.05em; margin-bottom: 18px; font-style: italic; }
+        .testimonial-author { color: #9ca3af; font-weight: 600; }
+        .testimonial-location { color: #6b7280; font-size: 0.9em; }
+
+        /* How We're Different */
+        .different-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 20px;
+            padding: 55px 40px;
+            margin: 50px 0;
+        }
+        .different-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #ffffff; }
+        .different-list { max-width: 800px; margin: 0 auto; }
+        .different-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+        }
+        .different-item .icon { font-size: 1.8em; min-width: 40px; text-align: center; }
+        .different-item h3 { color: #fbbf24; font-size: 1.15em; margin-bottom: 6px; }
+        .different-item p { color: #9ca3af; line-height: 1.6; }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 3px solid #10b981;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        .cta-section h2 { font-size: 2.5em; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.2em; color: #d1d5db; margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            padding: 22px 50px;
+            border-radius: 12px;
+            font-size: 1.4em;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(251,191,36,0.3);
+            transition: all 0.3s;
+            border: 3px solid #ffffff;
+        }
+        .cta-button:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(251,191,36,0.5); }
+        .cta-disclaimer { margin-top: 20px; font-size: 0.95em; color: #9ca3af; }
+
+        .legal-disclaimer {
+            background: rgba(30,41,59,0.7);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 40px 0;
+            font-size: 0.9em;
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+        .legal-disclaimer strong { color: #d1d5db; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            font-size: 0.95em;
+            border-top: 1px solid #1e293b;
+        }
+        footer a { color: #9ca3af; text-decoration: none; margin: 0 10px; }
+        footer a:hover { color: #10b981; }
+        .footer-nav { margin-bottom: 20px; }
+        .footer-nav a { margin: 0 12px; font-size: 0.95em; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3em; }
+            .mission-section { padding: 35px 25px; }
+            .cta-button { padding: 18px 35px; font-size: 1.1em; }
+            .site-nav { flex-direction: column; gap: 10px; }
+            .site-nav .nav-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="site-nav">
+        <a href="index.html" class="logo">🏠 Home Rescue Solutions</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="stop-foreclosure.html">Foreclosure Help</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="valuation-residential.html" class="nav-cta">Get Free Offer</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="hero">
+            <h1>About <span class="highlight">Us</span></h1>
+            <p class="hero-sub">
+                We're a team of real estate professionals dedicated to helping homeowners find solutions when they need them most.
+            </p>
+        </section>
+
+        <!-- Mission -->
+        <section class="mission-section">
+            <h2>Our Mission</h2>
+            <p>We were founded with a simple belief: homeowners facing difficult situations deserve honest, straightforward help — not pressure tactics or empty promises.</p>
+            <p>We are a real estate solutions company that buys houses directly from homeowners. Whether you're dealing with a difficult situation, an inherited property, or simply need to sell fast — we provide cash offers and a straightforward process.</p>
+            <p>Our goal isn't just to buy houses. It's to give homeowners a real path forward when traditional options aren't working. And if selling to us isn't the right fit, we'll tell you that too.</p>
+        </section>
+
+        <!-- Company Stats -->
+        <section class="stats-section">
+            <h2>By the Numbers</h2>
+            <p class="stats-intro">Since our founding, we've been committed to helping homeowners across the country.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">3,000+</span>
+                    <span class="stat-label">Families Helped</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">Average Days to Close</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">$0</span>
+                    <span class="stat-label">Fees Charged to Sellers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24h</span>
+                    <span class="stat-label">Average Response Time</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values -->
+        <section class="values-section">
+            <h2>What We Stand For</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <span class="icon">🤝</span>
+                    <h3>Honesty First</h3>
+                    <p>We believe in straightforward communication. We'll give you an honest assessment of your situation and our offer — no sugarcoating, no hidden agendas. If we're not the right fit, we'll say so.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon">💡</span>
+                    <h3>Transparency</h3>
+                    <p>We show you how we calculate our offers. We explain the entire process before you commit. You'll never be surprised by hidden fees or unexpected terms in our agreements.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon">❤️</span>
+                    <h3>Empathy & Respect</h3>
+                    <p>We understand that selling your home can be emotional. Our team treats every homeowner with dignity and respect, regardless of the situation. No judgment, ever.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon">⚡</span>
+                    <h3>Speed When It Matters</h3>
+                    <p>When you're facing a deadline — foreclosure, relocation, or financial hardship — time matters. We move quickly so you can move forward.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon">⚖️</span>
+                    <h3>Fair Dealing</h3>
+                    <p>Our offers reflect a fair price considering the speed, convenience, and certainty we provide. We encourage you to compare our offer with other options to make the best decision for you.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon">🔒</span>
+                    <h3>Privacy Protection</h3>
+                    <p>Your situation is your business. We keep all communications and personal information strictly confidential. We'll never publicize your circumstances.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Makes Us Different -->
+        <section class="different-section">
+            <h2>What Makes Us Different</h2>
+            <div class="different-list">
+                <div class="different-item">
+                    <span class="icon">✅</span>
+                    <div>
+                        <h3>We're Buyers, Not Brokers</h3>
+                        <p>We buy your house directly with our own funds. There's no waiting for bank approvals, no buyer contingencies, and no deals falling through at the last minute.</p>
+                    </div>
+                </div>
+                <div class="different-item">
+                    <span class="icon">✅</span>
+                    <div>
+                        <h3>No Repairs, No Cleaning</h3>
+                        <p>Leave the house exactly as it is. Old appliances, damaged roof, cluttered basement — we take care of everything after purchase. You don't spend a dime on prep work.</p>
+                    </div>
+                </div>
+                <div class="different-item">
+                    <span class="icon">✅</span>
+                    <div>
+                        <h3>We Close Through Title Companies</h3>
+                        <p>Every transaction goes through a licensed title company or real estate attorney to protect both parties. This ensures a legally sound, secure closing process.</p>
+                    </div>
+                </div>
+                <div class="different-item">
+                    <span class="icon">✅</span>
+                    <div>
+                        <h3>We Encourage Second Opinions</h3>
+                        <p>We always recommend that sellers consult with a real estate attorney, financial advisor, or HUD-approved counselor before making decisions. We want you to feel confident in your choice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials-section">
+            <h2>What Homeowners Say</h2>
+            <p class="testimonials-intro">These are real experiences shared by homeowners we've worked with. Individual results may vary based on property and circumstances.</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"I was behind on payments and didn't know where to turn. They walked me through every option, including ones that didn't involve selling to them. I ended up selling and it was the right choice for my family. Closed in 10 days."</p>
+                    <p class="testimonial-author">— Maria T.</p>
+                    <p class="testimonial-location">Houston, TX</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"My mother passed and left a house that needed major work. I live out of state and couldn't manage repairs. They gave me a fair offer, handled everything remotely, and I didn't have to make a single trip."</p>
+                    <p class="testimonial-author">— James R.</p>
+                    <p class="testimonial-location">Atlanta, GA</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"What I appreciated most was their honesty. They explained exactly how they calculated the offer. It was below what I could get on the open market, but when I factored in agent fees, repairs, and the 4-month wait, it made sense."</p>
+                    <p class="testimonial-author">— David & Karen M.</p>
+                    <p class="testimonial-location">Phoenix, AZ</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Going through a divorce and needed to sell fast. They were respectful of a difficult situation, worked with both attorneys, and got us closed in two weeks. Professional from start to finish."</p>
+                    <p class="testimonial-author">— Sarah L.</p>
+                    <p class="testimonial-location">Denver, CO</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Let's Talk About Your Situation</h2>
+            <p>Whether you're ready to sell or just exploring options, we're here to help. Get a free, no-obligation cash offer for your property today.</p>
+            <a href="valuation-residential.html" class="cta-button">
+                🏠 Get My Free Cash Offer
+            </a>
+            <p class="cta-disclaimer">No obligation. No fees. Your information is kept confidential.</p>
+        </section>
+
+        <div class="legal-disclaimer">
+            <strong>Disclaimer:</strong> This website is operated by a real estate solutions company. We are not a law firm, financial advisor, or government-approved counseling agency. We recommend consulting with qualified professionals before making real estate decisions. Testimonials reflect individual experiences and do not guarantee similar results. Offer amounts depend on property condition, location, and market factors. All transactions are processed through title companies in compliance with applicable laws.
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="stop-foreclosure.html">Foreclosure Help</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="about-us.html">About Us</a>
+            <a href="valuation-residential.html">Get Offer</a>
+        </div>
+        <p>© 2026 All Rights Reserved | Real Estate Solutions</p>
+        <p style="margin-top: 15px; font-size: 0.85em;">
+            <a href="terms-of-service.html">Terms of Service</a> | 
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </p>
+    </footer>
+</body>
+</html>

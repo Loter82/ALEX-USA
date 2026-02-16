@@ -63,6 +63,23 @@
             }
         }
 
+        /* Site Navigation */
+        .site-nav {
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #334155;
+        }
+        .site-nav .logo { color: #10b981; font-weight: 800; font-size: 1.2em; text-decoration: none; }
+        .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .site-nav .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
+        .site-nav .nav-links a:hover { color: #10b981; }
+        .site-nav .nav-cta { background: #ef4444; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; transition: background 0.3s !important; }
+        .site-nav .nav-cta:hover { background: #dc2626; }
+
         /* Emergency Banner */
         .emergency-banner {
             background: linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #dc2626 100%);
@@ -544,10 +561,24 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
+            .site-nav { flex-direction: column; gap: 10px; }
+            .site-nav .nav-links { justify-content: center; }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="logo">🏠 Home Rescue Solutions</a>
+        <div class="nav-links">
+            <a href="stop-foreclosure.html">Foreclosure Help</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="about-us.html">About Us</a>
+            <a href="valuation-residential.html" class="nav-cta">Get Free Offer</a>
+        </div>
+    </nav>
+
     <!-- Emergency Banner -->
     <div class="emergency-banner">
         <span>🚨 FORECLOSURE EMERGENCY? GET CASH OFFER IN 24 HOURS</span>
@@ -692,7 +723,11 @@
         </div>
         
         <div class="back-link">
-            <a href="index.html">← Back to Home</a>
+            <a href="index.html">← Back to Home</a> |
+            <a href="stop-foreclosure.html" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Foreclosure Help</a> |
+            <a href="sell-house-fast.html" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Sell Fast</a> |
+            <a href="how-it-works.html" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">How It Works</a> |
+            <a href="about-us.html" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">About Us</a>
         </div>
     </div>
     

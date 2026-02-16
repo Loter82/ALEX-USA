@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Foreclosure | Get Help Before It's Too Late | Free Consultation</title>
+    <meta name="description" content="Facing foreclosure? Explore your options: cash offer, loan modification help, or repayment plans. Free consultation, no obligation. We've helped 3,000+ families.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17936379407"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17936379407');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .site-nav {
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #334155;
+        }
+        .site-nav .logo {
+            color: #10b981;
+            font-weight: 800;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+        .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
+        .site-nav .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .site-nav .nav-links a:hover { color: #10b981; }
+        .site-nav .nav-cta {
+            background: #ef4444;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            transition: background 0.3s !important;
+        }
+        .site-nav .nav-cta:hover { background: #dc2626; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 70px 20px 50px;
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+        .hero h1 span { color: #ef4444; }
+        .hero-sub {
+            font-size: 1.4em;
+            color: #d1d5db;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+        .hero-disclaimer {
+            font-size: 0.95em;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Info Cards */
+        .info-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 20px;
+            padding: 55px 40px;
+            margin: 50px 0;
+        }
+        .info-section h2 {
+            font-size: 2.4em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #10b981;
+        }
+        .info-section .section-intro {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 1.15em;
+            max-width: 750px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .option-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 35px 28px;
+            transition: all 0.3s;
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 30px rgba(16,185,129,0.15);
+        }
+        .option-icon { font-size: 2.8em; margin-bottom: 18px; display: block; }
+        .option-card h3 { font-size: 1.4em; color: #fbbf24; margin-bottom: 12px; }
+        .option-card p { color: #9ca3af; line-height: 1.6; font-size: 1em; }
+
+        /* FAQ */
+        .faq-section {
+            margin: 50px 0;
+        }
+        .faq-section h2 {
+            font-size: 2.4em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fbbf24;
+        }
+        .faq-item {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid #334155;
+            border-radius: 14px;
+            padding: 30px 35px;
+            margin-bottom: 20px;
+        }
+        .faq-item h3 {
+            font-size: 1.25em;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+        .faq-item p {
+            color: #9ca3af;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 3px solid #10b981;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .cta-section p {
+            font-size: 1.2em;
+            color: #d1d5db;
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            padding: 22px 50px;
+            border-radius: 12px;
+            font-size: 1.4em;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(251,191,36,0.3);
+            transition: all 0.3s;
+            border: 3px solid #ffffff;
+        }
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(251,191,36,0.5);
+        }
+        .cta-disclaimer {
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: #9ca3af;
+        }
+
+        /* Disclaimer Banner */
+        .legal-disclaimer {
+            background: rgba(30,41,59,0.7);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 40px 0;
+            font-size: 0.9em;
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+        .legal-disclaimer strong { color: #d1d5db; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            font-size: 0.95em;
+            border-top: 1px solid #1e293b;
+        }
+        footer a { color: #9ca3af; text-decoration: none; margin: 0 10px; }
+        footer a:hover { color: #10b981; }
+        .footer-nav { margin-bottom: 20px; }
+        .footer-nav a { margin: 0 12px; font-size: 0.95em; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3em; }
+            .hero-sub { font-size: 1.15em; }
+            .info-section { padding: 40px 25px; }
+            .cta-section { padding: 40px 25px; }
+            .cta-button { padding: 18px 35px; font-size: 1.1em; }
+            .site-nav { flex-direction: column; gap: 10px; }
+            .site-nav .nav-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <a href="index.html" class="logo">🏠 Home Rescue Solutions</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="about-us.html">About Us</a>
+            <a href="valuation-residential.html" class="nav-cta">Get Free Offer</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Facing <span>Foreclosure</span>?<br>You Still Have Options</h1>
+            <p class="hero-sub">
+                If you've received a foreclosure notice, there may still be time to protect your home or get a fair cash offer. We help homeowners explore every available option — free of charge, no obligation.
+            </p>
+            <p class="hero-disclaimer">
+                We are a real estate solutions company. We do not provide legal or financial advice. Results vary based on individual circumstances.
+            </p>
+        </section>
+
+        <!-- Options Section -->
+        <section class="info-section">
+            <h2>Options That May Be Available to You</h2>
+            <p class="section-intro">Every foreclosure situation is different. Here are some of the paths homeowners commonly explore. We can help you understand which ones may apply to your case.</p>
+            
+            <div class="options-grid">
+                <div class="option-card">
+                    <span class="option-icon">💰</span>
+                    <h3>Cash Offer for Your Home</h3>
+                    <p>We buy houses as-is for cash. This can help you avoid foreclosure on your credit record and potentially walk away with money in your pocket. Typical closing in 7-14 days.</p>
+                </div>
+                <div class="option-card">
+                    <span class="option-icon">📋</span>
+                    <h3>Loan Modification Guidance</h3>
+                    <p>Your lender may be willing to modify your mortgage terms. We can help you understand the process and connect you with HUD-approved counselors who assist with applications.</p>
+                </div>
+                <div class="option-card">
+                    <span class="option-icon">🤝</span>
+                    <h3>Short Sale Assistance</h3>
+                    <p>If you owe more than your home is worth, a short sale may be an option. We work with lenders to negotiate the sale, potentially avoiding the full impact of foreclosure.</p>
+                </div>
+                <div class="option-card">
+                    <span class="option-icon">📞</span>
+                    <h3>Connect with Resources</h3>
+                    <p>We can help connect you with HUD-approved housing counselors, legal aid organizations, and other resources that provide free foreclosure prevention assistance.</p>
+                </div>
+                <div class="option-card">
+                    <span class="option-icon">🏠</span>
+                    <h3>Deed in Lieu of Foreclosure</h3>
+                    <p>In some cases, voluntarily transferring ownership to the lender can help you avoid the formal foreclosure process. This option may have fewer long-term credit impacts.</p>
+                </div>
+                <div class="option-card">
+                    <span class="option-icon">⏰</span>
+                    <h3>Reinstatement & Repayment Plans</h3>
+                    <p>Depending on your state and lender, you may be able to catch up on missed payments through a structured repayment plan and keep your home.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3>How quickly can you help?</h3>
+                <p>We typically respond within 24 hours of receiving your information. If you need a cash offer, we can usually provide one within 1-2 business days after reviewing your property details.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Does getting a cash offer cost me anything?</h3>
+                <p>No. Our property evaluations and cash offers are completely free with no obligation. There are no fees, commissions, or hidden costs to get an offer from us.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Will this hurt my credit?</h3>
+                <p>Getting a cash offer from us does not affect your credit. In fact, selling your home before foreclosure is completed may help protect your credit compared to a completed foreclosure. We recommend consulting with a financial advisor about your specific situation.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What condition does my home need to be in?</h3>
+                <p>We buy houses in any condition — no repairs, cleaning, or renovations needed. Whether your property needs major work or is in great shape, we can make an offer.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is my information kept confidential?</h3>
+                <p>Absolutely. All information you share with us is kept strictly confidential. We understand the sensitivity of foreclosure situations and treat every case with discretion. See our <a href="privacy-policy.html" style="color: #10b981;">Privacy Policy</a> for details.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Are you a legitimate company?</h3>
+                <p>Yes. We are a real estate solutions company that operates in compliance with applicable state and federal regulations regarding real estate transactions.</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Take the First Step Today</h2>
+            <p>Get a free, no-obligation property evaluation. We'll review your situation and present the options that may be available to you.</p>
+            <a href="valuation-residential.html" class="cta-button">
+                🏠 Get My Free Cash Offer
+            </a>
+            <p class="cta-disclaimer">No obligation. No fees. Your information is kept confidential.</p>
+        </section>
+
+        <!-- Legal Disclaimer -->
+        <div class="legal-disclaimer">
+            <strong>Disclaimer:</strong> This website is operated by a real estate solutions company. We are not a law firm, financial advisor, or government agency. Nothing on this website constitutes legal, tax, or financial advice. All information is provided for general informational purposes only. We strongly recommend consulting with a qualified attorney or HUD-approved housing counselor before making any decisions about your property. Results vary based on individual circumstances, market conditions, and property details.
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="stop-foreclosure.html">Foreclosure Help</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="about-us.html">About Us</a>
+            <a href="valuation-residential.html">Get Offer</a>
+        </div>
+        <p>© 2026 All Rights Reserved | Real Estate Solutions</p>
+        <p style="margin-top: 15px; font-size: 0.85em;">
+            <a href="terms-of-service.html">Terms of Service</a> | 
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </p>
+    </footer>
+</body>
+</html>
