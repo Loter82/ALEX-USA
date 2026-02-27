@@ -561,7 +561,61 @@
             }
             .site-nav { flex-direction: column; gap: 10px; }
             .site-nav .nav-links { justify-content: center; }
+            .sticky-bar { padding: 12px 15px; }
+            .sticky-bar-inner { flex-direction: column; gap: 10px; }
+            .sticky-phone { font-size: 1.1em; }
         }
+
+        /* Sticky Bottom Bar */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-top: 3px solid #10b981;
+            padding: 14px 20px;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .sticky-bar-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sticky-bar-text {
+            color: #d1d5db;
+            font-size: 1.05em;
+            font-weight: 600;
+        }
+
+        .sticky-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: 800;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: 2px solid #10b981;
+            background: rgba(16, 185, 129, 0.15);
+            transition: all 0.3s;
+        }
+
+        .sticky-phone:hover {
+            background: rgba(16, 185, 129, 0.3);
+            transform: scale(1.05);
+        }
+
+        body { padding-bottom: 80px; }
     </style>
 </head>
 <body>
@@ -1095,5 +1149,14 @@
             }
         });
     </script>
+    <!-- Sticky Bottom Bar -->
+    <div class="sticky-bar">
+        <div class="sticky-bar-inner">
+            <span class="sticky-bar-text">Prefer to talk? Call us now:</span>
+            <a href="tel:+13304134047" class="sticky-phone">
+                📞 (330) 413-4047
+            </a>
+        </div>
+    </div>
 </body>
 </html>

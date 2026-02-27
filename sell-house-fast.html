@@ -207,7 +207,82 @@
             .cta-button { padding: 18px 35px; font-size: 1.1em; }
             .site-nav { flex-direction: column; gap: 10px; }
             .site-nav .nav-links { justify-content: center; }
+            .sticky-bar { padding: 12px 15px; }
+            .sticky-bar-inner { flex-direction: column; gap: 10px; }
+            .sticky-cta { padding: 14px 25px; font-size: 1.1em; }
+            .sticky-phone { font-size: 1.1em; }
         }
+
+        /* Sticky Bottom CTA Bar */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-top: 3px solid #fbbf24;
+            padding: 14px 20px;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .sticky-bar-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sticky-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: 2px solid #ffffff;
+            transition: all 0.3s;
+        }
+
+        .sticky-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .sticky-divider {
+            color: #4b5563;
+            font-size: 1.4em;
+        }
+
+        .sticky-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: 800;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: 2px solid #10b981;
+            background: rgba(16, 185, 129, 0.15);
+            transition: all 0.3s;
+        }
+
+        .sticky-phone:hover {
+            background: rgba(16, 185, 129, 0.3);
+            transform: scale(1.05);
+        }
+
+        body { padding-bottom: 90px; }
     </style>
 </head>
 <body>
@@ -231,6 +306,10 @@
             <p class="hero-disclaimer">
                 Cash offers are based on current market value, property condition, and comparable sales in your area.
             </p>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px;">
+                <a href="valuation-residential.html" style="display: inline-block; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a1a; padding: 18px 40px; border-radius: 12px; font-size: 1.3em; font-weight: 900; text-decoration: none; text-transform: uppercase; border: 3px solid #fff; box-shadow: 0 10px 30px rgba(251,191,36,0.4);">💵 GET MY FREE CASH OFFER</a>
+                <a href="tel:+13304134047" style="display: inline-flex; align-items: center; gap: 10px; color: #10b981; font-size: 1.4em; font-weight: 800; text-decoration: none; padding: 16px 28px; border: 2px solid #10b981; border-radius: 12px;">📞 (330) 413-4047</a>
+            </div>
         </section>
 
         <!-- Comparison -->
@@ -397,5 +476,17 @@
             <a href="privacy-policy.html">Privacy Policy</a>
         </p>
     </footer>
+    <!-- Sticky Bottom CTA Bar -->
+    <div class="sticky-bar">
+        <div class="sticky-bar-inner">
+            <a href="valuation-residential.html" class="sticky-cta">
+                💵 GET MY FREE CASH OFFER →
+            </a>
+            <span class="sticky-divider">|</span>
+            <a href="tel:+13304134047" class="sticky-phone">
+                📞 (330) 413-4047
+            </a>
+        </div>
+    </div>
 </body>
 </html>
