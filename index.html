@@ -462,10 +462,25 @@
         }
 
         .emergency-cta .cta-button {
+            display: inline-block;
             background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
             color: #1e40af;
             font-size: 1.5em;
+            font-weight: 800;
             padding: 22px 50px;
+            border-radius: 14px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .emergency-cta .cta-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
 
         /* Footer */
@@ -527,7 +542,25 @@
             }
 
             .emergency-cta h2 {
-                font-size: 2em;
+                font-size: 1.8em;
+            }
+
+            .emergency-cta p {
+                font-size: 1.1em;
+                margin-bottom: 25px;
+            }
+
+            .emergency-cta {
+                padding: 40px 20px;
+                margin: 40px 0;
+            }
+
+            .emergency-cta .cta-button {
+                font-size: 1.05em;
+                padding: 16px 24px;
+                display: block;
+                width: 100%;
+                text-align: center;
             }
 
             .site-nav { flex-direction: column; gap: 10px; }
