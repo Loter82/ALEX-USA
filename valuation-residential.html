@@ -561,9 +561,10 @@
             }
             .site-nav { flex-direction: column; gap: 10px; }
             .site-nav .nav-links { justify-content: center; }
-            .sticky-bar { padding: 12px 15px; }
-            .sticky-bar-inner { flex-direction: column; gap: 10px; }
-            .sticky-phone { font-size: 1.1em; }
+            .sticky-bar { padding: 10px 12px; }
+            .sticky-bar-text { font-size: 0.9em; }
+            .sticky-phone { padding: 12px 18px; font-size: 0.95em; }
+            .sticky-phone svg { width: 18px; height: 18px; }
         }
 
         /* Sticky Bottom Bar */
@@ -573,49 +574,61 @@
             left: 0;
             right: 0;
             z-index: 9999;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border-top: 3px solid #10b981;
-            padding: 14px 20px;
-            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
+            background: rgba(15, 23, 42, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 2px solid rgba(16, 185, 129, 0.5);
+            padding: 12px 20px;
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .sticky-bar-inner {
-            max-width: 900px;
+            max-width: 700px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         .sticky-bar-text {
-            color: #d1d5db;
-            font-size: 1.05em;
-            font-weight: 600;
+            color: #9ca3af;
+            font-size: 1em;
+            font-weight: 500;
         }
 
         .sticky-phone {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             color: #ffffff;
             text-decoration: none;
-            font-size: 1.3em;
-            font-weight: 800;
+            font-size: 1.15em;
+            font-weight: 700;
             padding: 14px 28px;
-            border-radius: 12px;
-            border: 2px solid #10b981;
-            background: rgba(16, 185, 129, 0.15);
-            transition: all 0.3s;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1.5px solid rgba(16, 185, 129, 0.5);
+            transition: all 0.25s;
+            white-space: nowrap;
         }
 
         .sticky-phone:hover {
-            background: rgba(16, 185, 129, 0.3);
-            transform: scale(1.05);
+            background: rgba(16, 185, 129, 0.25);
+            border-color: #10b981;
+            transform: translateY(-2px);
         }
 
-        body { padding-bottom: 80px; }
+        .sticky-phone svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: #10b981;
+        }
+
+        body { padding-bottom: 75px; }
     </style>
 </head>
 <body>
@@ -1152,9 +1165,10 @@
     <!-- Sticky Bottom Bar -->
     <div class="sticky-bar">
         <div class="sticky-bar-inner">
-            <span class="sticky-bar-text">Prefer to talk? Call us now:</span>
+            <span class="sticky-bar-text">Prefer to talk?</span>
             <a href="tel:+13304134047" class="sticky-phone">
-                📞 (330) 413-4047
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                Call (330) 413-4047
             </a>
         </div>
     </div>
