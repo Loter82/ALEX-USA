@@ -14,7 +14,7 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.4);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
             z-index: 100000;
@@ -26,14 +26,14 @@
             display: flex;
         }
         .lead-modal {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #fbbf24;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 45px 40px 40px;
             max-width: 460px;
             width: 100%;
             position: relative;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
             animation: leadModalIn 0.35s ease-out;
         }
         @keyframes leadModalIn {
@@ -46,29 +46,29 @@
             right: 18px;
             background: none;
             border: none;
-            color: #9ca3af;
+            color: #94a3b8;
             font-size: 1.6em;
             cursor: pointer;
             line-height: 1;
             transition: color 0.2s;
         }
-        .lead-modal-close:hover { color: #fff; }
+        .lead-modal-close:hover { color: #1e293b; }
         .lead-modal h2 {
             text-align: center;
-            color: #fbbf24;
+            color: #1e40af;
             font-size: 1.7em;
             margin-bottom: 8px;
         }
         .lead-modal .lead-subtitle {
             text-align: center;
-            color: #9ca3af;
+            color: #64748b;
             font-size: 1em;
             margin-bottom: 28px;
             line-height: 1.5;
         }
         .lead-modal label {
             display: block;
-            color: #d1d5db;
+            color: #475569;
             font-weight: 600;
             margin-bottom: 6px;
             font-size: 0.95em;
@@ -76,36 +76,36 @@
         .lead-modal input {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid #334155;
+            border: 2px solid #e2e8f0;
             border-radius: 10px;
-            background: rgba(255,255,255,0.06);
-            color: #fff;
+            background: #f8fafc;
+            color: #1e293b;
             font-size: 1.05em;
             margin-bottom: 18px;
             outline: none;
             transition: border-color 0.25s;
             box-sizing: border-box;
         }
-        .lead-modal input::placeholder { color: #6b7280; }
-        .lead-modal input:focus { border-color: #fbbf24; }
+        .lead-modal input::placeholder { color: #94a3b8; }
+        .lead-modal input:focus { border-color: #2563eb; }
         .lead-modal .lead-submit-btn {
             width: 100%;
             padding: 16px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #1a1a1a;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
             font-size: 1.15em;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.25s;
-            box-shadow: 0 6px 25px rgba(251,191,36,0.3);
+            box-shadow: 0 6px 25px rgba(37,99,235,0.3);
         }
         .lead-modal .lead-submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 35px rgba(251,191,36,0.45);
+            box-shadow: 0 10px 35px rgba(37,99,235,0.4);
         }
         .lead-modal .lead-submit-btn:disabled {
             opacity: 0.7;
@@ -113,7 +113,7 @@
         }
         .lead-modal .lead-privacy {
             text-align: center;
-            color: #6b7280;
+            color: #94a3b8;
             font-size: 0.82em;
             margin-top: 14px;
             line-height: 1.5;
@@ -127,12 +127,12 @@
             margin-bottom: 14px;
         }
         .lead-modal .lead-success h3 {
-            color: #10b981;
+            color: #059669;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
         .lead-modal .lead-success p {
-            color: #d1d5db;
+            color: #475569;
             font-size: 1.05em;
             line-height: 1.5;
         }

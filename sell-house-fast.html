@@ -19,15 +19,14 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
-            color: #ffffff;
+            background: #f8fafc;
+            color: #1e293b;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         .site-nav {
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
@@ -35,40 +34,42 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid #334155;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         }
-        .site-nav .logo { color: #10b981; font-weight: 800; font-size: 1.2em; text-decoration: none; }
+        .site-nav .logo { color: #059669; font-weight: 800; font-size: 1.2em; text-decoration: none; }
         .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
-        .site-nav .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
-        .site-nav .nav-links a:hover { color: #10b981; }
-        .site-nav .nav-cta { background: #ef4444; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; }
-        .site-nav .nav-cta:hover { background: #dc2626; }
+        .site-nav .nav-links a { color: #475569; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
+        .site-nav .nav-links a:hover { color: #059669; }
+        .site-nav .nav-cta { background: #2563eb; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; }
+        .site-nav .nav-cta:hover { background: #1d4ed8; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
 
         .hero { text-align: center; padding: 70px 20px 50px; }
         .hero h1 { font-size: 3.5em; line-height: 1.15; margin-bottom: 25px; }
-        .hero h1 .highlight { color: #10b981; }
-        .hero-sub { font-size: 1.4em; color: #d1d5db; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
-        .hero-disclaimer { font-size: 0.95em; color: #9ca3af; max-width: 700px; margin: 0 auto; line-height: 1.5; }
+        .hero h1 .highlight { color: #059669; }
+        .hero-sub { font-size: 1.4em; color: #64748b; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
+        .hero-disclaimer { font-size: 0.95em; color: #94a3b8; max-width: 700px; margin: 0 auto; line-height: 1.5; }
 
         /* Comparison Table */
         .comparison-section {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #334155;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 55px 40px;
             margin: 50px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
         .comparison-section h2 {
             font-size: 2.4em;
             text-align: center;
             margin-bottom: 15px;
-            color: #fbbf24;
+            color: #1e40af;
         }
         .comparison-intro {
             text-align: center;
-            color: #9ca3af;
+            color: #64748b;
             font-size: 1.1em;
             margin-bottom: 40px;
         }
@@ -81,31 +82,31 @@
             overflow: hidden;
         }
         .comparison-table th {
-            background: rgba(16,185,129,0.2);
-            color: #10b981;
+            background: #ecfdf5;
+            color: #059669;
             padding: 18px 20px;
             text-align: left;
             font-size: 1.1em;
             font-weight: 700;
         }
-        .comparison-table th:first-child { background: rgba(255,255,255,0.05); color: #9ca3af; }
+        .comparison-table th:first-child { background: #f8fafc; color: #94a3b8; }
         .comparison-table td {
             padding: 16px 20px;
-            border-bottom: 1px solid #334155;
-            color: #d1d5db;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
             font-size: 1em;
             line-height: 1.5;
         }
         .comparison-table tr:last-child td { border-bottom: none; }
-        .comparison-table td:first-child { color: #9ca3af; font-weight: 600; }
-        .comparison-table .highlight-col { background: rgba(16,185,129,0.05); }
-        .check { color: #10b981; font-weight: 700; }
+        .comparison-table td:first-child { color: #64748b; font-weight: 600; }
+        .comparison-table .highlight-col { background: #f0fdf4; }
+        .check { color: #059669; font-weight: 700; }
         .cross { color: #ef4444; }
 
         /* Benefits Grid */
         .benefits-section { margin: 50px 0; }
-        .benefits-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 15px; color: #10b981; }
-        .benefits-intro { text-align: center; color: #9ca3af; font-size: 1.1em; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .benefits-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 15px; color: #1e293b; }
+        .benefits-intro { text-align: center; color: #64748b; font-size: 1.1em; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
 
         .benefits-grid {
             display: grid;
@@ -113,26 +114,28 @@
             gap: 25px;
         }
         .benefit-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #334155;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 14px;
             padding: 30px 25px;
             transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-        .benefit-card:hover { transform: translateY(-4px); border-color: #10b981; box-shadow: 0 8px 25px rgba(16,185,129,0.15); }
+        .benefit-card:hover { transform: translateY(-4px); border-color: #2563eb; box-shadow: 0 8px 25px rgba(37,99,235,0.1); }
         .benefit-card .icon { font-size: 2.5em; margin-bottom: 15px; display: block; }
-        .benefit-card h3 { font-size: 1.3em; color: #fbbf24; margin-bottom: 10px; }
-        .benefit-card p { color: #9ca3af; line-height: 1.6; }
+        .benefit-card h3 { font-size: 1.3em; color: #1e40af; margin-bottom: 10px; }
+        .benefit-card p { color: #64748b; line-height: 1.6; }
 
         /* What We Buy */
         .buy-section {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #334155;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 55px 40px;
             margin: 50px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
-        .buy-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #ffffff; }
+        .buy-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #1e293b; }
         .buy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -140,25 +143,27 @@
             text-align: center;
         }
         .buy-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #334155;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 25px 15px;
+            transition: all 0.3s;
         }
+        .buy-item:hover { border-color: #2563eb; box-shadow: 0 4px 12px rgba(37,99,235,0.08); }
         .buy-item .icon { font-size: 2em; margin-bottom: 10px; display: block; }
-        .buy-item p { color: #d1d5db; font-weight: 600; }
+        .buy-item p { color: #475569; font-weight: 600; }
 
         /* CTA */
         .cta-section {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 3px solid #10b981;
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e40af 100%);
             border-radius: 20px;
             padding: 60px 40px;
             text-align: center;
             margin: 60px 0;
+            box-shadow: 0 20px 60px rgba(30, 64, 175, 0.25);
         }
-        .cta-section h2 { font-size: 2.5em; margin-bottom: 20px; }
-        .cta-section p { font-size: 1.2em; color: #d1d5db; margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+        .cta-section h2 { font-size: 2.5em; margin-bottom: 20px; color: #ffffff; }
+        .cta-section p { font-size: 1.2em; color: rgba(255,255,255,0.9); margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
@@ -169,34 +174,35 @@
             font-weight: 800;
             text-decoration: none;
             text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(251,191,36,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: all 0.3s;
-            border: 3px solid #ffffff;
+            border: none;
         }
-        .cta-button:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(251,191,36,0.5); }
-        .cta-disclaimer { margin-top: 20px; font-size: 0.95em; color: #9ca3af; }
+        .cta-button:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .cta-disclaimer { margin-top: 20px; font-size: 0.95em; color: rgba(255,255,255,0.8); }
 
         .legal-disclaimer {
-            background: rgba(30,41,59,0.7);
-            border: 1px solid #334155;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 25px 30px;
             margin: 40px 0;
             font-size: 0.9em;
-            color: #9ca3af;
+            color: #64748b;
             line-height: 1.7;
         }
-        .legal-disclaimer strong { color: #d1d5db; }
+        .legal-disclaimer strong { color: #475569; }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #6b7280;
+            color: #94a3b8;
             font-size: 0.95em;
-            border-top: 1px solid #1e293b;
+            background: #f1f5f9;
+            border-top: 1px solid #e2e8f0;
         }
-        footer a { color: #9ca3af; text-decoration: none; margin: 0 10px; }
-        footer a:hover { color: #10b981; }
+        footer a { color: #64748b; text-decoration: none; margin: 0 10px; }
+        footer a:hover { color: #059669; }
         .footer-nav { margin-bottom: 20px; }
         .footer-nav a { margin: 0 12px; font-size: 0.95em; }
 
@@ -205,8 +211,6 @@
             .comparison-section { padding: 35px 15px; overflow-x: auto; }
             .comparison-table { min-width: 550px; }
             .cta-button { padding: 18px 35px; font-size: 1.1em; }
-            .site-nav { flex-direction: column; gap: 10px; }
-            .site-nav .nav-links { justify-content: center; }
             .site-nav { flex-direction: column; gap: 10px; }
             .site-nav .nav-links { justify-content: center; }
             .sticky-bar { padding: 8px 10px; }
@@ -223,12 +227,12 @@
             left: 0;
             right: 0;
             z-index: 9999;
-            background: rgba(15, 23, 42, 0.97);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 2px solid rgba(251, 191, 36, 0.6);
+            border-top: 1px solid #e2e8f0;
             padding: 12px 20px;
-            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.08);
         }
 
         .sticky-bar-inner {
@@ -245,8 +249,8 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #1a1a1a;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
             padding: 14px 32px;
             border-radius: 10px;
             font-size: 1.05em;
@@ -256,49 +260,40 @@
             letter-spacing: 0.5px;
             transition: all 0.25s;
             white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
         .sticky-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
         }
 
-        .sticky-cta svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
+        .sticky-cta svg { width: 20px; height: 20px; flex-shrink: 0; }
 
         .sticky-phone {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            color: #ffffff;
+            color: #059669;
             text-decoration: none;
             font-size: 1.05em;
             font-weight: 700;
             padding: 14px 24px;
             border-radius: 10px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1.5px solid rgba(16, 185, 129, 0.5);
+            background: #ecfdf5;
+            border: 1.5px solid #a7f3d0;
             transition: all 0.25s;
             white-space: nowrap;
         }
 
         .sticky-phone:hover {
-            background: rgba(16, 185, 129, 0.25);
-            border-color: #10b981;
+            background: #d1fae5;
+            border-color: #059669;
             transform: translateY(-2px);
         }
 
-        .sticky-phone svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            color: #10b981;
-        }
+        .sticky-phone svg { width: 20px; height: 20px; flex-shrink: 0; color: #059669; }
 
         body { padding-bottom: 75px; }
     </style>
@@ -325,8 +320,8 @@
                 Cash offers are based on current market value, property condition, and comparable sales in your area.
             </p>
             <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 25px;">
-                <a href="#" onclick="gtag('event', 'cta_click', {'event_category': 'hero', 'event_label': 'get_cash_offer', 'page': 'sell_house_fast'}); openLeadModal(); return false;" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1a1a1a; padding: 18px 40px; border-radius: 12px; font-size: 1.3em; font-weight: 900; text-decoration: none; text-transform: uppercase; box-shadow: 0 8px 30px rgba(251,191,36,0.35); letter-spacing: 0.5px;">Get My Free Cash Offer <span style='font-size:0.9em;'>→</span></a>
-                <a href="tel:+13304134047" onclick="gtag('event', 'phone_click', {'event_category': 'hero', 'event_label': 'call_button', 'page': 'sell_house_fast'});" style="display: inline-flex; align-items: center; gap: 10px; color: #ffffff; font-size: 1.25em; font-weight: 700; text-decoration: none; padding: 16px 28px; border: 2px solid rgba(16,185,129,0.5); border-radius: 12px; background: rgba(16,185,129,0.1);"><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#10b981' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z'/></svg> (330) 413-4047</a>
+                <a href="#" onclick="gtag('event', 'cta_click', {'event_category': 'hero', 'event_label': 'get_cash_offer', 'page': 'sell_house_fast'}); openLeadModal(); return false;" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; padding: 18px 40px; border-radius: 12px; font-size: 1.3em; font-weight: 900; text-decoration: none; text-transform: uppercase; box-shadow: 0 8px 30px rgba(37,99,235,0.35); letter-spacing: 0.5px;">Get My Free Cash Offer <span style='font-size:0.9em;'>→</span></a>
+                <a href="tel:+13304134047" onclick="gtag('event', 'phone_click', {'event_category': 'hero', 'event_label': 'call_button', 'page': 'sell_house_fast'});" style="display: inline-flex; align-items: center; gap: 10px; color: #059669; font-size: 1.25em; font-weight: 700; text-decoration: none; padding: 16px 28px; border: 2px solid #a7f3d0; border-radius: 12px; background: #ecfdf5;"><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#059669' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z'/></svg> (330) 413-4047</a>
             </div>
         </section>
 
@@ -381,7 +376,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p style="color: #9ca3af; font-size: 0.85em; margin-top: 15px; text-align: center;">
+            <p style="color: #94a3b8; font-size: 0.85em; margin-top: 15px; text-align: center;">
                 *Our offers reflect the speed, convenience, and cost savings we provide. We encourage you to compare options and choose what's best for your situation.
             </p>
         </section>
