@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How It Works | Simple 4-Step Process | Get a Cash Offer</title>
-    <meta name="description" content="Our simple 4-step process: Submit property info, get a cash offer in 24h, choose your closing date, get paid. No fees, no repairs, no hassle.">
-    
-    <!-- Google tag (gtag.js) -->
+    <title>How It Works | Home Rescue Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17936379407"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -17,327 +17,773 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            min-height: 100vh;
-            overflow-x: hidden;
+        :root {
+            --bg-dark: #0c1220;
+            --bg-card: #141c2e;
+            --bg-glass: rgba(20, 28, 46, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #d4a853;
+            --accent-hover: #e8bf6a;
+            --accent-glow: rgba(212, 168, 83, 0.25);
+            --border: rgba(255,255,255,0.06);
+            --white: #ffffff;
         }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* в”Ђв”Ђ Navigation в”Ђв”Ђ */
         .site-nav {
-            background: #ffffff;
-            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(12, 18, 32, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: all 0.3s;
         }
-        .site-nav .logo { color: #059669; font-weight: 800; font-size: 1.2em; text-decoration: none; }
-        .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
-        .site-nav .nav-links a { color: #475569; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
-        .site-nav .nav-links a:hover { color: #059669; }
-        .site-nav .nav-cta { background: #2563eb; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; }
-        .site-nav .nav-cta:hover { background: #1d4ed8; }
+        .site-nav .logo {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.15em;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .site-nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        .site-nav .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
+        }
+        .site-nav .nav-links a:hover { color: var(--white); }
+        .site-nav .nav-cta {
+            background: var(--accent) !important;
+            color: var(--bg-dark) !important;
+            padding: 10px 24px !important;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            transition: all 0.3s !important;
+            letter-spacing: 0 !important;
+        }
+        .site-nav .nav-cta:hover { background: var(--accent-hover) !important; transform: translateY(-1px); }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-
-        .hero { text-align: center; padding: 70px 20px 50px; }
-        .hero h1 { font-size: 3.5em; line-height: 1.15; margin-bottom: 25px; }
-        .hero h1 .highlight { color: #2563eb; }
-        .hero-sub { font-size: 1.4em; color: #64748b; max-width: 800px; margin: 0 auto; line-height: 1.6; }
-
-        /* Steps */
-        .steps-section { margin: 50px 0; }
-
-        .step {
+        /* в”Ђв”Ђ Hero в”Ђв”Ђ */
+        .hero {
+            min-height: 100vh;
             display: flex;
-            gap: 40px;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 20px 80px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,168,83,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(212,168,83,0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        /* Floating particles */
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212,168,83,0.1);
+            border: 1px solid rgba(212,168,83,0.25);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85em;
+            font-weight: 600;
             margin-bottom: 30px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 45px 40px;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeInDown 0.6s ease-out;
         }
-        .step:hover { border-color: #2563eb; box-shadow: 0 8px 30px rgba(37,99,235,0.1); }
+        .hero-badge .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .step-number {
-            font-size: 4em;
+        h1 {
+            font-size: clamp(2.5em, 6vw, 4.5em);
+            line-height: 1.05;
+            margin-bottom: 28px;
             font-weight: 900;
-            color: #2563eb;
-            min-width: 90px;
-            text-align: center;
-            line-height: 1;
-            opacity: 0.9;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out;
         }
-        .step-content { flex: 1; }
-        .step-content h2 { font-size: 1.8em; color: #1e40af; margin-bottom: 15px; }
-        .step-content p { color: #475569; line-height: 1.7; font-size: 1.1em; margin-bottom: 12px; }
-        .step-content .detail { color: #64748b; font-size: 1em; }
-
-        .step-icon { font-size: 3em; min-width: 60px; text-align: center; }
-
-        .step-connector {
-            width: 4px;
-            height: 30px;
-            background: linear-gradient(to bottom, #2563eb, #e2e8f0);
-            margin: 0 auto;
-            border-radius: 2px;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 .line1 { color: var(--white); display: block; }
+        h1 .line2 {
+            display: block;
+            background: linear-gradient(135deg, var(--accent), #f0d48a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Guarantees */
-        .guarantees-section {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 55px 40px;
-            margin: 50px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        .hero-sub {
+            font-size: clamp(1.05em, 2vw, 1.3em);
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 45px;
+            line-height: 1.7;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out;
         }
-        .guarantees-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #1e293b; }
-        .guarantees-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-        .guarantee-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 30px 25px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .guarantee-card:hover { border-color: #2563eb; transform: translateY(-4px); box-shadow: 0 8px 25px rgba(37,99,235,0.08); }
-        .guarantee-card .icon { font-size: 2.5em; margin-bottom: 15px; display: block; }
-        .guarantee-card h3 { font-size: 1.2em; color: #1e40af; margin-bottom: 10px; }
-        .guarantee-card p { color: #64748b; line-height: 1.6; font-size: 0.95em; }
+        .hero-sub strong { color: var(--white); font-weight: 600; }
 
-        /* FAQ mini */
-        .faq-section { margin: 50px 0; }
-        .faq-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #1e293b; }
-        .faq-item {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 28px 35px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.2s ease-out;
         }
-        .faq-item h3 { font-size: 1.2em; color: #1e293b; margin-bottom: 10px; }
-        .faq-item p { color: #64748b; line-height: 1.7; }
-
-        /* CTA */
-        .cta-section {
-            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e40af 100%);
-            border-radius: 20px;
-            padding: 60px 40px;
-            text-align: center;
-            margin: 60px 0;
-            box-shadow: 0 20px 60px rgba(30, 64, 175, 0.25);
-        }
-        .cta-section h2 { font-size: 2.5em; margin-bottom: 20px; color: #ffffff; }
-        .cta-section p { font-size: 1.2em; color: rgba(255,255,255,0.9); margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #1a1a1a;
-            padding: 22px 50px;
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 18px 40px;
             border-radius: 12px;
-            font-size: 1.4em;
+            font-size: 1.1em;
             font-weight: 800;
             text-decoration: none;
-            text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            letter-spacing: 0.3px;
+            box-shadow: 0 0 40px var(--accent-glow), 0 4px 20px rgba(0,0,0,0.3);
             transition: all 0.3s;
             border: none;
+            cursor: pointer;
         }
-        .cta-button:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-        .cta-disclaimer { margin-top: 20px; font-size: 0.95em; color: rgba(255,255,255,0.8); }
-
-        .legal-disclaimer {
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 0 60px var(--accent-glow), 0 8px 30px rgba(0,0,0,0.4);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 28px;
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 12px;
-            padding: 25px 30px;
-            margin: 40px 0;
-            font-size: 0.9em;
-            color: #64748b;
-            line-height: 1.7;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
-        .legal-disclaimer strong { color: #475569; }
+        .btn-secondary:hover {
+            color: var(--white);
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
 
+        /* в”Ђв”Ђ Founder Card в”Ђв”Ђ */
+        .founder-card {
+            max-width: 680px;
+            margin: 55px auto 0;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            padding: 28px 32px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            text-align: left;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        .founder-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(212,168,83,0.3);
+            flex-shrink: 0;
+        }
+        .founder-info .fname { font-size: 1.15em; font-weight: 800; color: var(--white); }
+        .founder-info .frole { font-size: 0.85em; color: var(--accent); font-weight: 600; margin-top: 2px; }
+        .founder-info .fquote {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* в”Ђв”Ђ Stats в”Ђв”Ђ */
+        .stats-section {
+            padding: 80px 20px;
+            position: relative;
+        }
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .stat-item {
+            background: var(--bg-card);
+            padding: 40px 20px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        .stat-item:hover { background: rgba(212,168,83,0.06); }
+        .stat-val {
+            font-size: 2.8em;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* в”Ђв”Ђ Trust Section в”Ђв”Ђ */
+        .trust-section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            text-align: center;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 14px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8em, 4vw, 2.8em);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -1px;
+            margin-bottom: 60px;
+        }
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .trust-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 28px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .trust-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .trust-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212,168,83,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .trust-card:hover::before { opacity: 1; }
+        .trust-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 20px;
+            background: rgba(212,168,83,0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+        }
+        .trust-card h3 {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .trust-card p {
+            font-size: 0.92em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* в”Ђв”Ђ CTA Section в”Ђв”Ђ */
+        .cta-section {
+            padding: 80px 20px;
+        }
+        .cta-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(212,168,83,0.12) 0%, rgba(212,168,83,0.03) 100%);
+            border: 1px solid rgba(212,168,83,0.2);
+            border-radius: 28px;
+            padding: 70px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-card .section-label { margin-bottom: 18px; }
+        .cta-card h2 {
+            font-size: clamp(2em, 4vw, 3em);
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .cta-card .sub {
+            font-size: 1.15em;
+            color: var(--text-secondary);
+            margin-bottom: 45px;
+            line-height: 1.6;
+        }
+        .benefits-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 45px;
+        }
+        .benefit-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+        .benefit-chip .check {
+            width: 22px; height: 22px;
+            background: rgba(212,168,83,0.15);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.7em;
+            font-weight: 900;
+        }
+        .cta-note {
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+        }
+
+        /* в”Ђв”Ђ Process в”Ђв”Ђ */
+        .process-section {
+            padding: 80px 20px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+        .steps::before {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 56px;
+            bottom: 56px;
+            width: 1px;
+            background: linear-gradient(180deg, var(--accent), rgba(212,168,83,0.1));
+        }
+        .step {
+            display: flex;
+            gap: 28px;
+            padding: 30px 0;
+            position: relative;
+        }
+        .step-num {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-card);
+            border: 1px solid rgba(212,168,83,0.3);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: 800;
+            color: var(--accent);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+        .step:hover .step-num {
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-color: var(--accent);
+        }
+        .step-content h3 {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .step-content p {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .step-tag {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(212,168,83,0.1);
+            padding: 4px 14px;
+            border-radius: 100px;
+        }
+
+        /* в”Ђв”Ђ Final CTA в”Ђв”Ђ */
+        .final-cta {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .final-cta h2 {
+            font-size: clamp(1.8em, 4vw, 2.6em);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .final-cta p {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        /* в”Ђв”Ђ Footer в”Ђв”Ђ */
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #94a3b8;
-            font-size: 0.95em;
-            background: #f1f5f9;
-            border-top: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 0.85em;
+            border-top: 1px solid var(--border);
         }
-        footer a { color: #64748b; text-decoration: none; margin: 0 10px; }
-        footer a:hover { color: #059669; }
-        .footer-nav { margin-bottom: 20px; }
-        .footer-nav a { margin: 0 12px; font-size: 0.95em; }
+        footer a { color: #64748b; text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: var(--accent); }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.3em; }
-            .step { flex-direction: column; gap: 15px; padding: 30px 25px; }
-            .step-number { min-width: auto; font-size: 3em; }
-            .cta-button { padding: 18px 35px; font-size: 1.1em; }
-            .site-nav { flex-direction: column; gap: 10px; }
-            .site-nav .nav-links { justify-content: center; }
+        /* в”Ђв”Ђ Disclaimer в”Ђв”Ђ */
+        .disclaimer {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            padding: 24px 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 0.82em;
+            color: #64748b;
+            line-height: 1.7;
         }
-    </style>
+        .disclaimer strong { color: #94a3b8; }
+
+        /* в”Ђв”Ђ Sticky Bar в”Ђв”Ђ */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background: rgba(12, 18, 32, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 12px 20px;
+        }
+        .sticky-bar-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 12px;
+        }
+        .sticky-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+        .sticky-cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .sticky-cta svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .sticky-phone {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 700;
+            padding: 14px 22px;
+            border-radius: 10px;
+            border: 1px solid rgba(212,168,83,0.25);
+            background: rgba(212,168,83,0.06);
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+        .sticky-phone:hover {
+            background: rgba(212,168,83,0.12);
+            border-color: rgba(212,168,83,0.4);
+            transform: translateY(-2px);
+        }
+        .sticky-phone svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+        /* в”Ђв”Ђ Responsive в”Ђв”Ђ */
+        @media (max-width: 768px) {
+            .site-nav { padding: 14px 16px; }
+            .site-nav .nav-links { display: none; }
+            .hero { padding: 100px 16px 60px; min-height: auto; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .trust-grid { grid-template-columns: 1fr; }
+            .cta-card { padding: 45px 24px; }
+            .benefits-row { gap: 16px; }
+            .founder-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 20px;
+                gap: 20px;
+            }
+            .step { gap: 18px; }
+            .sticky-bar-inner { flex-direction: column; gap: 8px; }
+            .sticky-cta, .sticky-phone { width: 100%; justify-content: center; }
+            .btn-primary { width: 100%; justify-content: center; padding: 18px 28px; }
+            .btn-secondary { width: 100%; justify-content: center; }
+        }
+    
+</style>
 </head>
 <body>
     <nav class="site-nav">
-        <a href="index.html" class="logo">🏠 Home Rescue Solutions</a>
+        <a href="index.html" class="logo">Home Rescue Solutions</a>
         <div class="nav-links">
-            <a href="index.html">Home</a>
             <a href="stop-foreclosure.html">Home Rescue</a>
             <a href="sell-house-fast.html">Sell Fast</a>
+            <a href="how-it-works.html">How It Works</a>
             <a href="about-us.html">About Us</a>
             <a href="#" onclick="openLeadModal(); return false;" class="nav-cta">Get Free Offer</a>
         </div>
     </nav>
 
-    <div class="container">
-        <section class="hero">
-            <h1>How It <span class="highlight">Works</span></h1>
-            <p class="hero-sub">
-                Our process is designed to be simple, transparent, and stress-free. From start to finish, you're in control. Here's exactly what to expect.
-            </p>
-        </section>
-
-        <!-- Steps -->
-        <section class="steps-section">
-            <div class="step">
-                <div class="step-number">01</div>
-                <div class="step-content">
-                    <h2>📋 Submit Your Property Information</h2>
-                    <p>Fill out our short online form with your property address and basic details. This takes less than 2 minutes — no sign-up required.</p>
-                    <p class="detail">We'll use this information to research your property, analyze comparable sales in your area, and prepare a preliminary valuation. You can also call us directly if you prefer to speak with someone.</p>
-                </div>
-            </div>
-            
-            <div class="step-connector"></div>
-
-            <div class="step">
-                <div class="step-number">02</div>
-                <div class="step-content">
-                    <h2>📊 Receive Your Cash Offer</h2>
-                    <p>Within 24-48 hours, we'll present you with a fair, no-obligation cash offer based on current market data and your property's condition.</p>
-                    <p class="detail">Our offers are transparent — we'll show you exactly how we arrived at the number, including comparable sales data. There are no hidden fees or surprise deductions. The number we present is what you'll receive at closing.</p>
-                </div>
-            </div>
-
-            <div class="step-connector"></div>
-
-            <div class="step">
-                <div class="step-number">03</div>
-                <div class="step-content">
-                    <h2>📅 Choose Your Closing Date</h2>
-                    <p>If you accept our offer, you choose the closing date that works best for you — as quick as 7 days or up to 60 days. You're in control.</p>
-                    <p class="detail">Need time to find your next home? No problem. We can work with your schedule. Our team handles all the paperwork, title work, and coordinates with the closing attorney or title company.</p>
-                </div>
-            </div>
-
-            <div class="step-connector"></div>
-
-            <div class="step">
-                <div class="step-number">04</div>
-                <div class="step-content">
-                    <h2>💵 Get Paid & Move Forward</h2>
-                    <p>At closing, you receive your cash. The funds are processed through a licensed title company for your protection. That's it — no hidden steps.</p>
-                    <p class="detail">We handle the title transfer, any outstanding liens (with your approval), and ensure everything is done legally and properly. You walk away with cash in hand and complete peace of mind.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Our Commitments -->
-        <section class="guarantees-section">
-            <h2>Our Commitments to You</h2>
-            <div class="guarantees-grid">
-                <div class="guarantee-card">
-                    <span class="icon">🤝</span>
-                    <h3>No Obligation</h3>
-                    <p>Our offers are completely free with no strings attached. You can decline at any time — no pressure, no hard feelings.</p>
-                </div>
-                <div class="guarantee-card">
-                    <span class="icon">🔍</span>
-                    <h3>Full Transparency</h3>
-                    <p>We show you exactly how we calculate our offer. No hidden fees, no surprise deductions, no bait-and-switch tactics.</p>
-                </div>
-                <div class="guarantee-card">
-                    <span class="icon">🔒</span>
-                    <h3>Your Privacy Protected</h3>
-                    <p>Your information is kept strictly confidential. We never share your data with third parties. See our Privacy Policy for details.</p>
-                </div>
-                <div class="guarantee-card">
-                    <span class="icon">⚖️</span>
-                    <h3>Secure Transactions</h3>
-                    <p>All transactions go through title companies to ensure compliance with applicable real estate laws and regulations.</p>
-                </div>
-                <div class="guarantee-card">
-                    <span class="icon">📞</span>
-                    <h3>Real People, Real Support</h3>
-                    <p>You'll work with a dedicated team member who answers your questions and guides you through every step of the process.</p>
-                </div>
-                <div class="guarantee-card">
-                    <span class="icon">✅</span>
-                    <h3>Honest Advice</h3>
-                    <p>If selling to us isn't your best option, we'll tell you. We may recommend listing with an agent or exploring other alternatives.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section class="faq-section">
-            <h2>Common Questions</h2>
-            
-            <div class="faq-item">
-                <h3>How do you determine the offer price?</h3>
-                <p>We analyze recent comparable sales in your area, current market conditions, and the estimated condition of your property. Our offers are below retail market value because we cover all closing costs, make all repairs, and take on the risk. We encourage you to get multiple opinions before deciding.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Can I change my mind after accepting?</h3>
-                <p>Yes. You have the right to review all documents and can withdraw before closing. We believe in informed decisions, not pressure tactics. We recommend having an attorney review the purchase agreement.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Do you buy houses with tenants?</h3>
-                <p>Yes, we can purchase properties with existing tenants. We'll work with you to understand the tenant situation and structure the deal accordingly, always in compliance with local tenant protection laws.</p>
-            </div>
-            <div class="faq-item">
-                <h3>What areas do you serve?</h3>
-                <p>We currently purchase properties across the United States. Some areas have more active buying programs than others. Submit your property information and we'll let you know quickly if we can help.</p>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta-section">
-            <h2>Ready to Get Started?</h2>
-            <p>It takes less than 2 minutes to submit your property information. You'll receive a fair cash offer with zero obligation.</p>
-            <a href="#" onclick="openLeadModal(); return false;" class="cta-button">
-                🏠 Get My Free Cash Offer
-            </a>
-            <p class="cta-disclaimer">No obligation. No fees. Your information is kept confidential.</p>
-        </section>
-
-        <div class="legal-disclaimer">
-            <strong>Disclaimer:</strong> This website is operated by a real estate solutions company. We are not realtors and do not list homes on the MLS. We purchase properties directly from homeowners. Offer amounts are based on market analysis, property condition, and other factors. We recommend consulting with a real estate attorney or licensed agent to understand all your options. We do not provide legal, tax, or financial advice. All transactions are conducted through title companies.
+    <section class="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-inner">
+            <div class="hero-badge"><span class="pulse-dot"></span> Simple &bull; Fast &bull; Transparent</div>
+            <h1>
+                <span class="line1">How It Works</span>
+                <span class="line2">Simple as 1-2-3-4</span>
+            </h1>
+            <p class="hero-sub">No agents, no fees, no waiting. Four easy steps from first contact to closing&nbsp;day.</p>
+            <a href="#" class="btn-primary" onclick="gtag('event','cta_click',{'event_category':'hero','page':'how-it-works'}); openLeadModal(); return false;">Get My Free Cash Offer</a>
+            <a href="tel:+13304134047" class="btn-secondary" onclick="gtag('event','phone_click',{'event_category':'hero','page':'how-it-works'});">&#128222; (330) 413-4047</a>
         </div>
+    </section>
+
+    <section class="stats-section reveal">
+        <div class="stats-grid">
+            <div class="stat-item"><div class="stat-val">3,000+</div><div class="stat-label">Families Helped</div></div>
+            <div class="stat-item"><div class="stat-val">7 Days</div><div class="stat-label">Average Close Time</div></div>
+            <div class="stat-item"><div class="stat-val">$0</div><div class="stat-label">Fees or Commissions</div></div>
+            <div class="stat-item"><div class="stat-val">24 hrs</div><div class="stat-label">Offer Turnaround</div></div>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="section-label reveal">The Process</div>
+        <h2 class="section-title reveal">Four Steps to Your Cash Offer</h2>
+        <div class="trust-grid">
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128222;</div>
+                <h3>Step 1 &mdash; Contact Us</h3>
+                <p>Fill out our quick form or call us at (330) 413-4047. Tell us a little about your property &mdash; no inspections required at this stage.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#127968;</div>
+                <h3>Step 2 &mdash; Property Walkthrough</h3>
+                <p>We schedule a brief, no-obligation visit at your convenience. We handle all types of properties in any condition &mdash; no cleaning or repairs needed.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128181;</div>
+                <h3>Step 3 &mdash; Receive Your Offer</h3>
+                <p>Within 24 hours you receive a fair, written, all-cash offer with zero pressure. Take your time &mdash; there is never an expiration deadline forced on you.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#9989;</div>
+                <h3>Step 4 &mdash; Close on Your Schedule</h3>
+                <p>Accept and choose your closing date &mdash; as fast as 7 days or whenever works best. We handle all paperwork through a licensed title company.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section" style="padding-top:0;">
+        <div class="section-label reveal">Why Choose Us</div>
+        <h2 class="section-title reveal">The Advantage of Working With Us</h2>
+        <div class="trust-grid">
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128176;</div>
+                <h3>No Fees or Commissions</h3>
+                <p>What we offer is what you get. Zero agent commissions, zero closing costs charged to you, zero hidden deductions.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#9889;</div>
+                <h3>Close in as Few as 7 Days</h3>
+                <p>Traditional sales take 60&ndash;90 days. We can close in a week &mdash; or on any date you choose. Your timeline, your rules.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128296;</div>
+                <h3>Sell Completely As-Is</h3>
+                <p>Don&rsquo;t spend a dollar on repairs, staging, or clean-up. We buy homes in any condition &mdash; even those that need significant work.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-card reveal">
+            <div class="section-label">Testimonials</div>
+            <h2>What Homeowners Say</h2>
+            <div class="benefits-row">
+                <div class="benefit-chip"><span class="check">&#10003;</span> &ldquo;The process was explained clearly every step of the way. Closed in 9 days!&rdquo; <span style="color:#d4a853;">&mdash; Lisa S.</span></div>
+                <div class="benefit-chip"><span class="check">&#10003;</span> &ldquo;I expected hidden fees &mdash; there were none. Everything was exactly as promised.&rdquo; <span style="color:#d4a853;">&mdash; Mark D.</span></div>
+                <div class="benefit-chip"><span class="check">&#10003;</span> &ldquo;So simple. I only needed to show up and sign. They handled everything else.&rdquo; <span style="color:#d4a853;">&mdash; Rachel B.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta reveal">
+        <h2>Ready to Get Started?</h2>
+        <p>Request your free, no-obligation cash offer today. Zero pressure, zero fees.</p>
+        <a href="#" class="btn-primary" onclick="gtag('event','cta_click',{'event_category':'final_cta','page':'how-it-works'}); openLeadModal(); return false;">Get My Free Offer Now</a>
+        <p class="cta-note">No obligation. No fees. Completely confidential.</p>
+    </section>
+
+    <div style="padding:0 20px;">
+        <div class="disclaimer"><strong>Disclaimer:</strong> This website is operated by a real estate solutions company. We are not a law firm, financial advisor, or government-approved counseling agency. Testimonials reflect individual experiences and do not guarantee similar results. Offer amounts depend on property condition, location, and market factors. All transactions are processed through title companies in compliance with applicable laws.</div>
     </div>
 
     <footer>
-        <div class="footer-nav">
+        <div style="margin-bottom:16px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
             <a href="index.html">Home</a>
             <a href="stop-foreclosure.html">Home Rescue</a>
             <a href="sell-house-fast.html">Sell Fast</a>
@@ -345,12 +791,42 @@
             <a href="about-us.html">About Us</a>
             <a href="#" onclick="openLeadModal(); return false;">Get Offer</a>
         </div>
-        <p>© 2026 All Rights Reserved | Real Estate Solutions</p>
-        <p style="margin-top: 15px; font-size: 0.85em;">
-            <a href="terms-of-service.html">Terms of Service</a> | 
-            <a href="privacy-policy.html">Privacy Policy</a>
-        </p>
+        <p>&copy; 2026 All Rights Reserved | Real Estate Solutions</p>
+        <p style="margin-top:12px;"><a href="terms-of-service.html" style="margin:0 10px;">Terms of Service</a> | <a href="privacy-policy.html" style="margin:0 10px;">Privacy Policy</a></p>
     </footer>
+
+    <div class="sticky-bar">
+        <div class="sticky-bar-inner">
+            <a href="#" class="sticky-cta" onclick="gtag('event','cta_click',{'event_category':'sticky_bar','page':'how-it-works'}); openLeadModal(); return false;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Get Free Cash Offer
+            </a>
+            <a href="tel:+13304134047" class="sticky-phone" onclick="gtag('event','phone_click',{'event_category':'sticky_bar','page':'how-it-works'});">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                (330) 413-4047
+            </a>
+        </div>
+    </div>
+
     <script src="lead-modal.js"></script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        (function() {
+            const c = document.getElementById('particles');
+            if (!c) return;
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (8 + Math.random() * 12) + 's';
+                p.style.animationDelay = (Math.random() * 10) + 's';
+                p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+                c.appendChild(p);
+            }
+        })();
+    </script>
 </body>
 </html>

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell Your House Fast for Cash | No Fees, Close in as Little as 7 Days</title>
-    <meta name="description" content="Need to sell your house fast? Get a fair cash offer typically within 24-48 hours. No agent fees, no repairs needed. We buy houses as-is. Close in as little as 7 days.">
-    
-    <!-- Google tag (gtag.js) -->
+    <title>Sell Your House Fast for Cash | Home Rescue Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17936379407"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -17,465 +17,778 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            min-height: 100vh;
-            overflow-x: hidden;
+        :root {
+            --bg-dark: #0c1220;
+            --bg-card: #141c2e;
+            --bg-glass: rgba(20, 28, 46, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #d4a853;
+            --accent-hover: #e8bf6a;
+            --accent-glow: rgba(212, 168, 83, 0.25);
+            --border: rgba(255,255,255,0.06);
+            --white: #ffffff;
         }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* в”Ђв”Ђ Navigation в”Ђв”Ђ */
         .site-nav {
-            background: #ffffff;
-            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(12, 18, 32, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: all 0.3s;
         }
-        .site-nav .logo { color: #059669; font-weight: 800; font-size: 1.2em; text-decoration: none; }
-        .site-nav .nav-links { display: flex; gap: 25px; align-items: center; flex-wrap: wrap; }
-        .site-nav .nav-links a { color: #475569; text-decoration: none; font-size: 0.95em; font-weight: 500; transition: color 0.3s; }
-        .site-nav .nav-links a:hover { color: #059669; }
-        .site-nav .nav-cta { background: #2563eb; color: #fff !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; }
-        .site-nav .nav-cta:hover { background: #1d4ed8; }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-
-        .hero { text-align: center; padding: 70px 20px 50px; }
-        .hero h1 { font-size: 3.5em; line-height: 1.15; margin-bottom: 25px; }
-        .hero h1 .highlight { color: #059669; }
-        .hero-sub { font-size: 1.4em; color: #64748b; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
-        .hero-disclaimer { font-size: 0.95em; color: #94a3b8; max-width: 700px; margin: 0 auto; line-height: 1.5; }
-
-        /* Comparison Table */
-        .comparison-section {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 55px 40px;
-            margin: 50px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        .site-nav .logo {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.15em;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
-        .comparison-section h2 {
-            font-size: 2.4em;
-            text-align: center;
-            margin-bottom: 15px;
-            color: #1e40af;
+        .site-nav .nav-links { display: flex; gap: 28px; align-items: center; }
+        .site-nav .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.3s;
+            letter-spacing: 0.3px;
         }
-        .comparison-intro {
-            text-align: center;
-            color: #64748b;
-            font-size: 1.1em;
-            margin-bottom: 40px;
+        .site-nav .nav-links a:hover { color: var(--white); }
+        .site-nav .nav-cta {
+            background: var(--accent) !important;
+            color: var(--bg-dark) !important;
+            padding: 10px 24px !important;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            transition: all 0.3s !important;
+            letter-spacing: 0 !important;
         }
+        .site-nav .nav-cta:hover { background: var(--accent-hover) !important; transform: translateY(-1px); }
 
-        .comparison-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border-radius: 12px;
+        /* в”Ђв”Ђ Hero в”Ђв”Ђ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 20px 80px;
             overflow: hidden;
         }
-        .comparison-table th {
-            background: #ecfdf5;
-            color: #059669;
-            padding: 18px 20px;
-            text-align: left;
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,168,83,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(212,168,83,0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        /* Floating particles */
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        .hero-inner {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212,168,83,0.1);
+            border: 1px solid rgba(212,168,83,0.25);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeInDown 0.6s ease-out;
+        }
+        .hero-badge .pulse-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: clamp(2.5em, 6vw, 4.5em);
+            line-height: 1.05;
+            margin-bottom: 28px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 .line1 { color: var(--white); display: block; }
+        h1 .line2 {
+            display: block;
+            background: linear-gradient(135deg, var(--accent), #f0d48a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(1.05em, 2vw, 1.3em);
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 45px;
+            line-height: 1.7;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-sub strong { color: var(--white); font-weight: 600; }
+
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 18px 40px;
+            border-radius: 12px;
             font-size: 1.1em;
-            font-weight: 700;
-        }
-        .comparison-table th:first-child { background: #f8fafc; color: #94a3b8; }
-        .comparison-table td {
-            padding: 16px 20px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #475569;
-            font-size: 1em;
-            line-height: 1.5;
-        }
-        .comparison-table tr:last-child td { border-bottom: none; }
-        .comparison-table td:first-child { color: #64748b; font-weight: 600; }
-        .comparison-table .highlight-col { background: #f0fdf4; }
-        .check { color: #059669; font-weight: 700; }
-        .cross { color: #ef4444; }
-
-        /* Benefits Grid */
-        .benefits-section { margin: 50px 0; }
-        .benefits-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 15px; color: #1e293b; }
-        .benefits-intro { text-align: center; color: #64748b; font-size: 1.1em; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        .benefit-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 30px 25px;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .benefit-card:hover { transform: translateY(-4px); border-color: #2563eb; box-shadow: 0 8px 25px rgba(37,99,235,0.1); }
-        .benefit-card .icon { font-size: 2.5em; margin-bottom: 15px; display: block; }
-        .benefit-card h3 { font-size: 1.3em; color: #1e40af; margin-bottom: 10px; }
-        .benefit-card p { color: #64748b; line-height: 1.6; }
-
-        /* What We Buy */
-        .buy-section {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 55px 40px;
-            margin: 50px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        }
-        .buy-section h2 { font-size: 2.4em; text-align: center; margin-bottom: 40px; color: #1e293b; }
-        .buy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-        .buy-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 25px 15px;
-            transition: all 0.3s;
-        }
-        .buy-item:hover { border-color: #2563eb; box-shadow: 0 4px 12px rgba(37,99,235,0.08); }
-        .buy-item .icon { font-size: 2em; margin-bottom: 10px; display: block; }
-        .buy-item p { color: #475569; font-weight: 600; }
-
-        /* CTA */
-        .cta-section {
-            background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e40af 100%);
-            border-radius: 20px;
-            padding: 60px 40px;
-            text-align: center;
-            margin: 60px 0;
-            box-shadow: 0 20px 60px rgba(30, 64, 175, 0.25);
-        }
-        .cta-section h2 { font-size: 2.5em; margin-bottom: 20px; color: #ffffff; }
-        .cta-section p { font-size: 1.2em; color: rgba(255,255,255,0.9); margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #1a1a1a;
-            padding: 22px 50px;
-            border-radius: 12px;
-            font-size: 1.4em;
             font-weight: 800;
             text-decoration: none;
-            text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            letter-spacing: 0.3px;
+            box-shadow: 0 0 40px var(--accent-glow), 0 4px 20px rgba(0,0,0,0.3);
             transition: all 0.3s;
             border: none;
+            cursor: pointer;
         }
-        .cta-button:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
-        .cta-disclaimer { margin-top: 20px; font-size: 0.95em; color: rgba(255,255,255,0.8); }
-
-        .legal-disclaimer {
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 0 60px var(--accent-glow), 0 8px 30px rgba(0,0,0,0.4);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 28px;
+            border: 1px solid rgba(255,255,255,0.12);
             border-radius: 12px;
-            padding: 25px 30px;
-            margin: 40px 0;
-            font-size: 0.9em;
-            color: #64748b;
-            line-height: 1.7;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
         }
-        .legal-disclaimer strong { color: #475569; }
+        .btn-secondary:hover {
+            color: var(--white);
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
 
+        /* в”Ђв”Ђ Founder Card в”Ђв”Ђ */
+        .founder-card {
+            max-width: 680px;
+            margin: 55px auto 0;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            padding: 28px 32px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            text-align: left;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        .founder-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(212,168,83,0.3);
+            flex-shrink: 0;
+        }
+        .founder-info .fname { font-size: 1.15em; font-weight: 800; color: var(--white); }
+        .founder-info .frole { font-size: 0.85em; color: var(--accent); font-weight: 600; margin-top: 2px; }
+        .founder-info .fquote {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* в”Ђв”Ђ Stats в”Ђв”Ђ */
+        .stats-section {
+            padding: 80px 20px;
+            position: relative;
+        }
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .stat-item {
+            background: var(--bg-card);
+            padding: 40px 20px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+        .stat-item:hover { background: rgba(212,168,83,0.06); }
+        .stat-val {
+            font-size: 2.8em;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* в”Ђв”Ђ Trust Section в”Ђв”Ђ */
+        .trust-section {
+            padding: 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-label {
+            text-align: center;
+            font-size: 0.8em;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 14px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8em, 4vw, 2.8em);
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -1px;
+            margin-bottom: 60px;
+        }
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .trust-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 28px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .trust-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .trust-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212,168,83,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .trust-card:hover::before { opacity: 1; }
+        .trust-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 20px;
+            background: rgba(212,168,83,0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+        }
+        .trust-card h3 {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .trust-card p {
+            font-size: 0.92em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* в”Ђв”Ђ CTA Section в”Ђв”Ђ */
+        .cta-section {
+            padding: 80px 20px;
+        }
+        .cta-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(212,168,83,0.12) 0%, rgba(212,168,83,0.03) 100%);
+            border: 1px solid rgba(212,168,83,0.2);
+            border-radius: 28px;
+            padding: 70px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-card .section-label { margin-bottom: 18px; }
+        .cta-card h2 {
+            font-size: clamp(2em, 4vw, 3em);
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .cta-card .sub {
+            font-size: 1.15em;
+            color: var(--text-secondary);
+            margin-bottom: 45px;
+            line-height: 1.6;
+        }
+        .benefits-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 45px;
+        }
+        .benefit-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+        .benefit-chip .check {
+            width: 22px; height: 22px;
+            background: rgba(212,168,83,0.15);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.7em;
+            font-weight: 900;
+        }
+        .cta-note {
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+        }
+
+        /* в”Ђв”Ђ Process в”Ђв”Ђ */
+        .process-section {
+            padding: 80px 20px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+        .steps::before {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 56px;
+            bottom: 56px;
+            width: 1px;
+            background: linear-gradient(180deg, var(--accent), rgba(212,168,83,0.1));
+        }
+        .step {
+            display: flex;
+            gap: 28px;
+            padding: 30px 0;
+            position: relative;
+        }
+        .step-num {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-card);
+            border: 1px solid rgba(212,168,83,0.3);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: 800;
+            color: var(--accent);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+        .step:hover .step-num {
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-color: var(--accent);
+        }
+        .step-content h3 {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .step-content p {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .step-tag {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(212,168,83,0.1);
+            padding: 4px 14px;
+            border-radius: 100px;
+        }
+
+        /* в”Ђв”Ђ Final CTA в”Ђв”Ђ */
+        .final-cta {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .final-cta h2 {
+            font-size: clamp(1.8em, 4vw, 2.6em);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .final-cta p {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        /* в”Ђв”Ђ Footer в”Ђв”Ђ */
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #94a3b8;
-            font-size: 0.95em;
-            background: #f1f5f9;
-            border-top: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 0.85em;
+            border-top: 1px solid var(--border);
         }
-        footer a { color: #64748b; text-decoration: none; margin: 0 10px; }
-        footer a:hover { color: #059669; }
-        .footer-nav { margin-bottom: 20px; }
-        .footer-nav a { margin: 0 12px; font-size: 0.95em; }
+        footer a { color: #64748b; text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: var(--accent); }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.3em; }
-            .comparison-section { padding: 35px 15px; overflow-x: auto; }
-            .comparison-table { min-width: 550px; }
-            .cta-button { padding: 18px 35px; font-size: 1.1em; }
-            .site-nav { flex-direction: column; gap: 10px; }
-            .site-nav .nav-links { justify-content: center; }
-            .sticky-bar { padding: 8px 10px; }
-            .sticky-bar-inner { flex-direction: column; gap: 6px; }
-            .sticky-cta { padding: 12px 20px; font-size: 0.95em; width: 100%; justify-content: center; }
-            .sticky-phone { padding: 10px 20px; font-size: 0.95em; width: 100%; justify-content: center; }
-            .sticky-cta svg, .sticky-phone svg { width: 18px; height: 18px; }
+        /* в”Ђв”Ђ Disclaimer в”Ђв”Ђ */
+        .disclaimer {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            padding: 24px 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 0.82em;
+            color: #64748b;
+            line-height: 1.7;
         }
+        .disclaimer strong { color: #94a3b8; }
 
-        /* Sticky Bottom CTA Bar */
+        /* в”Ђв”Ђ Sticky Bar в”Ђв”Ђ */
         .sticky-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             z-index: 9999;
-            background: rgba(255, 255, 255, 0.97);
+            background: rgba(12, 18, 32, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid var(--border);
             padding: 12px 20px;
-            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.08);
         }
-
         .sticky-bar-inner {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
             display: flex;
             align-items: stretch;
             justify-content: center;
             gap: 12px;
         }
-
         .sticky-cta {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: #ffffff;
-            padding: 14px 32px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 14px 28px;
             border-radius: 10px;
-            font-size: 1.05em;
+            font-size: 0.95em;
             font-weight: 800;
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             transition: all 0.25s;
             white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
-
-        .sticky-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.4);
-        }
-
-        .sticky-cta svg { width: 20px; height: 20px; flex-shrink: 0; }
-
+        .sticky-cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .sticky-cta svg { width: 18px; height: 18px; flex-shrink: 0; }
         .sticky-phone {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            color: #059669;
+            color: var(--accent);
             text-decoration: none;
-            font-size: 1.05em;
+            font-size: 0.95em;
             font-weight: 700;
-            padding: 14px 24px;
+            padding: 14px 22px;
             border-radius: 10px;
-            background: #ecfdf5;
-            border: 1.5px solid #a7f3d0;
+            border: 1px solid rgba(212,168,83,0.25);
+            background: rgba(212,168,83,0.06);
             transition: all 0.25s;
             white-space: nowrap;
         }
-
         .sticky-phone:hover {
-            background: #d1fae5;
-            border-color: #059669;
+            background: rgba(212,168,83,0.12);
+            border-color: rgba(212,168,83,0.4);
             transform: translateY(-2px);
         }
+        .sticky-phone svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-        .sticky-phone svg { width: 20px; height: 20px; flex-shrink: 0; color: #059669; }
-
-        body { padding-bottom: 75px; }
-    </style>
+        /* в”Ђв”Ђ Responsive в”Ђв”Ђ */
+        @media (max-width: 768px) {
+            .site-nav { padding: 14px 16px; }
+            .site-nav .nav-links { display: none; }
+            .hero { padding: 100px 16px 60px; min-height: auto; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .trust-grid { grid-template-columns: 1fr; }
+            .cta-card { padding: 45px 24px; }
+            .benefits-row { gap: 16px; }
+            .founder-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px 20px;
+                gap: 20px;
+            }
+            .step { gap: 18px; }
+            .sticky-bar-inner { flex-direction: column; gap: 8px; }
+            .sticky-cta, .sticky-phone { width: 100%; justify-content: center; }
+            .btn-primary { width: 100%; justify-content: center; padding: 18px 28px; }
+            .btn-secondary { width: 100%; justify-content: center; }
+        }
+    
+</style>
 </head>
 <body>
     <nav class="site-nav">
-        <a href="index.html" class="logo">🏠 Home Rescue Solutions</a>
+        <a href="index.html" class="logo">Home Rescue Solutions</a>
         <div class="nav-links">
-            <a href="index.html">Home</a>
             <a href="stop-foreclosure.html">Home Rescue</a>
+            <a href="sell-house-fast.html">Sell Fast</a>
             <a href="how-it-works.html">How It Works</a>
             <a href="about-us.html">About Us</a>
             <a href="#" onclick="openLeadModal(); return false;" class="nav-cta">Get Free Offer</a>
         </div>
     </nav>
 
-    <div class="container">
-        <section class="hero">
-            <h1>Sell Your House <span class="highlight">Fast for Cash</span></h1>
-            <p class="hero-sub">
-                Need to sell quickly? We provide fair cash offers for homes in any condition. No agent commissions, no repair costs, no waiting months for a buyer.
-            </p>
-            <p class="hero-disclaimer">
-                Cash offers are based on current market value, property condition, and comparable sales in your area.
-            </p>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 25px;">
-                <a href="#" onclick="gtag('event', 'cta_click', {'event_category': 'hero', 'event_label': 'get_cash_offer', 'page': 'sell_house_fast'}); openLeadModal(); return false;" style="display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; padding: 18px 40px; border-radius: 12px; font-size: 1.3em; font-weight: 900; text-decoration: none; text-transform: uppercase; box-shadow: 0 8px 30px rgba(37,99,235,0.35); letter-spacing: 0.5px;">Get My Free Cash Offer <span style='font-size:0.9em;'>→</span></a>
-                <a href="tel:+13304134047" onclick="gtag('event', 'phone_click', {'event_category': 'hero', 'event_label': 'call_button', 'page': 'sell_house_fast'});" style="display: inline-flex; align-items: center; gap: 10px; color: #059669; font-size: 1.25em; font-weight: 700; text-decoration: none; padding: 16px 28px; border: 2px solid #a7f3d0; border-radius: 12px; background: #ecfdf5;"><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='#059669' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z'/></svg> (330) 413-4047</a>
-            </div>
-        </section>
-
-        <!-- Comparison -->
-        <section class="comparison-section">
-            <h2>Selling to Us vs. Traditional Sale</h2>
-            <p class="comparison-intro">See how a direct cash sale compares to listing with an agent</p>
-            
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th class="highlight-col">Our Cash Offer</th>
-                        <th>Traditional Agent Listing</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Timeline</td>
-                        <td class="highlight-col"><span class="check">Close in 7-14 days</span></td>
-                        <td>Typically 3-6 months</td>
-                    </tr>
-                    <tr>
-                        <td>Agent Fees</td>
-                        <td class="highlight-col"><span class="check">$0 — No commissions</span></td>
-                        <td>5-6% of sale price</td>
-                    </tr>
-                    <tr>
-                        <td>Repairs Needed</td>
-                        <td class="highlight-col"><span class="check">None — We buy as-is</span></td>
-                        <td>Often $5,000-$30,000+</td>
-                    </tr>
-                    <tr>
-                        <td>Showings</td>
-                        <td class="highlight-col"><span class="check">No strangers in your home</span></td>
-                        <td>Multiple open houses & showings</td>
-                    </tr>
-                    <tr>
-                        <td>Closing Costs</td>
-                        <td class="highlight-col"><span class="check">We typically cover closing costs</span></td>
-                        <td>Seller pays 1-3%</td>
-                    </tr>
-                    <tr>
-                        <td>Deal Falls Through</td>
-                        <td class="highlight-col"><span class="check">Cash — no financing contingency</span></td>
-                        <td>~15% of deals fall through</td>
-                    </tr>
-                    <tr>
-                        <td>Offer Price</td>
-                        <td class="highlight-col">Below market value*</td>
-                        <td>Closer to market value</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p style="color: #94a3b8; font-size: 0.85em; margin-top: 15px; text-align: center;">
-                *Our offers reflect the speed, convenience, and cost savings we provide. We encourage you to compare options and choose what's best for your situation.
-            </p>
-        </section>
-
-        <!-- Benefits -->
-        <section class="benefits-section">
-            <h2>Why Homeowners Choose Us</h2>
-            <p class="benefits-intro">We've helped thousands of families sell their homes quickly and move forward with confidence.</p>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <span class="icon">⚡</span>
-                    <h3>Fast Cash Offers</h3>
-                    <p>Receive a fair cash offer typically within 24-48 hours of submitting your property information. No long waiting periods.</p>
-                </div>
-                <div class="benefit-card">
-                    <span class="icon">🔧</span>
-                    <h3>No Repairs Required</h3>
-                    <p>Sell your house in its current condition. Water damage, old roof, outdated kitchen — it doesn't matter. We handle all repairs after purchase.</p>
-                </div>
-                <div class="benefit-card">
-                    <span class="icon">💰</span>
-                    <h3>No Hidden Fees</h3>
-                    <p>There are no agent commissions, no closing cost surprises, and no fees for our service. The price we offer is what you receive.</p>
-                </div>
-                <div class="benefit-card">
-                    <span class="icon">📅</span>
-                    <h3>You Choose the Closing Date</h3>
-                    <p>Whether you need to close in 7 days or 60 days, we work on your schedule. You have full control over the timeline.</p>
-                </div>
-                <div class="benefit-card">
-                    <span class="icon">📋</span>
-                    <h3>Simple Process</h3>
-                    <p>No paperwork headaches. We handle the title work, escrow, and all closing documents. Our team walks you through every step.</p>
-                </div>
-                <div class="benefit-card">
-                    <span class="icon">🔒</span>
-                    <h3>Confidential & Discreet</h3>
-                    <p>No yard signs, no public listings, no neighbors knowing your business. The entire process is private and confidential.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- What We Buy -->
-        <section class="buy-section">
-            <h2>Situations Where We Can Help</h2>
-            <div class="buy-grid">
-                <div class="buy-item">
-                    <span class="icon">🏚️</span>
-                    <p>Homes Needing Repairs</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">⚖️</span>
-                    <p>Divorce Situations</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">📦</span>
-                    <p>Inherited Properties</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">🏦</span>
-                    <p>Behind on Payments</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">🔗</span>
-                    <p>Properties with Liens</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">🏘️</span>
-                    <p>Vacant Houses</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">📉</span>
-                    <p>Behind on Payments</p>
-                </div>
-                <div class="buy-item">
-                    <span class="icon">🏗️</span>
-                    <p>Code Violations</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta-section">
-            <h2>Get Your Free Cash Offer</h2>
-            <p>Enter your property details and receive a no-obligation cash offer. It takes less than 2 minutes and there's zero cost to you.</p>
-            <a href="#" onclick="openLeadModal(); return false;" class="cta-button">
-                💵 Get My Free Cash Offer
-            </a>
-            <p class="cta-disclaimer">No obligation. No fees. Your information is kept confidential.</p>
-        </section>
-
-        <div class="legal-disclaimer">
-            <strong>Disclaimer:</strong> This website is operated by a real estate solutions company. This is not a listing service. We purchase properties directly from homeowners. Cash offers are based on market analysis, property condition, and other factors. We encourage sellers to explore all available options, including listing with a real estate agent, before making a decision. All transactions are conducted through title companies. We do not provide legal, tax, or financial advice.
+    <section class="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-inner">
+            <div class="hero-badge"><span class="pulse-dot"></span> Cash Buyers &bull; No Agents &bull; Close in Days</div>
+            <h1>
+                <span class="line1">Sell Your House</span>
+                <span class="line2">Fast for Cash</span>
+            </h1>
+            <p class="hero-sub">Skip the listing, skip the repairs, skip the waiting. Get your fair cash offer in 24 hours and close on your timeline.</p>
+            <a href="#" class="btn-primary" onclick="gtag('event','cta_click',{'event_category':'hero','page':'sell-house-fast'}); openLeadModal(); return false;">Get My Cash Offer Today</a>
+            <a href="tel:+13304134047" class="btn-secondary" onclick="gtag('event','phone_click',{'event_category':'hero','page':'sell-house-fast'});">&#128222; (330) 413-4047</a>
         </div>
+    </section>
+
+    <section class="stats-section reveal">
+        <div class="stats-grid">
+            <div class="stat-item"><div class="stat-val">24 hrs</div><div class="stat-label">Offer Turnaround</div></div>
+            <div class="stat-item"><div class="stat-val">7 Days</div><div class="stat-label">Fastest Close</div></div>
+            <div class="stat-item"><div class="stat-val">$0</div><div class="stat-label">Fees or Commissions</div></div>
+            <div class="stat-item"><div class="stat-val">100%</div><div class="stat-label">Cash Transactions</div></div>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="section-label reveal">The Process</div>
+        <h2 class="section-title reveal">How to Sell Your House Fast</h2>
+        <div class="trust-grid">
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128222;</div>
+                <h3>Step 1 &mdash; Contact Us</h3>
+                <p>Call us or fill out our quick form. Tell us about your property &mdash; any address, any condition, any situation. No commitment required.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#127968;</div>
+                <h3>Step 2 &mdash; Property Walkthrough</h3>
+                <p>We visit your home at a time that works for you. No cleaning, no staging, no repairs &mdash; we buy in absolutely any condition.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128181;</div>
+                <h3>Step 3 &mdash; Receive Fair Offer</h3>
+                <p>You&rsquo;ll receive a transparent, all-cash offer within 24 hours of our visit. No lowballing, no funny math &mdash; a straightforward number.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#9989;</div>
+                <h3>Step 4 &mdash; Close &amp; Get Paid</h3>
+                <p>Accept and pick your closing date. We handle all the paperwork through a local title company. You walk away with cash in hand.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section" style="padding-top:0;">
+        <div class="section-label reveal">Benefits</div>
+        <h2 class="section-title reveal">Why Homeowners Choose Us</h2>
+        <div class="trust-grid">
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128176;</div>
+                <h3>All-Cash Offers</h3>
+                <p>We use our own funds &mdash; no bank financing, no appraisal contingencies. Your sale is certain from day one.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#9889;</div>
+                <h3>Fast, Flexible Closings</h3>
+                <p>Close in 7 days or choose a date that works for your move-out schedule. We adapt to you, not the other way around.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128296;</div>
+                <h3>Sell Completely As-Is</h3>
+                <p>Damaged roof, outdated kitchen, fire damage, hoarding situation &mdash; whatever the condition, we buy it without repairs.</p>
+            </div>
+            <div class="trust-card reveal">
+                <div class="trust-icon">&#128274;</div>
+                <h3>100% Private &amp; Discreet</h3>
+                <p>No yard signs, no MLS listings, no strangers walking through your home. Your sale stays completely confidential.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-card reveal">
+            <div class="section-label">Testimonials</div>
+            <h2>What Sellers Are Saying</h2>
+            <div class="benefits-row">
+                <div class="benefit-chip"><span class="check">&#10003;</span> &ldquo;Closed in 9 days. No repairs, no fees, exactly what they promised!&rdquo; <span style="color:#d4a853;">&mdash; Lisa S.</span></div>
+                <div class="benefit-chip"><span class="check">&#10003;</span> &ldquo;I got more than I expected and the whole process took less than two weeks.&rdquo; <span style="color:#d4a853;">&mdash; Mark D.</span></div>
+                <div class="benefit-chip"><span class="check">&#10003;</span> &ldquo;The most stress-free sale imaginable. I wish I had called sooner.&rdquo; <span style="color:#d4a853;">&mdash; Priya M.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta reveal">
+        <h2>Ready to Sell Your House Fast?</h2>
+        <p>Get your no-obligation cash offer today. No repairs, no agents, no fees &mdash; just cash.</p>
+        <a href="#" class="btn-primary" onclick="gtag('event','cta_click',{'event_category':'final_cta','page':'sell-house-fast'}); openLeadModal(); return false;">Get My Free Cash Offer</a>
+        <p class="cta-note">No obligation. No fees. Completely confidential.</p>
+    </section>
+
+    <div style="padding:0 20px;">
+        <div class="disclaimer"><strong>Disclaimer:</strong> This website is operated by a real estate solutions company. We are not a law firm, financial advisor, or government-approved counseling agency. Testimonials reflect individual experiences and do not guarantee similar results. Offer amounts depend on property condition, location, and market factors. All transactions are processed through title companies in compliance with applicable laws.</div>
     </div>
 
     <footer>
-        <div class="footer-nav">
+        <div style="margin-bottom:16px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
             <a href="index.html">Home</a>
             <a href="stop-foreclosure.html">Home Rescue</a>
             <a href="sell-house-fast.html">Sell Fast</a>
@@ -483,25 +796,42 @@
             <a href="about-us.html">About Us</a>
             <a href="#" onclick="openLeadModal(); return false;">Get Offer</a>
         </div>
-        <p>© 2026 All Rights Reserved | Real Estate Solutions</p>
-        <p style="margin-top: 15px; font-size: 0.85em;">
-            <a href="terms-of-service.html">Terms of Service</a> | 
-            <a href="privacy-policy.html">Privacy Policy</a>
-        </p>
+        <p>&copy; 2026 All Rights Reserved | Real Estate Solutions</p>
+        <p style="margin-top:12px;"><a href="terms-of-service.html" style="margin:0 10px;">Terms of Service</a> | <a href="privacy-policy.html" style="margin:0 10px;">Privacy Policy</a></p>
     </footer>
-    <!-- Sticky Bottom CTA Bar -->
+
     <div class="sticky-bar">
         <div class="sticky-bar-inner">
-            <a href="#" class="sticky-cta" onclick="gtag('event', 'cta_click', {'event_category': 'sticky_bar', 'event_label': 'get_cash_offer', 'page': 'sell_house_fast'}); openLeadModal(); return false;">
+            <a href="#" class="sticky-cta" onclick="gtag('event','cta_click',{'event_category':'sticky_bar','page':'sell-house-fast'}); openLeadModal(); return false;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                 Get Free Cash Offer
             </a>
-            <a href="tel:+13304134047" class="sticky-phone" onclick="gtag('event', 'phone_click', {'event_category': 'sticky_bar', 'event_label': 'call_button', 'page': 'sell_house_fast'});">
+            <a href="tel:+13304134047" class="sticky-phone" onclick="gtag('event','phone_click',{'event_category':'sticky_bar','page':'sell-house-fast'});">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
                 (330) 413-4047
             </a>
         </div>
     </div>
+
     <script src="lead-modal.js"></script>
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        (function() {
+            const c = document.getElementById('particles');
+            if (!c) return;
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (8 + Math.random() * 12) + 's';
+                p.style.animationDelay = (Math.random() * 10) + 's';
+                p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+                c.appendChild(p);
+            }
+        })();
+    </script>
 </body>
 </html>
